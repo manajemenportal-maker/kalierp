@@ -203,7 +203,7 @@
       {id:'settings',label:'Settings',icon:'⚙️',title:'Pengaturan Sistem',subtitle:'Atur perusahaan, user, role akses, template dokumen, dan integrasi.'}
     ];
     const schemas={
-      crm:{name:'CRM',columns:['Pelanggan','Tahap','Nilai','Owner','Status'],fields:['Pelanggan','Tahap','Nilai','Owner','Status']},
+      crm:{name:'CRM',columns:['Pelanggan','WhatsApp','Alamat','Kategori','Status Follow Up','Catatan'],fields:['Pelanggan','WhatsApp','Alamat','Kategori','Status Follow Up','Catatan']},
       sales:{name:'Sales',columns:['Invoice','Customer','Jatuh Tempo','Jumlah','Status'],fields:['Invoice','Customer','Jatuh Tempo','Jumlah','Status']},
       inventory:{name:'Inventory',columns:['SKU','Produk','Stok','Lokasi','Harga'],fields:['SKU','Produk','Stok','Lokasi','Harga']},
       accounting:{name:'Accounting',columns:['Invoice','Customer','Jatuh Tempo','Jumlah','Status'],fields:['Invoice','Customer','Jatuh Tempo','Jumlah','Status']},
@@ -216,7 +216,7 @@
     };
     const defaultDB={
       company:{name:'PT Kalimaja Semesta Digital',brand:'KaliERP',plan:'Business Lifetime',website:'www.kalimaja.com',wa:'085150973789',email:'admin@kalierp.local'},
-      crm:[['PT Maju Teknik Nusantara','Proposal','Rp 84 Jt','Rani','Hot'],['CV Sumber Dingin AC','Follow Up','Rp 26 Jt','Dimas','Warm'],['Bengkel AC Mandiri','Negosiasi','Rp 18 Jt','Ayu','Hot'],['Koperasi Jaya Bersama','New Lead','Rp 12 Jt','Yusuf','Cold']],
+      crm:[['PT Maju Teknik Nusantara','081234567890','Jl. Sudirman No. 12, Jakarta','Perusahaan','Hot','Butuh follow up proposal ERP dan inventory.'],['CV Sumber Dingin AC','085211223344','Bekasi Timur, Jawa Barat','Service AC','Warm','Tertarik paket POS + inventory untuk teknisi.'],['Bengkel AC Mandiri','087700112233','Tangerang Selatan','Bengkel AC','Hot','Minta invoice dan demo aplikasi billing.'],['Koperasi Jaya Bersama','082198765432','Depok, Jawa Barat','Koperasi','Cold','Masih tahap edukasi fitur accounting.'],['Toko Teknik Berkah','085150973789','Cikupa, Tangerang','Retail Sparepart','Warm','Cocok untuk POS dan stok gudang.'],['PT Dingin Sejahtera','081299887766','Bandung, Jawa Barat','Distributor','Hot','Potensi paket Business untuk cabang.']],
       sales:[['INV/2026/0517/001','PT Maju Teknik Nusantara','20 Mei 2026','Rp 42.000.000','Menunggu Bayar'],['INV/2026/0517/002','CV Sumber Dingin AC','22 Mei 2026','Rp 8.500.000','Lunas'],['INV/2026/0517/003','Bengkel AC Mandiri','28 Mei 2026','Rp 13.750.000','Sebagian'],['INV/2026/0517/004','Koperasi Jaya Bersama','30 Mei 2026','Rp 5.200.000','Draft']],
       inventory:[['INV-AC-001','Xtron Penghemat Listrik AC','148','Gudang Utama','Rp 1.250.000'],['INV-AC-002','Xtron Penghemat Listrik AC - Cabang','35','Toko / Cabang Bekasi','Rp 1.250.000'],['INV-SRV-001','Jasa Cuci AC 0.5 - 1 PK','999','Digital / Jasa','Rp 85.000'],['INV-SRV-002','Paket Service AC Premium','999','Digital / Jasa','Rp 350.000'],['INV-APP-003','Aplikasi Billing Tuser AC','999','SaaS / Digital','Rp 25.000'],['INV-PRT-004','Sparepart Kapasitor AC','86','Gudang Barat','Rp 75.000'],['INV-PRT-005','Freon R32 3 Kg','12','Gudang Utama','Rp 420.000'],['INV-PRT-006','Remote AC Universal','4','Gudang Utama','Rp 55.000'],['INV-PRT-007','Kabel NYM 2x1.5','28','Gudang Teknisi 01','Rp 12.000'],['INV-PRT-008','Pipa Tembaga AC 1/4 + 3/8','7','Gudang Teknisi 02','Rp 95.000'],['INV-PRT-009','Bracket Outdoor AC','3','Gudang Barat','Rp 85.000'],['INV-PRT-010','Kapasitor Fan Indoor','2','Toko / Cabang Tangerang','Rp 45.000']],
       project:[['Implementasi ERP Cabang Jakarta','72%','24 Mei 2026','6 orang','Berjalan'],['Landing Page Investor Xtron','88%','19 Mei 2026','3 orang','Review'],['Integrasi Payment Gateway','43%','2 Jun 2026','4 orang','Berjalan'],['Migrasi Data Pelanggan','61%','29 Mei 2026','5 orang','Berjalan']],
@@ -239,6 +239,7 @@
         }catch(error){console.warn('Gagal ambil data cloud, pakai data lokal:',error)}
       }
       db=db||JSON.parse(localStorage.getItem(localKey())||'null')||clone(defaultDB);
+      normalizeDB();
       if(!db.accounting)db.accounting=clone(db.sales);
       if(currentUser){
         db.company.email=currentUser.email||db.company.email;
@@ -261,6 +262,17 @@
         }catch(error){console.warn('Gagal simpan ke cloud:',error)}
       }
     }
+    function normalizeDB(){
+      if(!db.crm)db.crm=[];
+      db.crm=db.crm.map(function(r){
+        if(r.length>=6)return r;
+        return [r[0]||'-',r[5]||'',r[6]||'',r[3]||'Umum',r[4]||r[1]||'Warm',r[2]?('Nilai peluang: '+r[2]):''];
+      });
+      if(!db.expenses)db.expenses=[];
+      if(!db.pricing)db.pricing=clone(defaultDB.pricing);
+    }
+    function customerName(row){return row&&row[0]?row[0]:'-'}
+    function customerPhone(row){return String(row&&row[1]?row[1]:'').replace(/[^0-9]/g,'')}
     function moneyToNumber(v){return Number(String(v||'').replace(/[^0-9]/g,''))||0}function formatRp(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
     function showAuth(mode){
       document.getElementById('loginTab').classList.toggle('active',mode==='login');
@@ -315,12 +327,39 @@
     async function boot(){await loadDB();document.getElementById('loginScreen').classList.add('hidden');document.getElementById('app').classList.remove('hidden');applyCompany();renderNav();setModule(active)}
     function applyCompany(){document.getElementById('brandName').textContent=db.company.brand||'KaliERP';document.getElementById('tenantName').textContent=db.company.name;document.getElementById('tenantPlan').textContent='Paket: '+db.company.plan+(currentUser?' • '+currentUser.email:'');document.getElementById('userLabel').textContent=(db.company.adminName||'Admin')}
     function renderNav(){document.getElementById('nav').innerHTML=modules.map(m=>`<button class="nav-btn ${m.id===active?'active':''}" onclick="setModule('${m.id}')"><span class="nav-icon">${m.icon}</span><span>${m.label}</span></button>`).join('')}
-    function setModule(id){active=id;const m=modules.find(x=>x.id===id);document.getElementById('pageTitle').textContent=m.title;document.getElementById('sectionTitle').textContent=m.title;document.getElementById('sectionSubtitle').textContent=m.subtitle;document.getElementById('activeModuleName').textContent=m.label;renderNav();updateBottomNav();closeMenu();if(id==='dashboard')return renderDashboard();if(id==='pricing')return renderPricing();if(id==='settings')return renderSettings();if(id==='accounting')return renderAccounting();return renderTable(id)}
+    function setModule(id){active=id;const m=modules.find(x=>x.id===id);document.getElementById('pageTitle').textContent=m.title;document.getElementById('sectionTitle').textContent=m.title;document.getElementById('sectionSubtitle').textContent=m.subtitle;document.getElementById('activeModuleName').textContent=m.label;renderNav();updateBottomNav();closeMenu();if(id==='dashboard')return renderDashboard();if(id==='crm')return renderCRM();if(id==='pricing')return renderPricing();if(id==='settings')return renderSettings();if(id==='accounting')return renderAccounting();return renderTable(id)}
     function updateBottomNav(){const nav=document.getElementById('mobileBottomNav');if(!nav)return;nav.querySelectorAll('.bottom-item').forEach(btn=>btn.classList.remove('active'));const map={dashboard:0,sales:1,inventory:2,settings:4};const idx=map[active];if(idx!==undefined&&nav.children[idx])nav.children[idx].classList.add('active')}
     function getKpis(){const salesTotal=(db.sales||[]).reduce((s,r)=>s+moneyToNumber(r[3]),0);const invoiceDue=(db.sales||[]).filter(r=>r[4]!=='Lunas').reduce((s,r)=>s+moneyToNumber(r[3]),0);const stock=(db.inventory||[]).reduce((s,r)=>s+(Number(String(r[2]).replace(/[^0-9]/g,''))||0),0);const tasks=(db.project||[]).length;return [['💳','Revenue Pipeline',formatRp(salesTotal),'+18,4%','up'],['🧾','Invoice Belum Lunas',formatRp(invoiceDue),'-7,1%','down'],['✅','Total Stok Tercatat',stock.toLocaleString('id-ID'),'+3,8%','up'],['☑️','Total Project',tasks,'+24,6%','up']]}
     function renderKpis(){return `<div class="kpis">${getKpis().map(k=>`<div class="kpi"><div class="kpi-top"><div class="kpi-icon">${k[0]}</div><span class="trend ${k[4]}">${k[3]}</span></div><p>${k[1]}</p><h3>${k[2]}</h3></div>`).join('')}</div>`}
     function renderDashboard(){const bars=[42,64,52,80,72,96].map((h,i)=>`<div class="bar-wrap"><div class="bar" style="height:${h}%"></div><div class="bar-label">M${i+1}</div></div>`).join('');document.getElementById('moduleContent').innerHTML=`${renderKpis()}<div class="grid-2" style="margin-top:18px"><div class="card"><div class="card-head"><div><h3>Grafik Revenue</h3><p>Simulasi tren omzet 6 bulan terakhir.</p></div><b>📈</b></div><div class="chart">${bars}</div></div><div class="card"><h3>Aktivitas Terbaru</h3>${[['🧾','Invoice dibuat','Data sales terakhir: '+((db.sales[0]||[])[0]||'-')],['🚚','Stok tercatat',db.inventory.length+' item inventory aktif'],['📋','Project berjalan',db.project.length+' project dalam sistem'],['💳','Paket jual','Paket harga SaaS sudah disiapkan']].map(a=>`<div class="activity"><div class="activity-icon">${a[0]}</div><div><b>${a[1]}</b><span>${a[2]}</span></div></div>`).join('')}</div></div><div class="grid-3" style="margin-top:18px"><div class="card"><h3>Nilai Jual Aplikasi</h3><p>Aplikasi ini sudah cocok untuk demo penjualan ke UMKM, jasa service, toko, distributor, bengkel, dan kantor cabang.</p></div><div class="card"><h3>Model Bisnis</h3><p>Bisa dijual langganan bulanan, tahunan, atau sekali bayar lifetime. Untuk online multi-user perlu backend/cloud.</p></div><div class="card"><h3>Prioritas Berikutnya</h3><p>Tambah database online, akun per pelanggan, pembayaran otomatis, dan custom branding per klien.</p></div></div>`}
     function statusClass(s){if(['Lunas','Published','Hadir','Aktif','Tutup Shift','Berjalan'].includes(s))return'green';if(['Menunggu Bayar','Warm','Cuti','Draft Review','Pending','Sebagian','Review','Promo'].includes(s))return'amber';if(['Hot'].includes(s))return'red';return''}
+    function customerHistory(name){
+      const sales=(db.sales||[]).filter(r=>String(r[1]||'').toLowerCase()===String(name||'').toLowerCase()).map(r=>['Sales',r[0],r[2],r[3],r[4]]);
+      const acc=(db.accounting||[]).filter(r=>String(r[1]||'').toLowerCase()===String(name||'').toLowerCase()).map(r=>['Accounting',r[0],r[2],r[3],r[4]]);
+      return sales.concat(acc);
+    }
+    function renderCRM(){
+      normalizeDB();
+      const rows=db.crm||[];
+      const hot=rows.filter(r=>r[4]==='Hot').length;
+      const warm=rows.filter(r=>r[4]==='Warm').length;
+      const trx=rows.reduce((s,r)=>s+customerHistory(r[0]).length,0);
+      const cards=[['👥','Total Customer',rows.length,'up'],['🔥','Hot Lead',hot,'up'],['🌤️','Warm Lead',warm,'up'],['🧾','Riwayat Transaksi',trx,'up']];
+      const body=rows.length?rows.map((row,idx)=>{const hist=customerHistory(row[0]);return `<tr class="clickable-row" onclick="viewCustomerDetail(${idx})"><td><strong>${row[0]}</strong><div class="mini-note">${row[2]||'-'}</div></td><td>${row[1]||'-'}</td><td>${row[3]||'Umum'}</td><td><span class="status ${statusClass(row[4])}">${row[4]||'Warm'}</span></td><td>${hist.length} transaksi</td><td onclick="event.stopPropagation()"><button class="action-btn" title="Detail" onclick="viewCustomerDetail(${idx})">👁️</button><button class="action-btn" title="WhatsApp" onclick="chatCustomer(${idx})">🟢</button><button class="action-btn" title="Edit" onclick="openModal('crm',${idx})">✏️</button><button class="action-btn" title="Hapus" onclick="deleteRow('crm',${idx})">🗑️</button></td></tr>`}).join(''):`<tr><td colspan="6" class="empty">Belum ada customer. Klik Tambah Customer.</td></tr>`;
+      document.getElementById('moduleContent').innerHTML=`<div class="kpis">${cards.map(k=>`<div class="kpi"><div class="kpi-top"><div class="kpi-icon">${k[0]}</div><span class="trend ${k[3]}">CRM</span></div><p>${k[1]}</p><h3>${k[2]}</h3></div>`).join('')}</div><div class="grid-3" style="margin-top:18px"><div class="card"><h3>Customer Database</h3><p>CRM sekarang menyimpan WhatsApp, alamat, kategori, status follow up, catatan, dan riwayat transaksi.</p></div><div class="card"><h3>Follow Up Cepat</h3><p>Klik tombol WhatsApp untuk langsung menghubungi customer dari database CRM.</p></div><div class="card"><h3>Riwayat Customer</h3><p>Klik baris customer untuk melihat invoice/sales/accounting yang pernah tercatat.</p></div></div><div class="table-card" style="margin-top:18px"><div class="table-head"><div><h3>Data Customer / CRM</h3><p>Customer sudah terhubung ke invoice dan riwayat transaksi.</p></div><div class="table-actions"><button class="btn btn-green" onclick="openModal('crm')">＋ Tambah Customer</button><button class="btn btn-blue" onclick="exportCSV('crm')">Export CSV</button><button class="btn btn-soft" onclick="window.print()">Print</button></div></div><div class="table-wrap"><table id="dataTable"><thead><tr><th>Customer</th><th>WhatsApp</th><th>Kategori</th><th>Status</th><th>Riwayat</th><th>Aksi</th></tr></thead><tbody>${body}</tbody></table></div></div>`;
+    }
+    function viewCustomerDetail(idx){
+      const row=(db.crm||[])[idx];if(!row)return;
+      const hist=customerHistory(row[0]);
+      document.querySelector('.modal').classList.add('modal-wide');
+      document.getElementById('modalTitle').textContent='Detail Customer';
+      const historyHtml=hist.length?hist.map(h=>`<tr><td>${h[0]}</td><td><strong>${h[1]}</strong></td><td>${h[2]}</td><td>${h[3]}</td><td><span class="status ${statusClass(h[4])}">${h[4]}</span></td></tr>`).join(''):`<tr><td colspan="5" class="empty">Belum ada riwayat transaksi.</td></tr>`;
+      document.getElementById('modalBody').innerHTML=`<div class="detail-list"><div class="detail-item"><span>Customer</span><b>${row[0]}</b></div><div class="detail-item"><span>WhatsApp</span><b>${row[1]||'-'}</b></div><div class="detail-item"><span>Alamat</span><b>${row[2]||'-'}</b></div><div class="detail-item"><span>Kategori</span><b>${row[3]||'-'}</b></div><div class="detail-item"><span>Status Follow Up</span><b>${row[4]||'-'}</b></div><div class="detail-item"><span>Catatan</span><b>${row[5]||'-'}</b></div></div><div class="table-card full"><div class="table-head"><div><h3>Riwayat Transaksi</h3><p>Diambil dari Sales dan Accounting berdasarkan nama customer.</p></div></div><div class="table-wrap"><table><thead><tr><th>Modul</th><th>No</th><th>Tanggal/Jatuh Tempo</th><th>Jumlah</th><th>Status</th></tr></thead><tbody>${historyHtml}</tbody></table></div></div>`;
+      document.querySelector('.modal-foot').innerHTML='<button class="btn btn-soft" onclick="closeModal()">Tutup</button><button class="btn btn-green" onclick="chatCustomer('+idx+')">WhatsApp</button><button class="btn btn-purple" onclick="openModal(\'crm\','+idx+')">Edit Customer</button>';
+      document.getElementById('modalBackdrop').classList.add('show');
+    }
+    function chatCustomer(idx){const c=(db.crm||[])[idx];if(!c)return;const wa=customerPhone(c);if(!wa){alert('Nomor WhatsApp customer belum diisi.');return}const phone='62'+wa.replace(/^0/,'');const text=`Halo ${c[0]}, saya dari ${db.company.name||db.company.brand||'KaliERP'}. Kami ingin follow up mengenai kebutuhan aplikasi/layanan bisnis Anda.`;window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(text),'_blank')}
+    function selectCustomerInfo(name){return (db.crm||[]).find(r=>String(r[0]).toLowerCase()===String(name).toLowerCase())||null}
     function getAccountingSummary(){
       const rows=db.accounting||[];
       const income=rows.filter(r=>String(r[0]||'').startsWith('INV')||String(r[0]||'').startsWith('POS')).reduce((s,r)=>s+moneyToNumber(r[3]),0);
@@ -372,12 +411,12 @@
     function openInvoiceBuilder(){
       modalModule='invoiceBuilder';editIndex=null;
       document.querySelector('.modal').classList.add('modal-wide');
-      const customers=(db.crm||[]).map(r=>r[0]).filter(Boolean);
+      const customers=(db.crm||[]).map(r=>({name:r[0],wa:r[1],cat:r[3]})).filter(c=>c.name);
       const products=(db.inventory||[]).map((r,i)=>({i,sku:r[0],name:r[1],stock:r[2],price:r[4]}));
       document.getElementById('modalTitle').textContent='Buat Invoice Otomatis';
       document.getElementById('modalBody').innerHTML=`
         <div class="form-group full"><label>Nomor Invoice</label><input id="invNo" class="form-control" value="${nextInvoiceNo()}"></div>
-        <div class="form-group"><label>Customer dari CRM</label><select id="invCustomerSelect" class="form-control"><option value="">Pilih customer</option>${customers.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
+        <div class="form-group"><label>Customer dari CRM</label><select id="invCustomerSelect" class="form-control"><option value="">Pilih customer</option>${customers.map(c=>`<option value="${c.name}">${c.name} ${c.wa?'• WA '+c.wa:''} ${c.cat?'• '+c.cat:''}</option>`).join('')}</select></div>
         <div class="form-group"><label>Atau Customer Manual</label><input id="invCustomerManual" class="form-control" placeholder="Nama customer baru"></div>
         <div class="form-group full"><label>Produk dari Inventory</label><select id="invProduct" class="form-control" onchange="updateInvoicePreview()"><option value="">Pilih produk</option>${products.map(p=>`<option value="${p.i}">${p.sku} - ${p.name} | Stok: ${p.stock} | ${p.price}</option>`).join('')}</select></div>
         <div class="form-group"><label>Qty</label><input id="invQty" class="form-control" type="number" min="1" value="1" oninput="updateInvoicePreview()"></div>
@@ -388,7 +427,7 @@
       document.getElementById('modalBackdrop').classList.add('show');
     }
     function updateInvoicePreview(){const idx=document.getElementById('invProduct')?document.getElementById('invProduct').value:'';const qty=Number(document.getElementById('invQty')?document.getElementById('invQty').value:1)||1;const box=document.getElementById('invoicePreview');if(idx===''){box.innerHTML='<b>Pilih produk untuk melihat total.</b>';return}const p=db.inventory[Number(idx)];const price=moneyToNumber(p[4]);const stock=Number(String(p[2]).replace(/[^0-9]/g,''))||0;const total=price*qty;box.innerHTML=`<div><span>Produk</span><b>${p[1]}</b></div><div><span>Stok Saat Ini</span><b>${stock}</b></div><div><span>Harga</span><b>${formatRp(price)}</b></div><div><span>Qty</span><b>${qty}</b></div><div><span>Total</span><b>${formatRp(total)}</b></div>${qty>stock?'<p class="mini-note" style="color:#be123c;font-weight:900">Qty melebihi stok tersedia.</p>':''}`}
-    async function saveInvoiceBuilder(){const productIdx=document.getElementById('invProduct').value;if(productIdx===''){alert('Pilih produk dulu.');return}const p=db.inventory[Number(productIdx)];const qty=Number(document.getElementById('invQty').value)||1;const stock=Number(String(p[2]).replace(/[^0-9]/g,''))||0;if(qty<=0){alert('Qty harus lebih dari 0.');return}if(qty>stock){alert('Qty melebihi stok tersedia.');return}const customer=document.getElementById('invCustomerManual').value.trim()||document.getElementById('invCustomerSelect').value;if(!customer){alert('Pilih atau isi customer.');return}const invoiceNo=document.getElementById('invNo').value.trim()||nextInvoiceNo();const due=document.getElementById('invDue').value||addDaysISO(7);const status=document.getElementById('invStatus').value;const total=moneyToNumber(p[4])*qty;p[2]=String(stock-qty);const row=[invoiceNo,customer,due,formatRp(total),status];db.sales.unshift(row);db.accounting.unshift(row);await saveDB();document.querySelector('.modal-foot').innerHTML='<button class="btn btn-soft" onclick="closeModal()">Batal</button><button class="btn btn-purple" onclick="saveModalData()">Simpan</button>';closeModal();setModule('sales');toast('Invoice dibuat dan stok otomatis berkurang')}
+    async function saveInvoiceBuilder(){const productIdx=document.getElementById('invProduct').value;if(productIdx===''){alert('Pilih produk dulu.');return}const p=db.inventory[Number(productIdx)];const qty=Number(document.getElementById('invQty').value)||1;const stock=Number(String(p[2]).replace(/[^0-9]/g,''))||0;if(qty<=0){alert('Qty harus lebih dari 0.');return}if(qty>stock){alert('Qty melebihi stok tersedia.');return}const customer=document.getElementById('invCustomerManual').value.trim()||document.getElementById('invCustomerSelect').value;if(!customer){alert('Pilih atau isi customer.');return}const invoiceNo=document.getElementById('invNo').value.trim()||nextInvoiceNo();const due=document.getElementById('invDue').value||addDaysISO(7);const status=document.getElementById('invStatus').value;const total=moneyToNumber(p[4])*qty;p[2]=String(stock-qty);const row=[invoiceNo,customer,due,formatRp(total),status];if(!selectCustomerInfo(customer)){db.crm.unshift([customer,'','','Customer Baru','Warm','Otomatis dibuat dari invoice.'])}db.sales.unshift(row);db.accounting.unshift(row);await saveDB();document.querySelector('.modal-foot').innerHTML='<button class="btn btn-soft" onclick="closeModal()">Batal</button><button class="btn btn-purple" onclick="saveModalData()">Simpan</button>';closeModal();setModule('sales');toast('Invoice dibuat dan stok otomatis berkurang')}
     function nextPOSNo(){const d=new Date();const y=d.getFullYear();const m=String(d.getMonth()+1).padStart(2,'0');const day=String(d.getDate()).padStart(2,'0');const n=String((db.pos||[]).length+1).padStart(4,'0');return `POS/${y}/${m}${day}/${n}`}
     function openPOSBuilder(){
       modalModule='posBuilder';editIndex=null;
