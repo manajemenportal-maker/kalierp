@@ -264,9 +264,27 @@
     }
     function normalizeDB(){
       if(!db.crm)db.crm=[];
+      const validCategories=['Perusahaan','Service AC','Bengkel AC','Koperasi','Retail Sparepart','Distributor','Customer Baru','Umum','Retail','Jasa','Trading','Teknisi','Toko'];
+      const legacyOwners=['Rani','Dimas','Ayu','Yusuf','Admin','Owner','Sales','Marketing','Staff'];
       db.crm=db.crm.map(function(r){
-        if(r.length>=6)return r;
-        return [r[0]||'-',r[5]||'',r[6]||'',r[3]||'Umum',r[4]||r[1]||'Warm',r[2]?('Nilai peluang: '+r[2]):''];
+        if(r.length>=6){
+          const fixed=[r[0]||'-',r[1]||'',r[2]||'',r[3]||'Umum',r[4]||'Warm',r[5]||''];
+          if(legacyOwners.includes(fixed[3]) || (!validCategories.includes(fixed[3]) && ['Hot','Warm','Cold','Proposal','Follow Up','Negosiasi','New Lead'].includes(fixed[4]))){
+            const owner=fixed[3];
+            fixed[3]='Umum';
+            fixed[5]=(fixed[5]?fixed[5]+' | ':'')+'Owner lama: '+owner;
+          }
+          return fixed;
+        }
+        const tahap=r[1]||'';
+        const nilai=r[2]||'';
+        const owner=r[3]||'';
+        const status=r[4]||tahap||'Warm';
+        const notes=[];
+        if(tahap)notes.push('Tahap lama: '+tahap);
+        if(nilai)notes.push('Nilai peluang: '+nilai);
+        if(owner)notes.push('Owner lama: '+owner);
+        return [r[0]||'-','','','Umum',status,notes.join(' | ')];
       });
       if(!db.expenses)db.expenses=[];
       if(!db.pricing)db.pricing=clone(defaultDB.pricing);
