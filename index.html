@@ -117,6 +117,37 @@
   </div>
   <div class="toast" id="toast">Berhasil</div>
 
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDfTbFVolL7nfJbgoZCcg9CCUGgyky073Q",
+      authDomain: "kalierp-d4905.firebaseapp.com",
+      projectId: "kalierp-d4905",
+      storageBucket: "kalierp-d4905.firebasestorage.app",
+      messagingSenderId: "549448963486",
+      appId: "1:549448963486:web:b2f3690cd509b87a72f28f",
+      measurementId: "G-9WD9SJGW3J"
+    };
+
+    const firebaseApp = initializeApp(firebaseConfig);
+    window.firebaseApp = firebaseApp;
+
+    isSupported()
+      .then(function(supported){
+        if(supported){
+          window.firebaseAnalytics = getAnalytics(firebaseApp);
+          console.log('Firebase Analytics aktif.');
+        }else{
+          console.log('Firebase Analytics tidak didukung di browser ini.');
+        }
+      })
+      .catch(function(error){
+        console.warn('Firebase Analytics belum aktif:', error);
+      });
+  </script>
+
   <script>
     const STORAGE_KEY='kalierp_mvp_data_v1';
     const SESSION_KEY='kalierp_session_v1';
