@@ -1,0 +1,33 @@
+[
+  {
+    "code": "KALI-STARTER-001",
+    "plan": "Starter",
+    "status": "Available",
+    "pricePerUser": 23000,
+    "userLimit": 1,
+    "billingCycle": "monthly",
+    "validUntil": "2026-06-18",
+    "note": "Starter Rp 23.000/user/bulan"
+  },
+  {
+    "code": "KALI-BUSINESS-001",
+    "plan": "Business",
+    "status": "Available",
+    "pricePerUser": 75000,
+    "userLimit": 5,
+    "billingCycle": "monthly",
+    "validUntil": "2026-06-18",
+    "note": "Business Rp 75.000/user/bulan"
+  },
+  {
+    "code": "KALI-LIFETIME-001",
+    "plan": "Lifetime",
+    "status": "Available",
+    "pricePerUser": 0,
+    "userLimit": 5,
+    "billingCycle": "lifetime",
+    "validUntil": "2099-12-31",
+    "oneTimePrice": 1500000,
+    "note": "Lifetime Rp 1.500.000 sekali bayar"
+  }
+]

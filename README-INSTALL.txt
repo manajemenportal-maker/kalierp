@@ -1,27 +1,50 @@
-PANDUAN UPLOAD DOMAIN UTAMA KALIERP
+KALIERP PROTECTED PER USER FINAL
 
-UPLOAD SEMUA FILE INI KE ROOT DOMAIN / PUBLIC_HTML:
+FILE:
+- index.html = landing page jualan
+- app.html = aplikasi ERP
+- firestore.rules = pasang di Firebase Firestore Rules
+- license-sample.json = contoh data license code
 
-1. index.html
-   - Landing page penjualan
-   - Otomatis menjadi halaman depan domain
+HARGA:
+- Starter = Rp 23.000 / user / bulan
+- Business = Rp 75.000 / user / bulan
+- Lifetime = Rp 1.500.000 sekali bayar
 
-2. app.html
-   - Aplikasi ERP login/register
-   - User yang sudah beli bisa langsung buka: https://domainmu.com/app.html
+PROTEKSI:
+- Owner tidak bisa daftar bebas.
+- Owner wajib punya License Code dari collection Firestore: licenses
+- License status harus Available.
+- Setelah dipakai, license menjadi Used.
+- Tenant menyimpan subscription: plan, status, userLimit, pricePerUser, monthlyAmount, validUntil.
+- Staff tidak bisa daftar kalau kuota user penuh.
+- Jika status bukan Active atau validUntil habis, aplikasi terkunci dan diarahkan upgrade via WhatsApp.
 
-3. firestore.rules
-   - Tidak perlu dibuka publik
-   - Copy isinya ke Firebase Console > Firestore Database > Rules > Publish
+CARA BUAT LICENSE MANUAL DI FIREBASE:
+Firestore Database > Data > Start collection
+Collection ID: licenses
+Document ID: KALI-BUSINESS-001
 
-ALUR:
-https://domainmu.com/
-  = landing page
+Fields contoh:
+plan: Business
+status: Available
+pricePerUser: 75000
+userLimit: 5
+billingCycle: monthly
+validUntil: 2026-06-18
 
-Klik "Masuk Aplikasi"
-  = membuka app.html
+Untuk Starter:
+pricePerUser: 23000
+userLimit: sesuai jumlah user yang dibeli
 
-CATATAN:
-- Jangan rename app.html jika landing page masih mengarah ke app.html.
-- Jika mau mengganti nama app.html, semua href="app.html" di index.html harus ikut diganti.
-- Akun baru di app.html dimulai kosong dari awal.
+Untuk Lifetime:
+plan: Lifetime
+status: Available
+pricePerUser: 0
+oneTimePrice: 1500000
+billingCycle: lifetime
+validUntil: 2099-12-31
+
+UPLOAD:
+Upload index.html dan app.html ke domain.
+Copy isi firestore.rules ke Firebase Console > Firestore Database > Rules > Publish.

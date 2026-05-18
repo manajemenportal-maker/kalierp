@@ -29,7 +29,7 @@
     .form{display:none}.form.active{display:block}.fg{margin-top:14px}.fg label{display:block;font-size:13px;font-weight:900;color:#334155;margin-bottom:7px}
     .ctrl{width:100%;border:1px solid var(--l);border-radius:16px;padding:13px 14px;font-size:14px;outline:0;background:white}
     .ctrl:focus{border-color:var(--p);box-shadow:0 0 0 4px rgba(109,40,217,.1)}
-    .note{margin-top:16px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:18px;padding:14px;color:#475569;font-size:13px;line-height:1.7}
+    .note{margin-top:16px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:18px;padding:14px;color:#475569;font-size:13px;line-height:1.7}.sub-lock{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:24px;padding:24px;text-align:center}.sub-lock h2{color:#7c2d12;margin-bottom:8px}.sub-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:14px;margin-top:12px}.sub-card b{color:#0f172a}
     .err{display:none;margin-top:12px;background:#fff1f2;border:1px solid #fecdd3;color:#be123c;border-radius:14px;padding:10px;font-weight:800;font-size:13px}
     .app{min-height:100vh;display:flex}.side{width:288px;background:rgba(255,255,255,.96);border-right:1px solid var(--l);padding:18px;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:40}
     .brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}.mark{width:48px;height:48px;border-radius:18px;display:grid;place-items:center;color:white;font-weight:900;font-size:21px;background:linear-gradient(135deg,var(--p),var(--p2));box-shadow:0 12px 30px rgba(109,40,217,.25)}
@@ -91,10 +91,10 @@
         <h2>Masuk ke KaliERP</h2><p>Login sebagai owner perusahaan atau staff yang sudah diundang.</p>
         <div class="tabs"><button class="tab active" id="tabLogin" onclick="tabAuth('login')">Login</button><button class="tab" id="tabOwner" onclick="tabAuth('owner')">Daftar Owner</button><button class="tab" id="tabStaff" onclick="tabAuth('staff')">Daftar Staff</button></div>
         <div class="form active" id="fLogin"><div class="fg"><label>Email</label><input id="loginEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="loginPass" type="password" class="ctrl"></div><button class="btn primary" style="width:100%;margin-top:18px" onclick="login()">Masuk</button></div>
-        <div class="form" id="fOwner"><div class="fg"><label>Nama Perusahaan</label><input id="ownCompany" class="ctrl"></div><div class="fg"><label>Nama Owner/Admin</label><input id="ownName" class="ctrl"></div><div class="fg"><label>Email</label><input id="ownEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="ownPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn green" style="width:100%;margin-top:18px" onclick="registerOwner()">Daftar Perusahaan</button></div>
+        <div class="form" id="fOwner"><div class="fg"><label>Kode Aktivasi / License Code</label><input id="ownLicense" class="ctrl" placeholder="Contoh: KALI-BIZ-8F29K"></div><div class="fg"><label>Nama Perusahaan</label><input id="ownCompany" class="ctrl"></div><div class="fg"><label>Nama Owner/Admin</label><input id="ownName" class="ctrl"></div><div class="fg"><label>Email</label><input id="ownEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="ownPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn green" style="width:100%;margin-top:18px" onclick="registerOwner()">Aktivasi Pembeli</button></div>
         <div class="form" id="fStaff"><div class="fg"><label>Invite Code</label><input id="staffCode" class="ctrl" placeholder="Kode dari Owner/Admin"></div><div class="fg"><label>Nama Staff</label><input id="staffRegName" class="ctrl"></div><div class="fg"><label>Email Staff</label><input id="staffRegEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="staffRegPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" onclick="registerStaff()">Daftar Staff</button></div>
         <div class="err" id="authError"></div>
-        <div class="note"><b>Catatan:</b> Owner membuat perusahaan. Staff masuk memakai invite code dari menu Settings &gt; Staff.</div>
+        <div class="note"><b>Catatan:</b> Owner wajib memakai kode aktivasi setelah pembayaran. Staff masuk memakai invite code dari menu Settings &gt; Staff.</div>
       </div>
     </div>
   </section>
@@ -129,10 +129,102 @@ const defaultDB={company:{name:'',brand:'KaliERP',plan:'Business',website:'',wa:
 let user=null,tenantId=null,member=null,db=null,active='dashboard',editModule=null,editIndex=null,cart=[];
 function rp(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}function num(v){return Number(String(v||'').replace(/[^0-9]/g,''))||0}function clone(o){return JSON.parse(JSON.stringify(o))}function toast(m){toastEl.textContent=m;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),1800)}function safe(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function tabAuth(m){['login','owner','staff'].forEach(x=>{document.getElementById('tab'+cap(x)).classList.toggle('active',x===m);document.getElementById('f'+cap(x)).classList.toggle('active',x===m)});authError.style.display='none'}function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}function authMsg(m){authError.textContent=m;authError.style.display='block'}
-async function registerOwner(){try{if(!ownCompany.value||!ownName.value||!ownEmail.value||!ownPass.value)return authMsg('Lengkapi semua data.');const c=await fb.createUserWithEmailAndPassword(fb.auth,ownEmail.value.trim(),ownPass.value.trim());await fb.updateProfile(c.user,{displayName:ownName.value.trim()});const t=c.user.uid;const data=clone(defaultDB);data.company.name=ownCompany.value.trim();data.company.email=c.user.email;data.company.adminName=ownName.value.trim();data.company.website='';data.company.wa='';data.company.plan='Business';data.staff=[[ownName.value.trim(),c.user.email,'Owner','Owner','Aktif']];await fb.setDoc(fb.doc(fb.db,'members',c.user.uid),{tenantId:t,role:'Owner',name:ownName.value.trim(),email:c.user.email,status:'Aktif',createdAt:fb.serverTimestamp()});await fb.setDoc(fb.doc(fb.db,'tenants',t),{ownerUid:t,companyName:data.company.name,erpDataJson:JSON.stringify(data),updatedAt:fb.serverTimestamp()});await boot(c.user);}catch(e){authMsg(readErr(e))}}
-async function registerStaff(){try{if(!staffCode.value||!staffRegName.value||!staffRegEmail.value||!staffRegPass.value)return authMsg('Lengkapi semua data staff.');const code=staffCode.value.trim().toUpperCase();const inv=await fb.getDoc(fb.doc(fb.db,'invites',code));if(!inv.exists())return authMsg('Invite code tidak ditemukan.');const invite=inv.data();if(invite.status!=='Aktif')return authMsg('Invite code sudah tidak aktif.');if(invite.email&&invite.email.toLowerCase()!==staffRegEmail.value.trim().toLowerCase())return authMsg('Email tidak sesuai invite.');const c=await fb.createUserWithEmailAndPassword(fb.auth,staffRegEmail.value.trim(),staffRegPass.value.trim());await fb.updateProfile(c.user,{displayName:staffRegName.value.trim()});await fb.setDoc(fb.doc(fb.db,'members',c.user.uid),{tenantId:invite.tenantId,role:invite.role,name:staffRegName.value.trim(),email:c.user.email,status:'Aktif',createdAt:fb.serverTimestamp()});await fb.updateDoc(fb.doc(fb.db,'invites',code),{status:'Dipakai',usedBy:c.user.uid});const snap=await fb.getDoc(fb.doc(fb.db,'tenants',invite.tenantId));if(snap.exists()){const raw=snap.data();let d=clone(defaultDB);if(raw.erpDataJson){try{d=JSON.parse(raw.erpDataJson)}catch(e){d=raw.erpData||clone(defaultDB)}}else if(raw.erpData){d=raw.erpData}d.staff=d.staff||[];d.staff.unshift([staffRegName.value.trim(),c.user.email,invite.jabatan||invite.role,invite.role,'Aktif']);await fb.setDoc(fb.doc(fb.db,'tenants',invite.tenantId),{erpDataJson:JSON.stringify(d),updatedAt:fb.serverTimestamp()},{merge:true});await boot(c.user)}}catch(e){authMsg(readErr(e))}}
+async function registerOwner(){try{
+if(!ownLicense.value||!ownCompany.value||!ownName.value||!ownEmail.value||!ownPass.value)return authMsg('Lengkapi kode aktivasi dan semua data.');
+const code=ownLicense.value.trim().toUpperCase();
+const licSnap=await fb.getDoc(fb.doc(fb.db,'licenses',code));
+if(!licSnap.exists())return authMsg('Kode aktivasi tidak ditemukan. Silakan beli paket via WhatsApp.');
+const lic=licSnap.data();
+if(lic.status!=='Available')return authMsg('Kode aktivasi sudah dipakai / tidak aktif.');
+const plan=lic.plan||'Business';
+const pricePerUser=Number(lic.pricePerUser||0);
+const userLimit=Number(lic.userLimit||1);
+const billingCycle=lic.billingCycle||'monthly';
+const validUntil=lic.validUntil||'';
+const c=await fb.createUserWithEmailAndPassword(fb.auth,ownEmail.value.trim(),ownPass.value.trim());
+await fb.updateProfile(c.user,{displayName:ownName.value.trim()});
+const t=c.user.uid;
+const data=clone(defaultDB);
+data.company.name=ownCompany.value.trim();
+data.company.email=c.user.email;
+data.company.adminName=ownName.value.trim();
+data.company.website='';
+data.company.wa='';
+data.company.plan=plan;
+data.company.subscription={
+  licenseCode:code,
+  plan:plan,
+  status:'Active',
+  userLimit:userLimit,
+  activeUsers:1,
+  pricePerUser:pricePerUser,
+  billingCycle:billingCycle,
+  monthlyAmount:billingCycle==='monthly'?pricePerUser*userLimit:0,
+  validUntil:validUntil,
+  activatedAt:new Date().toISOString().slice(0,10)
+};
+data.staff=[[ownName.value.trim(),c.user.email,'Owner','Owner','Aktif']];
+await fb.setDoc(fb.doc(fb.db,'members',c.user.uid),{tenantId:t,role:'Owner',name:ownName.value.trim(),email:c.user.email,status:'Aktif',createdAt:fb.serverTimestamp()});
+await fb.setDoc(fb.doc(fb.db,'tenants',t),{ownerUid:t,companyName:data.company.name,subscription:data.company.subscription,erpDataJson:JSON.stringify(data),updatedAt:fb.serverTimestamp()});
+await fb.updateDoc(fb.doc(fb.db,'licenses',code),{status:'Used',tenantId:t,usedBy:c.user.uid,usedAt:fb.serverTimestamp()});
+await boot(c.user);
+}catch(e){authMsg(readErr(e))}}
+async function registerStaff(){try{
+if(!staffCode.value||!staffRegName.value||!staffRegEmail.value||!staffRegPass.value)return authMsg('Lengkapi semua data staff.');
+const code=staffCode.value.trim().toUpperCase();
+const inv=await fb.getDoc(fb.doc(fb.db,'invites',code));
+if(!inv.exists())return authMsg('Invite code tidak ditemukan.');
+const invite=inv.data();
+if(invite.status!=='Aktif')return authMsg('Invite code sudah tidak aktif.');
+if(invite.email&&invite.email.toLowerCase()!==staffRegEmail.value.trim().toLowerCase())return authMsg('Email tidak sesuai invite.');
+const snap=await fb.getDoc(fb.doc(fb.db,'tenants',invite.tenantId));
+if(!snap.exists())return authMsg('Perusahaan tidak ditemukan.');
+const raw=snap.data();let d=clone(defaultDB);
+if(raw.erpDataJson){try{d=JSON.parse(raw.erpDataJson)}catch(e){d=raw.erpData||clone(defaultDB)}}else if(raw.erpData){d=raw.erpData}
+const sub=d.company&&d.company.subscription?d.company.subscription:null;
+if(!sub||sub.status!=='Active')return authMsg('Akun perusahaan belum aktif / masa aktif habis.');
+const activeStaff=(d.staff||[]).filter(s=>String(s[4]||'Aktif')==='Aktif').length;
+if(activeStaff>=Number(sub.userLimit||1))return authMsg('Kuota user paket sudah penuh. Silakan upgrade jumlah user.');
+const c=await fb.createUserWithEmailAndPassword(fb.auth,staffRegEmail.value.trim(),staffRegPass.value.trim());
+await fb.updateProfile(c.user,{displayName:staffRegName.value.trim()});
+await fb.setDoc(fb.doc(fb.db,'members',c.user.uid),{tenantId:invite.tenantId,role:invite.role,name:staffRegName.value.trim(),email:c.user.email,status:'Aktif',createdAt:fb.serverTimestamp()});
+await fb.updateDoc(fb.doc(fb.db,'invites',code),{status:'Dipakai',usedBy:c.user.uid});
+d.staff=d.staff||[];
+d.staff.unshift([staffRegName.value.trim(),c.user.email,invite.jabatan||invite.role,invite.role,'Aktif']);
+d.company.subscription.activeUsers=(d.staff||[]).filter(s=>String(s[4]||'Aktif')==='Aktif').length;
+d.company.subscription.monthlyAmount=d.company.subscription.billingCycle==='monthly'?Number(d.company.subscription.pricePerUser||0)*Number(d.company.subscription.userLimit||1):0;
+await fb.setDoc(fb.doc(fb.db,'tenants',invite.tenantId),{subscription:d.company.subscription,erpDataJson:JSON.stringify(d),updatedAt:fb.serverTimestamp()},{merge:true});
+await boot(c.user)
+}catch(e){authMsg(readErr(e))}}
 async function login(){try{await fb.signInWithEmailAndPassword(fb.auth,loginEmail.value.trim(),loginPass.value.trim())}catch(e){authMsg(readErr(e))}}async function logout(){await fb.signOut(fb.auth);location.reload()}function readErr(e){if(e.code==='auth/email-already-in-use')return'Email sudah terdaftar.';if(e.code==='auth/weak-password')return'Password minimal 6 karakter.';if(e.code==='auth/invalid-credential')return'Email atau password salah.';return e.message||'Terjadi error.'}
-async function boot(u){user=u;let ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));if(!ms.exists()){await new Promise(r=>setTimeout(r,700));ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));}if(!ms.exists()){authMsg('Akun belum punya akses perusahaan. Coba klik Login lagi atau cek dokumen members di Firestore.');return}member=ms.data();tenantId=member.tenantId;const ts=await fb.getDoc(fb.doc(fb.db,'tenants',tenantId));db=clone(defaultDB);if(ts.exists()){const raw=ts.data();if(raw.erpDataJson){try{db=JSON.parse(raw.erpDataJson)}catch(e){db=raw.erpData||clone(defaultDB)}}else if(raw.erpData){db=raw.erpData}}normalize();await save();authScreen.classList.add('hidden');app.classList.remove('hidden');applyShell();setModule('dashboard')}
+async function boot(u){user=u;let ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));if(!ms.exists()){await new Promise(r=>setTimeout(r,700));ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));}if(!ms.exists()){authMsg('Akun belum punya akses perusahaan. Coba klik Login lagi atau cek dokumen members di Firestore.');return}member=ms.data();tenantId=member.tenantId;const ts=await fb.getDoc(fb.doc(fb.db,'tenants',tenantId));db=clone(defaultDB);if(ts.exists()){const raw=ts.data();if(raw.erpDataJson){try{db=JSON.parse(raw.erpDataJson)}catch(e){db=raw.erpData||clone(defaultDB)}}else if(raw.erpData){db=raw.erpData}}normalize();if(!subscriptionOK()){showSubscriptionLock();return}await save();authScreen.classList.add('hidden');app.classList.remove('hidden');applyShell();setModule('dashboard')}
+
+function subscriptionOK(){
+  if(member&&member.role==='Owner'){
+    const sub=db&&db.company?db.company.subscription:null;
+    if(!sub)return false;
+    if(sub.status!=='Active')return false;
+    if(sub.validUntil){
+      const today=new Date().toISOString().slice(0,10);
+      if(sub.validUntil<today)return false;
+    }
+  }
+  return true;
+}
+function showSubscriptionLock(){
+  authScreen.classList.add('hidden');
+  app.classList.remove('hidden');
+  const sub=db&&db.company?db.company.subscription:null;
+  brandName.textContent=(db&&db.company&&db.company.brand)||'KaliERP';
+  tenantName.textContent=(db&&db.company&&db.company.name)||'Akun belum aktif';
+  tenantInfo.textContent='Status paket: '+((sub&&sub.status)||'Tidak aktif');
+  pageTitle.textContent='Aktivasi / Upgrade Paket';
+  sectionTitle.textContent='Akun perlu aktivasi';
+  sectionSub.textContent='Aplikasi terkunci sampai paket aktif.';
+  nav.innerHTML='';
+  headActions.innerHTML='';
+  moduleContent.innerHTML=`<div class="sub-lock"><h2>Akun belum aktif / masa aktif habis</h2><p>Silakan aktivasi, perpanjang, atau upgrade paket untuk memakai aplikasi.</p><div class="sub-card"><b>Status:</b> ${(sub&&sub.status)||'Tidak aktif'}<br><b>Paket:</b> ${(sub&&sub.plan)||'-'}<br><b>Valid sampai:</b> ${(sub&&sub.validUntil)||'-'}<br><b>Total tagihan bulanan:</b> ${sub&&sub.monthlyAmount?rp(sub.monthlyAmount):'Rp 0'}</div><div style="margin-top:16px"><a class="btn primary" href="https://wa.me/6285150973789?text=Halo%2C%20saya%20mau%20aktivasi%20atau%20upgrade%20KaliERP.">Upgrade / Bayar via WhatsApp</a><button class="btn soft" onclick="logout()">Keluar</button></div></div>`;
+}
 function normalize(){db.company=db.company||clone(defaultDB.company);['crm','inventory','sales','pos','accounting','expenses','stockMoves','project','hr','website','pricing','staff','invites'].forEach(k=>{if(!db[k])db[k]=clone(defaultDB[k]||[])});db.pricing=(db.pricing||[]).map(p=>{if(String(p[0]).toLowerCase()==='starter')p[2]='Rp 23.000/bulan';if(String(p[0]).toLowerCase()==='business')p[2]='Rp 75.000/bulan';if(String(p[0]).toLowerCase()==='lifetime')p[2]='Rp 1.500.000';return p})}
 async function save(){localStorage.setItem(STORAGE+'_'+tenantId,JSON.stringify(db));await fb.setDoc(fb.doc(fb.db,'tenants',tenantId),{companyName:db.company.name,erpDataJson:JSON.stringify(db),updatedAt:fb.serverTimestamp()},{merge:true})}
 function isOwner(){return ['Owner','Admin'].includes(member?.role)}function isPureOwner(){return member?.role==='Owner'}function can(id){return (access[member?.role]||[]).includes(id)}function applyShell(){brandName.textContent=db.company.brand;tenantName.textContent=db.company.name;tenantInfo.textContent='Role: '+member.role+' • '+user.email;userLabel.textContent=(member.name||user.displayName||'User')+' / '+member.role;document.querySelectorAll('.owner-only').forEach(e=>e.classList.toggle('hidden',!isPureOwner()));document.querySelectorAll('.admin-only').forEach(e=>e.classList.toggle('hidden',!isOwner()));renderNav()}
@@ -176,7 +268,7 @@ service cloud.firestore {
     match /{document=**} { allow read, write: if false; }
   }
 }</pre></div>`;applyShell()}
-async function saveSettings(){db.company.name=setName.value;db.company.brand=setBrand.value;db.company.website=setWeb.value;db.company.wa=setWa.value;await save();applyShell();toast('Settings disimpan')}function createCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}async function createInvite(){showModal('Buat Invite Staff',`<div class="fg"><label>Email Staff</label><input id="invEmail" class="ctrl"></div><div class="fg"><label>Nama / Jabatan</label><input id="invJob" class="ctrl" value="Staff"></div><div class="fg"><label>Role</label><select id="invRole" class="ctrl">${Object.keys(access).filter(x=>x!=='Owner').map(r=>`<option>${r}</option>`).join('')}</select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveInvite()">Buat Code</button>`)}async function createInviteFromStaff(i){const r=db.staff[i];await createInvite();setTimeout(()=>{invEmail.value=r[1];invJob.value=r[2];invRole.value=r[3]},50)}async function saveInvite(){const code=createCode();await fb.setDoc(fb.doc(fb.db,'invites',code),{tenantId,role:invRole.value,email:invEmail.value.trim(),jabatan:invJob.value.trim(),status:'Aktif',createdAt:fb.serverTimestamp()});db.invites.unshift([code,invEmail.value.trim(),invRole.value,'Aktif',today()]);await save();closeModal();renderSettings();inviteBox.innerHTML=`<b>Kode Invite:</b> <span class="pill">${code}</span><p class="mini">Kirim kode ini ke staff untuk registrasi.</p>`;toast('Invite code dibuat')}
+async function saveSettings(){db.company.name=setName.value;db.company.brand=setBrand.value;db.company.website=setWeb.value;db.company.wa=setWa.value;await save();applyShell();toast('Settings disimpan')}function createCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}async function createInvite(){const sub=db.company.subscription;if(sub&&Number(sub.activeUsers||0)>=Number(sub.userLimit||1)){alert('Kuota user sudah penuh. Silakan upgrade jumlah user.');return}showModal('Buat Invite Staff',`<div class="fg"><label>Email Staff</label><input id="invEmail" class="ctrl"></div><div class="fg"><label>Nama / Jabatan</label><input id="invJob" class="ctrl" value="Staff"></div><div class="fg"><label>Role</label><select id="invRole" class="ctrl">${Object.keys(access).filter(x=>x!=='Owner').map(r=>`<option>${r}</option>`).join('')}</select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveInvite()">Buat Code</button>`)}async function createInviteFromStaff(i){const r=db.staff[i];await createInvite();setTimeout(()=>{invEmail.value=r[1];invJob.value=r[2];invRole.value=r[3]},50)}async function saveInvite(){const code=createCode();await fb.setDoc(fb.doc(fb.db,'invites',code),{tenantId,role:invRole.value,email:invEmail.value.trim(),jabatan:invJob.value.trim(),status:'Aktif',createdAt:fb.serverTimestamp()});db.invites.unshift([code,invEmail.value.trim(),invRole.value,'Aktif',today()]);await save();closeModal();renderSettings();inviteBox.innerHTML=`<b>Kode Invite:</b> <span class="pill">${code}</span><p class="mini">Kirim kode ini ke staff untuk registrasi.</p>`;toast('Invite code dibuat')}
 function openRecord(mod,i=null){editModule=mod;editIndex=i;const row=i!=null?db[mod][i]:schemas[mod].map(()=> '');showModal((i!=null?'Edit ':'Tambah ')+(mod),schemas[mod].map((f,j)=>`<div class="fg ${j===0?'full':''}"><label>${f}</label><input class="ctrl rec" value="${safe(row[j]||'')}"></div>`).join(''),`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveRecord()">Simpan</button>`)}async function saveRecord(){const r=[...document.querySelectorAll('.rec')].map(x=>x.value.trim()||'-');if(editIndex!=null)db[editModule][editIndex]=r;else db[editModule].unshift(r);await save();closeModal();setModule(active);toast('Data tersimpan')}async function del(mod,i){if(confirm('Hapus data ini?')){db[mod].splice(i,1);await save();setModule(active);toast('Data dihapus')}}function detail(mod,i){const r=db[mod][i];showModal('Detail',`<div class="full">${schemas[mod].map((c,j)=>`<div class="box"><b>${c}</b><p>${safe(r[j]||'-')}</p></div>`).join('')}</div>`,`<button class="btn soft" onclick="closeModal()">Tutup</button><button class="btn primary" onclick="openRecord('${mod}',${i})">Edit</button>`)}
 function showModal(t,b,f,w=''){modal.classList.toggle('wide',w==='wide');modalTitle.textContent=t;modalBody.innerHTML=b;modalFoot.innerHTML=f;modalBg.classList.add('show')}function closeModal(){modalBg.classList.remove('show');modal.classList.remove('wide');editModule=null;editIndex=null}function nextNo(prefix,len){const d=new Date();return `${prefix}/${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}/${String(len+1).padStart(4,'0')}`}
 function printInvoice(i){const r=db.sales[i],items=JSON.parse(r[6]||'[]');const html=`<html><head><title>${r[0]}</title><style>body{font-family:Arial;padding:30px;color:#111}.top{display:flex;justify-content:space-between}.brand{font-size:24px;font-weight:900;color:#6d28d9}table{width:100%;border-collapse:collapse;margin-top:20px}td,th{border-bottom:1px solid #ddd;padding:10px;text-align:left}.total{text-align:right;font-size:20px;font-weight:bold;margin-top:18px}</style></head><body><div class="top"><div><div class="brand">${db.company.brand}</div><p>${db.company.name}<br>${db.company.website}<br>WA: ${db.company.wa}</p></div><div><h2>INVOICE</h2><p>${r[0]}<br>Tanggal: ${r[2]}<br>Jatuh Tempo: ${r[3]}</p></div></div><h3>Customer: ${r[1]}</h3><table><thead><tr><th>Produk</th><th>Qty</th><th>Harga</th><th>Total</th></tr></thead><tbody>${items.map(x=>`<tr><td>${x.name}</td><td>${x.qty}</td><td>${rp(x.price)}</td><td>${rp(x.total)}</td></tr>`).join('')}</tbody></table><div class="total">TOTAL: ${r[4]}</div><script>window.print();<\/script></body></html>`;const w=window.open('','_blank');w.document.write(html);w.document.close()}function sendInvoiceWA(i){const r=db.sales[i],c=db.crm.find(x=>x[0]===r[1]),wa=c?String(c[1]).replace(/[^0-9]/g,''):'';if(!wa)return alert('WA customer belum ada di CRM.');window.open('https://wa.me/62'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(`Halo ${r[1]}, berikut tagihan invoice ${r[0]} sebesar ${r[4]}. Terima kasih.`),'_blank')}function printPOS(i){const r=db.pos[i],items=JSON.parse(r[7]||'[]');const html=`<html><head><title>${r[0]}</title><style>body{font-family:Arial;max-width:320px;margin:auto;padding:18px}.c{text-align:center}.line{border-top:1px dashed #999;margin:10px 0}table{width:100%;font-size:12px}.total{font-size:17px;font-weight:bold}</style></head><body><div class="c"><b>${db.company.name}</b><br><small>${r[2]}</small></div><div class="line"></div><p>No: ${r[0]}<br>Kasir: ${r[1]}<br>Bayar: ${r[5]}<br>Tanggal: ${r[3]}</p><div class="line"></div><table>${items.map(x=>`<tr><td>${x.name} x${x.qty}</td><td style="text-align:right">${rp(x.total)}</td></tr>`).join('')}</table><div class="line"></div><div class="total">TOTAL: ${r[4]}</div><p class="c"><small>Terima kasih</small></p><script>window.print();<\/script></body></html>`;const w=window.open('','_blank');w.document.write(html);w.document.close()}
