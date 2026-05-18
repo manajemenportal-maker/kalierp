@@ -30,20 +30,28 @@ PENTING:
 Pasang firestore.rules baru dari paket ini, karena admin panel v3 butuh akses admin untuk membaca dan mengupdate tenants.
 
 
-UPDATE FAST LOGIN:
-- Saat tombol Login/Aktivasi/Daftar Staff diklik, layar loading langsung muncul.
-- Tombol berubah status agar user merasa aplikasi langsung merespon.
-- Dashboard dibuka lebih cepat karena penyimpanan cloud lanjutan berjalan di background.
-- Delay cek members dipangkas agar tidak terasa lama.
+UPDATE V5 - ADMIN NORMAL LOGIN FIXED:
+- admin-license.html hanya memakai login normal Email/Password.
+- Tidak ada Google Login.
+- Ada tombol Reset Password untuk email admin.
+- Error login dibuat lebih jelas.
 
+CARA MEMASTIKAN LOGIN NORMAL BERHASIL:
+1. Firebase Console > Authentication > Sign-in method
+   Aktifkan Email/Password.
 
-UPDATE V6 - MEMBERS AUTO FIX:
-Jika akun Owner lama sudah punya dokumen tenants/{uid}, tetapi belum punya members/{uid}, app.html akan otomatis membuat:
-members/{uid}
-  tenantId: uid
-  role: Owner
-  status: Aktif
+2. Firebase Console > Authentication > Users
+   Pastikan ada user:
+   kalimayasuryaalam@gmail.com
 
-Jika akun belum punya tenant/perusahaan, app akan memberi pesan jelas:
-- Customer baru harus Aktivasi Pembeli pakai License Code.
-- Admin license harus masuk lewat admin-license.html, bukan app.html.
+3. Kalau belum ada:
+   Klik Add user
+   Email: kalimayasuryaalam@gmail.com
+   Password: buat password baru minimal 6 karakter
+
+4. Kalau user sudah ada tapi login tetap salah:
+   Klik Reset Password dari admin-license.html
+   atau dari Firebase Authentication > Users > pilih user > Reset password.
+
+PENTING:
+Password Gmail tidak otomatis sama dengan password Firebase Email/Password.

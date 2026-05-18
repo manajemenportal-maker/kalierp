@@ -24,18 +24,18 @@
 <div class="wrap">
   <section class="hero">
     <h1>Admin License & Upgrade KaliERP</h1>
-    <p>Buat kode aktivasi baru dan tambah kuota user customer lama tanpa membuat akun baru.</p>
+    <p><b>ADMIN PANEL INI UNTUK PEMILIK APLIKASI.</b><br>Buat kode aktivasi baru dan tambah kuota user customer lama tanpa membuat akun baru.</p>
   </section>
 
   <div class="grid">
     <div class="card">
       <h2>Login Admin</h2>
-      <p class="mini">Gunakan email admin yang terdaftar di Firestore Rules.</p>
+      <p class="mini">Gunakan login normal Email/Password dari Firebase Authentication. Password Gmail tidak otomatis sama dengan password Firebase.</p>
       <div class="fg"><label>Email Admin</label><input id="email" class="ctrl" placeholder="kalimayasuryaalam@gmail.com"></div>
       <div class="fg"><label>Password</label><input id="password" type="password" class="ctrl"></div>
-      <div class="row"><button class="btn primary" onclick="login()">Login Admin</button><button class="btn soft" onclick="logout()">Logout</button></div>
+      <div class="row"><button class="btn primary" id="loginBtn" onclick="login()">Login Admin</button><button class="btn blue" onclick="resetAdminPassword()">Reset Password</button><button class="btn soft" onclick="logout()">Logout</button></div>
       <div class="err" id="err"></div><div class="ok" id="ok"></div>
-      <div class="box"><b>Status:</b> <span id="status">Belum login</span></div>
+      <div class="box"><b>Status:</b> <span id="status">Belum login</span></div><div class="box"><b>Checklist login normal:</b><br>1. Firebase Authentication &gt; Sign-in method &gt; Email/Password harus Enable.<br>2. Authentication &gt; Users harus ada user admin ini.<br>3. Password yang dipakai adalah password Firebase, bukan password Gmail.<br>4. Kalau ragu, klik Reset Password dari panel ini.</div>
     </div>
 
     <div class="card">
@@ -86,13 +86,13 @@
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
-import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
 import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, serverTimestamp, query, orderBy, limit, where } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
 
 const firebaseConfig={apiKey:'AIzaSyDfTbFVolL7nfJbgoZCcg9CCUGgyky073Q',authDomain:'kalierp-d4905.firebaseapp.com',projectId:'kalierp-d4905',storageBucket:'kalierp-d4905.firebasestorage.app',messagingSenderId:'549448963486',appId:'1:549448963486:web:b2f3690cd509b87a72f28f',measurementId:'G-9WD9SJGW3J'};
 const app=initializeApp(firebaseConfig);
 window.auth=getAuth(app);window.db=getFirestore(app);
-window.fb={signInWithEmailAndPassword,signOut,onAuthStateChanged,doc,setDoc,getDoc,updateDoc,getDocs,collection,serverTimestamp,query,orderBy,limit,where};
+window.fb={signInWithEmailAndPassword,sendPasswordResetEmail,signOut,onAuthStateChanged,doc,setDoc,getDoc,updateDoc,getDocs,collection,serverTimestamp,query,orderBy,limit,where};
 </script>
 
 <script>
@@ -125,7 +125,47 @@ function calcUpgrade(){
   const addMonthly=String(sub.billingCycle||'monthly')==='monthly'?price*addUser:0;
   upgradeCalc.innerHTML=`<b>Paket:</b> ${sub.plan||'-'}<br><b>User lama:</b> ${oldLimit}<br><b>User baru:</b> ${newLimit}<br><b>Tambahan user:</b> ${addUser}<br><b>Harga per user:</b> ${rupiah(price)} / bulan<br><b>Tambahan tagihan:</b> ${rupiah(addMonthly)} / bulan<br><b>Total tagihan baru:</b> ${rupiah(monthly)} / bulan`;
 }
-async function login(){clearMsg();try{await fb.signInWithEmailAndPassword(auth,email.value.trim(),password.value.trim())}catch(e){showErr(e.message)}}
+function authMessage(e){
+  const code=e&&e.code?e.code:'';
+  if(code==='auth/invalid-credential')return 'Email/password Firebase salah, user belum dibuat sebagai Email/Password, atau Sign-in Email/Password belum aktif.';
+  if(code==='auth/user-not-found')return 'User admin belum ada di Firebase Authentication. Buat dulu di Authentication > Users > Add user.';
+  if(code==='auth/wrong-password')return 'Password Firebase salah. Klik Reset Password atau buat password baru di Firebase.';
+  if(code==='auth/invalid-email')return 'Format email admin tidak valid.';
+  if(code==='auth/missing-password')return 'Password belum diisi.';
+  if(code==='auth/operation-not-allowed')return 'Email/Password belum aktif. Aktifkan di Authentication > Sign-in method > Email/Password.';
+  if(code==='auth/too-many-requests')return 'Terlalu banyak percobaan login. Tunggu sebentar atau reset password.';
+  return (e&&e.message)||'Login gagal.';
+}
+async function login(){
+  clearMsg();
+  const em=email.value.trim().toLowerCase();
+  const pw=password.value;
+  if(!em||!pw)return showErr('Isi email admin dan password.');
+  if(em!==ADMIN_EMAIL)return showErr('Email ini bukan email admin yang diizinkan: '+ADMIN_EMAIL);
+  try{
+    loginBtn.textContent='Mengecek...';
+    loginBtn.disabled=true;
+    await fb.signInWithEmailAndPassword(auth,em,pw);
+    showOk('Login admin berhasil.');
+  }catch(e){
+    showErr(authMessage(e));
+  }finally{
+    loginBtn.textContent='Login Admin';
+    loginBtn.disabled=false;
+  }
+}
+async function resetAdminPassword(){
+  clearMsg();
+  const em=(email.value.trim()||ADMIN_EMAIL).toLowerCase();
+  if(em!==ADMIN_EMAIL)return showErr('Reset hanya untuk email admin: '+ADMIN_EMAIL);
+  try{
+    await fb.sendPasswordResetEmail(auth,em);
+    showOk('Link reset password sudah dikirim ke email admin. Cek inbox/spam.');
+  }catch(e){
+    showErr(authMessage(e));
+  }
+}
+
 async function logout(){await fb.signOut(auth)}
 function requireAdmin(){if(!currentUser)return showErr('Login admin dulu.');if(currentUser.email!==ADMIN_EMAIL)return showErr('Email ini tidak diizinkan.');return true}
 

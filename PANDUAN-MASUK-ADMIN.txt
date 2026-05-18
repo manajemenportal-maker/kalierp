@@ -1,0 +1,29 @@
+PANDUAN MASUK ADMIN KALIERP
+
+MASALAH:
+Kalau muncul pesan:
+"Akun belum punya akses perusahaan"
+berarti Anda sedang membuka app.html.
+
+app.html = aplikasi untuk customer/pelanggan.
+admin-license.html = dashboard admin untuk pemilik aplikasi.
+
+CARA MASUK ADMIN YANG BENAR:
+1. Buka:
+   https://domainmu.com/admin-license.html
+
+2. Login dengan:
+   Email: kalimayasuryaalam@gmail.com
+   Password: password Firebase Authentication untuk email itu
+
+3. Pastikan Firebase:
+   Authentication > Sign-in method > Email/Password = Enable
+   Authentication > Users > ada user kalimayasuryaalam@gmail.com
+
+4. Kalau password masih salah:
+   klik Reset Password di admin-license.html
+   lalu cek email/spam dan buat password baru.
+
+CATATAN:
+Jangan login admin dari app.html.
+Kalau admin tidak sengaja login dari app.html, paket v7 akan otomatis mengarah ke admin-license.html.
