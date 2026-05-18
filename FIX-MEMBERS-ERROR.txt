@@ -1,0 +1,26 @@
+CARA MEMPERBAIKI ERROR:
+"Akun belum punya akses perusahaan"
+
+Penyebab:
+Akun ada di Firebase Authentication, tetapi belum ada dokumen di Firestore:
+members/{UID}
+
+Solusi otomatis:
+Gunakan app.html dari paket v6. Kalau tenant dengan UID yang sama sudah ada, app akan membuat members/{UID} otomatis sebagai Owner.
+
+Solusi manual:
+1. Firebase Console > Authentication > Users
+2. Copy UID akun yang error
+3. Firestore Database > Data
+4. Buat collection/doc:
+   members / UID_TERSEBUT
+5. Isi fields:
+   tenantId: UID_TERSEBUT
+   role: Owner
+   name: Owner
+   email: email akun
+   status: Aktif
+
+Catatan:
+Kalau akun itu adalah admin untuk membuat license, masuknya ke admin-license.html, bukan app.html.
+Kalau customer baru, harus Aktivasi Pembeli pakai License Code.
