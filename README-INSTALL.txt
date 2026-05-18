@@ -28,3 +28,10 @@ Tambahan bayar per bulan = 4 x 75.000 = 300.000/bulan
 
 PENTING:
 Pasang firestore.rules baru dari paket ini, karena admin panel v3 butuh akses admin untuk membaca dan mengupdate tenants.
+
+
+UPDATE FAST LOGIN:
+- Saat tombol Login/Aktivasi/Daftar Staff diklik, layar loading langsung muncul.
+- Tombol berubah status agar user merasa aplikasi langsung merespon.
+- Dashboard dibuka lebih cepat karena penyimpanan cloud lanjutan berjalan di background.
+- Delay cek members dipangkas agar tidak terasa lama.
