@@ -1,0 +1,37 @@
+KALIERP AUDIT FIX V8
+
+Fokus perbaikan:
+1. Admin aktif diganti ke:
+   irsukin@gmail.com
+
+2. admin-license.html:
+   - Hanya login normal Email/Password.
+   - Tidak ada Google Login.
+   - Reset Password tetap ada.
+   - Firestore rules mengizinkan admin hanya irsukin@gmail.com.
+
+3. app.html:
+   - Struktur staff dipaksa konsisten:
+     [Nama, Email, Jabatan, Role, Status]
+   - Kalau data lama tertukar, sistem mencoba merapikan otomatis:
+     email yang masuk kolom Nama dipindah ke Email,
+     role yang masuk kolom Jabatan dipindah ke Role.
+   - Form staff divalidasi:
+     Nama wajib isi,
+     Email harus format email,
+     Jabatan wajib isi,
+     Role harus valid,
+     Status harus valid.
+   - Tombol Audit Staff ditambahkan di Settings.
+
+4. Cara mitigasi di aplikasi:
+   Settings > Manajemen Staff & Role > Audit Staff
+   untuk membersihkan data lama yang tertukar.
+
+Catatan penting:
+Jika domain masih membuka file lama/canvas lama, upload ulang minimal:
+- app.html
+- admin-license.html
+- firestore.rules
+
+Kalau yang dipakai di hosting adalah file dari canvas "Aplikasi Erp Mirip Odoo", itu masih versi lama/demo. Gunakan app.html dari paket v8.

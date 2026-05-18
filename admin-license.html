@@ -143,16 +143,11 @@ async function login(){
   if(!em||!pw)return showErr('Isi email admin dan password.');
   if(em!==ADMIN_EMAIL)return showErr('Email ini bukan email admin yang diizinkan: '+ADMIN_EMAIL);
   try{
-    loginBtn.textContent='Mengecek...';
-    loginBtn.disabled=true;
+    const b=document.getElementById('loginBtn'); if(b){b.textContent='Mengecek...';b.disabled=true;}
     await fb.signInWithEmailAndPassword(auth,em,pw);
     showOk('Login admin berhasil.');
-  }catch(e){
-    showErr(authMessage(e));
-  }finally{
-    loginBtn.textContent='Login Admin';
-    loginBtn.disabled=false;
-  }
+  }catch(e){ showErr(authMessage(e)); }
+  finally{ const b=document.getElementById('loginBtn'); if(b){b.textContent='Login Admin';b.disabled=false;} }
 }
 async function resetAdminPassword(){
   clearMsg();
@@ -161,9 +156,7 @@ async function resetAdminPassword(){
   try{
     await fb.sendPasswordResetEmail(auth,em);
     showOk('Link reset password sudah dikirim ke email admin. Cek inbox/spam.');
-  }catch(e){
-    showErr(authMessage(e));
-  }
+  }catch(e){ showErr(authMessage(e)); }
 }
 
 async function logout(){await fb.signOut(auth)}
@@ -179,12 +172,38 @@ async function createLicense(){
   await loadAll();
 }
 
+
+function normalizeStaffRow(row){
+  const r=Array.isArray(row)?row:[];
+  let name=String(r[0]||'').trim();
+  let email=String(r[1]||'').trim();
+  let job=String(r[2]||'').trim();
+  let role=String(r[3]||'Staff').trim();
+  let status=String(r[4]||'Aktif').trim();
+  const roles=['Owner','Admin','Sales','Finance','Gudang','Kasir','Staff'];
+  function isEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||'').trim())}
+  if(isEmail(name) && !isEmail(email)){ const old=name; name=email||'-'; email=old; }
+  if(roles.includes(job) && !roles.includes(role)){ const oldRole=job; job=role||'-'; role=oldRole; }
+  if(!roles.includes(role)) role='Staff';
+  if(!['Aktif','Nonaktif','Suspended'].includes(status)) status='Aktif';
+  return [name||'-', email||'-', job||'-', role, status];
+}
+function normalizeERPData(erp){
+  erp=erp||{};
+  erp.staff=(erp.staff||[]).map(normalizeStaffRow);
+  erp.company=erp.company||{};
+  if(erp.company.subscription){
+    erp.company.subscription.activeUsers=erp.staff.filter(s=>String(s[4]||'Aktif')==='Aktif').length;
+  }
+  return erp;
+}
+
 function parseTenant(raw){
   const data=raw||{};
   let erp={};
   if(data.erpDataJson){try{erp=JSON.parse(data.erpDataJson)}catch(e){erp={}}}
   else if(data.erpData){erp=data.erpData}
-  return {raw:data,erp,subscription:data.subscription||(erp.company&&erp.company.subscription)||{}}
+  erp=normalizeERPData(erp);return {raw:data,erp,subscription:data.subscription||(erp.company&&erp.company.subscription)||{}}
 }
 
 async function findTenant(){
@@ -231,7 +250,7 @@ async function upgradeQuota(){
   sub.upgradedAt=new Date().toISOString();
   sub.upgradedBy=currentUser.email;
   sub.upgradeNote=`Kuota diubah dari ${oldLimit} ke ${newLimit}`;
-  erp.company.subscription=sub;
+  normalizeERPData(erp);erp.company.subscription=sub;
   await fb.setDoc(fb.doc(db,'tenants',selectedTenantId),{subscription:sub,erpDataJson:JSON.stringify(erp),updatedAt:fb.serverTimestamp()},{merge:true});
   showOk(`Kuota berhasil diubah dari ${oldLimit} menjadi ${newLimit} user.`);
   await findTenant();
