@@ -76,6 +76,19 @@
       .wrap{overflow:visible}table,thead,tbody,tr,td{display:block;width:100%;min-width:0}thead{display:none}tbody{display:grid;gap:10px;padding:0 12px 12px}tr{background:white;border:1px solid #f1f5f9;border-radius:18px;padding:12px}td{border:0;padding:5px 0}td:last-child{display:flex;gap:8px}.act{flex:1;height:36px;background:#fff7ed;border-color:#fed7aa}.modal{border-radius:24px;max-height:96vh;width:calc(100vw - 18px)}.modal-body{grid-template-columns:1fr;padding:14px}.modal-foot{display:grid;grid-template-columns:1fr 1fr;padding:12px}.modal-foot .btn{width:100%;font-size:12px}.auth{padding:12px}.auth-card{border-radius:26px}.auth-left,.auth-right{padding:22px}.auth-left h1{font-size:28px}.tabs{grid-template-columns:1fr}.bottom-nav{position:fixed;left:10px;right:10px;bottom:10px;z-index:70;display:grid;grid-template-columns:repeat(5,1fr);gap:5px;background:rgba(255,255,255,.96);border:1px solid #f1f5f9;border-radius:22px;padding:8px;box-shadow:0 20px 45px rgba(15,23,42,.18)}.bitem{background:transparent;color:#64748b;font-size:10px;font-weight:900;display:grid;place-items:center;gap:3px}.bitem span{font-size:20px}.bitem.active{color:#fb5a1f}
     }
     @media print{.side,.top,.hero,.head-actions,.table-actions,.act,.bottom-nav{display:none!important}.main{margin:0;width:100%}.content{padding:0}.card,.table-card,.kpi{box-shadow:none}}
+  
+.acc-tabs{display:flex;gap:8px;flex-wrap:wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:8px;margin-bottom:16px}
+.acc-tab{border-radius:14px;padding:10px 12px;background:white;border:1px solid #e2e8f0;color:#475569;font-weight:900;cursor:pointer}
+.acc-tab.active{background:#6d28d9;color:white;border-color:#6d28d9}
+.chart-box{height:220px;display:flex;align-items:flex-end;gap:10px;padding:14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;margin-top:12px}
+.chart-bar{flex:1;min-width:24px;border-radius:12px 12px 6px 6px;background:linear-gradient(180deg,#8b5cf6,#6d28d9);position:relative}
+.chart-bar span{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);font-size:11px;font-weight:900;color:#334155;margin-bottom:6px;white-space:nowrap}
+.chart-labels{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;font-size:11px;color:#64748b;text-align:center;margin-top:6px}
+.donut{width:180px;height:180px;border-radius:50%;background:conic-gradient(#6d28d9 0 40%,#2563eb 40% 65%,#059669 65% 82%,#f59e0b 82% 100%);display:grid;place-items:center;margin:18px auto}
+.donut:after{content:'';width:95px;height:95px;background:white;border-radius:50%}
+.ledger-head{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:14px;margin:12px 0}
+.balance-positive{color:#047857;font-weight:900}.balance-negative{color:#be123c;font-weight:900}
+
   </style>
 </head>
 <body>
@@ -310,13 +323,208 @@ function history(name){return db.sales.filter(r=>r[1]===name).map(r=>['Sales',r[
 function renderSales(){headActions.innerHTML=`<button class="btn green" onclick="openInvoice()">🧾 Invoice</button>`;const rows=db.sales.map((r,i)=>`<tr class="row" onclick="detail('sales',${i})">${r.slice(0,6).map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===5?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="printInvoice(${i})">🧾</button><button class="act" onclick="sendInvoiceWA(${i})">🟢</button><button class="act" onclick="del('sales',${i})">🗑️</button></td></tr>`).join('')||`<tr><td colspan="7" class="empty">Belum ada invoice.</td></tr>`;moduleContent.innerHTML=tableHTML(['Invoice','Customer','Tanggal','Jatuh Tempo','Total','Status'],rows,`<button class="btn green" onclick="openInvoice()">Invoice Baru</button>`)}
 function openInvoice(){cart=[];const customers=db.crm.map(r=>r[0]);const opts=db.inventory.map((p,i)=>`<option value="${i}">${safe(p[0])} - ${safe(p[1])} | ${p[3]} | Stok ${p[2]} | ${p[4]}</option>`).join('');showModal('Invoice Profesional',`<div class="fg"><label>No Invoice</label><input id="invNo" class="ctrl" value="${nextNo('INV',db.sales.length)}"></div><div class="fg"><label>Customer CRM</label><select id="invCust" class="ctrl"><option value="">Pilih customer</option>${customers.map(c=>`<option>${safe(c)}</option>`).join('')}</select></div><div class="fg"><label>Customer Manual</label><input id="invCustNew" class="ctrl"></div><div class="fg"><label>Jatuh Tempo</label><input id="invDue" type="date" class="ctrl" value="${today()}"></div><div class="fg full"><label>Produk</label><select id="itemProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="itemQty" type="number" class="ctrl" value="1" min="1"></div><div class="fg"><label>Status</label><select id="invStatus" class="ctrl"><option>Menunggu Bayar</option><option>Sebagian</option><option>Lunas</option><option>Draft</option></select></div><div class="full"><button class="btn blue" onclick="addCart('invoice')">Tambah Item</button></div><div class="full box"><div id="cartBox" class="cart">Keranjang masih kosong.</div></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveInvoice()">Simpan Invoice</button>`,'wide')}
 function addCart(mode){const idx=Number(itemProduct.value),q=Number(itemQty.value)||1,p=db.inventory[idx],st=Number(p[2])||0;if(q>st)return alert('Qty melebihi stok.');cart.push({idx,sku:p[0],name:p[1],loc:p[3],qty:q,price:num(p[4]),total:q*num(p[4])});renderCart()}function renderCart(){cartBox.innerHTML=cart.length?cart.map((x,i)=>`<div class="cart-row"><b>${safe(x.name)} x${x.qty}</b><span>${rp(x.total)}</span><button class="act" onclick="cart.splice(${i},1);renderCart()">🗑️</button></div>`).join('')+`<div class="cart-row"><b>Total</b><b>${rp(cart.reduce((s,x)=>s+x.total,0))}</b><span></span></div>`:'Keranjang masih kosong.'}
-async function saveInvoice(){if(!cart.length)return alert('Tambahkan item.');const customer=invCustNew.value.trim()||invCust.value;if(!customer)return alert('Pilih/isi customer.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'Invoice '+invNo.value])}if(!db.crm.find(r=>r[0]===customer))db.crm.unshift([customer,'','','Customer Baru','Warm','Dibuat dari invoice']);const total=cart.reduce((s,x)=>s+x.total,0);const row=[invNo.value,customer,today(),invDue.value,rp(total),invStatus.value,JSON.stringify(cart)];db.sales.unshift(row);db.accounting.unshift([row[0],customer,today(),rp(total),invStatus.value,'Pemasukan']);await save();closeModal();setModule('sales');toast('Invoice tersimpan dan stok berkurang')}
+async function saveInvoice(){if(!cart.length)return alert('Tambahkan item.');const customer=invCustNew.value.trim()||invCust.value;if(!customer)return alert('Pilih/isi customer.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'Invoice '+invNo.value])}if(!db.crm.find(r=>r[0]===customer))db.crm.unshift([customer,'','','Customer Baru','Warm','Dibuat dari invoice']);const total=cart.reduce((s,x)=>s+x.total,0);const row=[invNo.value,customer,today(),invDue.value,rp(total),invStatus.value,JSON.stringify(cart)];db.sales.unshift(row);db.accounting.unshift([row[0],customer,today(),rp(total),invStatus.value,'Pemasukan']);ensureAccountingPro();db.journal.unshift([today(),row[0],'Kas','Pendapatan Penjualan','Invoice '+customer,total,'Auto dari invoice']);await save();closeModal();setModule('sales');toast('Invoice tersimpan dan stok berkurang')}
 function renderInventory(){const low=db.inventory.filter(r=>Number(r[2])<=Number(r[5]||5));headActions.innerHTML=`<button class="btn green" onclick="openRecord('inventory')">＋ Produk</button><button class="btn blue" onclick="stockInOut('Masuk')">Stok Masuk</button><button class="btn red" onclick="stockInOut('Keluar')">Stok Keluar</button><button class="btn soft" onclick="moveStock()">Mutasi</button>`;const rows=db.inventory.map((r,i)=>`<tr class="row" onclick="detail('inventory',${i})">${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="openRecord('inventory',${i})">✏️</button><button class="act" onclick="del('inventory',${i})">🗑️</button></td></tr>`).join('');const moves=db.stockMoves.slice(0,10).map(r=>`<tr>${r.map(c=>`<td>${safe(c)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="7" class="empty">Belum ada mutasi.</td></tr>';moduleContent.innerHTML=`${low.length?`<div class="low">⚠️ Stok menipis: ${low.map(r=>r[1]+' ('+r[2]+')').join(', ')}</div>`:''}<div style="margin-top:18px">${tableHTML(schemas.inventory,rows,headActions.innerHTML)}</div><div class="table-card" style="margin-top:18px"><div class="table-head"><div><h3>Riwayat Stok</h3><p>Stok masuk, keluar, dan mutasi gudang.</p></div></div><div class="wrap"><table><thead><tr><th>Tanggal</th><th>Tipe</th><th>SKU</th><th>Produk</th><th>Qty</th><th>Lokasi</th><th>Catatan</th></tr></thead><tbody>${moves}</tbody></table></div></div>`}
 function stockInOut(type){const opts=db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | Stok ${p[2]} | ${p[3]}</option>`).join('');showModal('Stok '+type,`<div class="fg full"><label>Produk</label><select id="stockProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="stockQty" type="number" class="ctrl" value="1"></div><div class="fg"><label>Catatan</label><input id="stockNote" class="ctrl" value="${type==='Masuk'?'Pembelian / Koreksi':'Pemakaian / Koreksi'}"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveStock('${type}')">Simpan</button>`)}async function saveStock(type){const i=Number(stockProduct.value),q=Number(stockQty.value)||0,p=db.inventory[i],cur=Number(p[2])||0;if(type==='Keluar'&&q>cur)return alert('Qty melebihi stok.');p[2]=type==='Masuk'?cur+q:cur-q;db.stockMoves.unshift([today(),type,p[0],p[1],q,p[3],stockNote.value]);await save();closeModal();renderInventory();toast('Stok tersimpan')}
 function moveStock(){const opts=db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | ${p[3]}</option>`).join('');showModal('Mutasi Gudang',`<div class="fg full"><label>Produk</label><select id="moveProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="moveQty" type="number" class="ctrl" value="1"></div><div class="fg"><label>Lokasi Tujuan</label><input id="moveTo" class="ctrl" placeholder="Contoh: Cabang Bekasi"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveMove()">Mutasi</button>`)}async function saveMove(){const i=Number(moveProduct.value),q=Number(moveQty.value)||0,p=db.inventory[i],cur=Number(p[2])||0;if(q>cur)return alert('Qty melebihi stok.');const old=p[3];p[2]=cur-q;const newSku=p[0]+'-M'+String(db.inventory.length+1).padStart(3,'0');db.inventory.push([newSku,p[1],q,moveTo.value,p[4],p[5]]);db.stockMoves.unshift([today(),'Mutasi',p[0],p[1],q,old+' → '+moveTo.value,'Pindah gudang']);await save();closeModal();renderInventory();toast('Mutasi berhasil')}
-function renderPOS(){headActions.innerHTML=`<button class="btn green" onclick="openPOS()">🏪 Transaksi POS</button>`;const rows=db.pos.map((r,i)=>`<tr class="row" onclick="detail('pos',${i})">${r.slice(0,7).map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===6?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="printPOS(${i})">🧾</button><button class="act" onclick="del('pos',${i})">🗑️</button></td></tr>`).join('')||'<tr><td colspan="8" class="empty">Belum ada transaksi POS.</td></tr>';moduleContent.innerHTML=tableHTML(['No POS','Kasir','Cabang','Tanggal','Total','Metode','Status'],rows,`<button class="btn green" onclick="openPOS()">Transaksi POS</button>`)}function openPOS(){cart=[];showModal('POS Keranjang Multi Item',`<div class="fg"><label>No POS</label><input id="posNo" class="ctrl" value="${nextNo('POS',db.pos.length)}"></div><div class="fg"><label>Kasir</label><input id="posCashier" class="ctrl" value="${member.name||user.displayName||'Kasir'}"></div><div class="fg"><label>Cabang</label><input id="posBranch" class="ctrl" value="Toko Pusat"></div><div class="fg"><label>Metode Bayar</label><select id="posPay" class="ctrl"><option>Tunai</option><option>QRIS</option><option>Transfer</option><option>Debit</option></select></div><div class="fg full"><label>Produk</label><select id="itemProduct" class="ctrl">${db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | ${p[3]} | Stok ${p[2]} | ${p[4]}</option>`).join('')}</select></div><div class="fg"><label>Qty</label><input id="itemQty" type="number" min="1" class="ctrl" value="1"></div><div class="full"><button class="btn blue" onclick="addCart('pos')">Tambah Item</button></div><div class="full box"><div id="cartBox" class="cart">Keranjang masih kosong.</div></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="savePOS()">Bayar & Print Struk</button>`,'wide')}async function savePOS(){if(!cart.length)return alert('Tambahkan item.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'POS '+posNo.value])}const total=cart.reduce((s,x)=>s+x.total,0);const row=[posNo.value,posCashier.value,posBranch.value,today(),rp(total),posPay.value,'Lunas',JSON.stringify(cart)];db.pos.unshift(row);db.accounting.unshift([row[0],'POS - '+row[1],today(),rp(total),'Lunas','Pemasukan']);await save();closeModal();setModule('pos');printPOS(0);toast('POS tersimpan dan stok berkurang')}
-function renderAccounting(){const s=summary();headActions.innerHTML=`<button class="btn red" onclick="openExpense()">＋ Pengeluaran</button><button class="btn blue" onclick="exportCSV('accounting')">Export</button>`;const inc=db.accounting.map((r,i)=>`<tr class="row" onclick="detail('accounting',${i})">${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===4?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="del('accounting',${i})">🗑️</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Belum ada pemasukan.</td></tr>';const exp=db.expenses.map((r,i)=>`<tr class="row" onclick="detail('expenses',${i})">${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===5?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="openExpense(${i})">✏️</button><button class="act" onclick="del('expenses',${i})">🗑️</button></td></tr>`).join('');moduleContent.innerHTML=kpi([['💰','Pemasukan Lunas',rp(s.paid)],['⏳','Piutang',rp(s.unpaid)],['💸','Pengeluaran',rp(s.exp)],['📈','Laba/Rugi',rp(s.profit)]])+`<div class="grid2" style="margin-top:18px"><div class="card"><h3>Ringkasan</h3><div class="box"><p>Pemasukan lunas: <b>${rp(s.paid)}</b></p><p>Pengeluaran: <b>${rp(s.exp)}</b></p><p>Laba/rugi: <b>${rp(s.profit)}</b></p></div></div><div class="card"><h3>Aksi Keuangan</h3><p>Catat pengeluaran dan export laporan.</p><div class="head-actions"><button class="btn red" onclick="openExpense()">Pengeluaran</button><button class="btn soft" onclick="window.print()">Print</button></div></div></div><div style="margin-top:18px">${tableHTML(schemas.accounting,inc,'')}</div><div style="margin-top:18px">${tableHTML(schemas.expenses,exp,`<button class="btn red" onclick="openExpense()">＋ Pengeluaran</button>`)}</div>`}
-function openExpense(i=null){const r=i!=null?db.expenses[i]:[nextNo('EXP',db.expenses.length),'','Operasional',today(),'Rp 0','Lunas'];showModal(i!=null?'Edit Pengeluaran':'Catat Pengeluaran',`<div class="fg"><label>No</label><input id="expNo" class="ctrl" value="${safe(r[0])}"></div><div class="fg"><label>Keterangan</label><input id="expDesc" class="ctrl" value="${safe(r[1])}"></div><div class="fg"><label>Kategori</label><select id="expCat" class="ctrl">${['Operasional','Pembelian','Gaji','Transport','Marketing','Lainnya'].map(x=>`<option ${r[2]===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="fg"><label>Tanggal</label><input id="expDate" type="date" class="ctrl" value="${r[3]||today()}"></div><div class="fg"><label>Jumlah</label><input id="expAmt" class="ctrl" value="${safe(r[4])}"></div><div class="fg"><label>Status</label><select id="expStatus" class="ctrl"><option ${r[5]==='Lunas'?'selected':''}>Lunas</option><option ${r[5]==='Pending'?'selected':''}>Pending</option></select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveExpense(${i==null?'null':i})">Simpan</button>`)}async function saveExpense(i){const r=[expNo.value,expDesc.value,expCat.value,expDate.value,expAmt.value,expStatus.value];if(i===null)db.expenses.unshift(r);else db.expenses[i]=r;await save();closeModal();renderAccounting();toast('Pengeluaran tersimpan')}
+function renderPOS(){headActions.innerHTML=`<button class="btn green" onclick="openPOS()">🏪 Transaksi POS</button>`;const rows=db.pos.map((r,i)=>`<tr class="row" onclick="detail('pos',${i})">${r.slice(0,7).map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===6?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="printPOS(${i})">🧾</button><button class="act" onclick="del('pos',${i})">🗑️</button></td></tr>`).join('')||'<tr><td colspan="8" class="empty">Belum ada transaksi POS.</td></tr>';moduleContent.innerHTML=tableHTML(['No POS','Kasir','Cabang','Tanggal','Total','Metode','Status'],rows,`<button class="btn green" onclick="openPOS()">Transaksi POS</button>`)}function openPOS(){cart=[];showModal('POS Keranjang Multi Item',`<div class="fg"><label>No POS</label><input id="posNo" class="ctrl" value="${nextNo('POS',db.pos.length)}"></div><div class="fg"><label>Kasir</label><input id="posCashier" class="ctrl" value="${member.name||user.displayName||'Kasir'}"></div><div class="fg"><label>Cabang</label><input id="posBranch" class="ctrl" value="Toko Pusat"></div><div class="fg"><label>Metode Bayar</label><select id="posPay" class="ctrl"><option>Tunai</option><option>QRIS</option><option>Transfer</option><option>Debit</option></select></div><div class="fg full"><label>Produk</label><select id="itemProduct" class="ctrl">${db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | ${p[3]} | Stok ${p[2]} | ${p[4]}</option>`).join('')}</select></div><div class="fg"><label>Qty</label><input id="itemQty" type="number" min="1" class="ctrl" value="1"></div><div class="full"><button class="btn blue" onclick="addCart('pos')">Tambah Item</button></div><div class="full box"><div id="cartBox" class="cart">Keranjang masih kosong.</div></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="savePOS()">Bayar & Print Struk</button>`,'wide')}async function savePOS(){if(!cart.length)return alert('Tambahkan item.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'POS '+posNo.value])}const total=cart.reduce((s,x)=>s+x.total,0);const row=[posNo.value,posCashier.value,posBranch.value,today(),rp(total),posPay.value,'Lunas',JSON.stringify(cart)];db.pos.unshift(row);db.accounting.unshift([row[0],'POS - '+row[1],today(),rp(total),'Lunas','Pemasukan']);ensureAccountingPro();db.journal.unshift([today(),row[0],'Kas','Pendapatan Penjualan','POS '+row[1],total,'Auto dari POS']);await save();closeModal();setModule('pos');printPOS(0);toast('POS tersimpan dan stok berkurang')}
+
+const ACCOUNTS_DEFAULT=[
+  ['1000','Kas','Aset','Debit'],
+  ['1100','Bank','Aset','Debit'],
+  ['1200','Piutang Usaha','Aset','Debit'],
+  ['1300','Persediaan','Aset','Debit'],
+  ['2000','Hutang Usaha','Liabilitas','Kredit'],
+  ['3000','Modal Pemilik','Ekuitas','Kredit'],
+  ['4000','Pendapatan Penjualan','Pendapatan','Kredit'],
+  ['4100','Pendapatan Jasa','Pendapatan','Kredit'],
+  ['5000','Harga Pokok Penjualan','Beban','Debit'],
+  ['6000','Beban Operasional','Beban','Debit'],
+  ['6100','Beban Transport','Beban','Debit'],
+  ['6200','Beban Gaji','Beban','Debit']
+];
+function ensureAccountingPro(){
+  db.accounts=db.accounts&&db.accounts.length?db.accounts:clone(ACCOUNTS_DEFAULT);
+  db.journal=db.journal||[];
+  db.accounting=db.accounting||[];
+  db.expenses=db.expenses||[];
+  // migrasi pemasukan lama ke jurnal kalau jurnal kosong
+  if(!db.journal.length){
+    (db.accounting||[]).forEach(r=>{
+      const amount=num(r[3]||r[4]);
+      if(amount>0){
+        db.journal.push([r[2]||today(),'AUTO-'+(r[0]||Date.now()),'Kas','Pendapatan Penjualan',r[1]||'Pemasukan',amount,'Auto dari transaksi']);
+      }
+    });
+    (db.expenses||[]).forEach(r=>{
+      const amount=num(r[4]||r[3]);
+      if(amount>0){
+        db.journal.push([r[3]||today(),'AUTO-'+(r[0]||Date.now()),'Beban Operasional','Kas',r[1]||'Pengeluaran',amount,'Auto dari pengeluaran']);
+      }
+    });
+  }
+}
+function accNum(v){return Number(String(v||'').replace(/[^0-9-]/g,''))||0}
+function accountType(name){
+  ensureAccountingPro();
+  const a=db.accounts.find(x=>x[1]===name||x[0]===name);
+  return a?a[2]:'Aset';
+}
+function normalSide(name){
+  ensureAccountingPro();
+  const a=db.accounts.find(x=>x[1]===name||x[0]===name);
+  return a?a[3]:'Debit';
+}
+function journalRows(){
+  ensureAccountingPro();
+  return (db.journal||[]).map((j,i)=>({i,date:j[0],ref:j[1],debit:j[2],credit:j[3],desc:j[4],amount:accNum(j[5]),note:j[6]||''}));
+}
+function ledgerFor(accName){
+  const rows=[];
+  let bal=0;
+  journalRows().sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(j=>{
+    let debit=0,credit=0;
+    if(j.debit===accName){debit=j.amount}
+    if(j.credit===accName){credit=j.amount}
+    if(debit||credit){
+      const side=normalSide(accName);
+      bal += side==='Debit' ? debit-credit : credit-debit;
+      rows.push({...j,debitAmount:debit,creditAmount:credit,balance:bal});
+    }
+  });
+  return rows;
+}
+function accountBalance(accName){
+  const rows=ledgerFor(accName);
+  return rows.length?rows[rows.length-1].balance:0;
+}
+function trialBalance(){
+  ensureAccountingPro();
+  return db.accounts.map(a=>{
+    const bal=accountBalance(a[1]);
+    const side=a[3];
+    return {code:a[0],name:a[1],type:a[2],debit:side==='Debit'?Math.max(bal,0):Math.max(-bal,0),credit:side==='Kredit'?Math.max(bal,0):Math.max(-bal,0),balance:bal};
+  });
+}
+function profitLoss(){
+  const tb=trialBalance();
+  const revenue=tb.filter(x=>x.type==='Pendapatan').reduce((s,x)=>s+x.credit-x.debit,0);
+  const expense=tb.filter(x=>x.type==='Beban').reduce((s,x)=>s+x.debit-x.credit,0);
+  return {revenue,expense,profit:revenue-expense};
+}
+function balanceSheet(){
+  const tb=trialBalance();
+  const assets=tb.filter(x=>x.type==='Aset').reduce((s,x)=>s+x.debit-x.credit,0);
+  const liabilities=tb.filter(x=>x.type==='Liabilitas').reduce((s,x)=>s+x.credit-x.debit,0);
+  const equityBase=tb.filter(x=>x.type==='Ekuitas').reduce((s,x)=>s+x.credit-x.debit,0);
+  const pl=profitLoss();
+  const equity=equityBase+pl.profit;
+  return {assets,liabilities,equity,totalLE:liabilities+equity,diff:assets-(liabilities+equity)};
+}
+function monthKey(d){return String(d||today()).slice(0,7)}
+function chartDataMonthly(){
+  const months=[];
+  const now=new Date();
+  for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);months.push(d.toISOString().slice(0,7))}
+  return months.map(m=>{
+    let income=0,expense=0;
+    journalRows().forEach(j=>{
+      if(monthKey(j.date)===m){
+        if(accountType(j.credit)==='Pendapatan')income+=j.amount;
+        if(accountType(j.debit)==='Beban')expense+=j.amount;
+      }
+    });
+    return {m,income,expense,profit:income-expense};
+  });
+}
+function renderBarChart(data,key,label){
+  const max=Math.max(...data.map(x=>Math.abs(x[key])),1);
+  const bars=data.map(x=>`<div class="chart-bar" style="height:${Math.max(8,Math.abs(x[key])/max*190)}px"><span>${rp(x[key])}</span></div>`).join('');
+  const labs=data.map(x=>`<div>${x.m.slice(5)}</div>`).join('');
+  return `<div><b>${label}</b><div class="chart-box">${bars}</div><div class="chart-labels">${labs}</div></div>`;
+}
+function setAccTab(tab){
+  document.querySelectorAll('.acc-tab').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('tab-'+tab); if(btn)btn.classList.add('active');
+  renderAccountingTab(tab);
+}
+async function saveJournalEntry(){
+  ensureAccountingPro();
+  const date=jrDate.value||today();
+  const ref=jrRef.value.trim()||('JR-'+Date.now());
+  const debit=jrDebit.value;
+  const credit=jrCredit.value;
+  const desc=jrDesc.value.trim()||'-';
+  const amount=accNum(jrAmount.value);
+  const note=jrNote.value.trim();
+  if(!debit||!credit)return alert('Pilih akun debit dan kredit.');
+  if(debit===credit)return alert('Akun debit dan kredit tidak boleh sama.');
+  if(amount<=0)return alert('Nominal harus lebih dari 0.');
+  db.journal.unshift([date,ref,debit,credit,desc,amount,note]);
+  await save();
+  closeModal();
+  renderAccounting();
+  toast('Jurnal tersimpan');
+}
+function openJournalModal(){
+  ensureAccountingPro();
+  const opts=db.accounts.map(a=>`<option value="${a[1]}">${a[0]} - ${a[1]} (${a[2]})</option>`).join('');
+  showModal('Tambah Jurnal Umum',`<div class="fg"><label>Tanggal</label><input id="jrDate" type="date" class="ctrl" value="${today()}"></div><div class="fg"><label>No Referensi</label><input id="jrRef" class="ctrl" value="JR/${Date.now()}"></div><div class="fg"><label>Akun Debit</label><select id="jrDebit" class="ctrl">${opts}</select></div><div class="fg"><label>Akun Kredit</label><select id="jrCredit" class="ctrl">${opts}</select></div><div class="fg full"><label>Keterangan</label><input id="jrDesc" class="ctrl" placeholder="Contoh: Pendapatan penjualan"></div><div class="fg"><label>Nominal</label><input id="jrAmount" class="ctrl" placeholder="Rp 0"></div><div class="fg"><label>Catatan</label><input id="jrNote" class="ctrl"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveJournalEntry()">Simpan Jurnal</button>`,'wide')
+}
+function openAccountModal(){
+  showModal('Tambah Akun COA',`<div class="fg"><label>Kode Akun</label><input id="accCode" class="ctrl" placeholder="Contoh: 1010"></div><div class="fg"><label>Nama Akun</label><input id="accName" class="ctrl" placeholder="Contoh: Kas Kecil"></div><div class="fg"><label>Tipe</label><select id="accType" class="ctrl"><option>Aset</option><option>Liabilitas</option><option>Ekuitas</option><option>Pendapatan</option><option>Beban</option></select></div><div class="fg"><label>Normal Balance</label><select id="accSide" class="ctrl"><option>Debit</option><option>Kredit</option></select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveAccount()">Simpan Akun</button>`)
+}
+async function saveAccount(){
+  ensureAccountingPro();
+  if(!accCode.value||!accName.value)return alert('Kode dan nama akun wajib diisi.');
+  db.accounts.push([accCode.value.trim(),accName.value.trim(),accType.value,accSide.value]);
+  await save();closeModal();renderAccounting();toast('Akun ditambahkan');
+}
+function renderAccountingTab(tab){
+  ensureAccountingPro();
+  const pl=profitLoss(), bs=balanceSheet(), monthly=chartDataMonthly();
+  if(tab==='dashboard'){
+    accBody.innerHTML=`${kpi([['💰','Pendapatan',rp(pl.revenue)],['💸','Beban',rp(pl.expense)],['📈','Laba/Rugi',rp(pl.profit)],['⚖️','Selisih Neraca',rp(bs.diff)]])}<div class="grid2" style="margin-top:18px"><div class="card"><h3>Grafik Laba 6 Bulan</h3>${renderBarChart(monthly,'profit','Laba/Rugi Bulanan')}</div><div class="card"><h3>Komposisi Keuangan</h3><div class="donut"></div><p>Pendapatan, beban, aset, dan ekuitas divisualkan untuk membaca kondisi bisnis lebih cepat.</p></div></div>`;
+  }
+  if(tab==='coa'){
+    const rows=db.accounts.map((a,i)=>`<tr><td><strong>${a[0]}</strong></td><td>${a[1]}</td><td>${a[2]}</td><td>${a[3]}</td><td>${rp(accountBalance(a[1]))}</td><td><button class="act" onclick="db.accounts.splice(${i},1);save().then(()=>renderAccounting())">🗑️</button></td></tr>`).join('');
+    accBody.innerHTML=tableHTML(['Kode','Nama Akun','Tipe','Normal','Saldo'],rows,`<button class="btn green" onclick="openAccountModal()">＋ Akun</button>`);
+  }
+  if(tab==='journal'){
+    const rows=journalRows().map(j=>`<tr><td><strong>${j.date}</strong></td><td>${j.ref}</td><td>${j.debit}</td><td>${j.credit}</td><td>${j.desc}</td><td>${rp(j.amount)}</td><td><button class="act" onclick="db.journal.splice(${j.i},1);save().then(()=>renderAccounting())">🗑️</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Belum ada jurnal.</td></tr>';
+    accBody.innerHTML=tableHTML(['Tanggal','Ref','Debit','Kredit','Keterangan','Nominal'],rows,`<button class="btn green" onclick="openJournalModal()">＋ Jurnal</button>`);
+  }
+  if(tab==='ledger'){
+    const account=db.accounts[0]?.[1]||'Kas';
+    const opts=db.accounts.map(a=>`<option>${a[1]}</option>`).join('');
+    accBody.innerHTML=`<div class="card"><h3>Buku Besar</h3><p>Pilih akun untuk melihat mutasi debit, kredit, dan saldo berjalan.</p><div class="fg"><label>Pilih Akun</label><select id="ledgerAccount" class="ctrl" onchange="renderLedgerSelected()">${opts}</select></div><div id="ledgerBox"></div></div>`;
+    setTimeout(renderLedgerSelected,50);
+  }
+  if(tab==='trial'){
+    const rows=trialBalance().map(x=>`<tr><td><strong>${x.code}</strong></td><td>${x.name}</td><td>${x.type}</td><td>${rp(x.debit)}</td><td>${rp(x.credit)}</td></tr>`).join('');
+    const td=trialBalance().reduce((s,x)=>s+x.debit,0), tc=trialBalance().reduce((s,x)=>s+x.credit,0);
+    accBody.innerHTML=`${tableHTML(['Kode','Akun','Tipe','Debit','Kredit'],rows,'')}<div class="card" style="margin-top:18px"><h3>Total Neraca Saldo</h3><p>Total Debit: <b>${rp(td)}</b> | Total Kredit: <b>${rp(tc)}</b> | Selisih: <b class="${td===tc?'balance-positive':'balance-negative'}">${rp(td-tc)}</b></p></div>`;
+  }
+  if(tab==='profit'){
+    accBody.innerHTML=`<div class="grid3"><div class="card"><h3>Pendapatan</h3><h2>${rp(pl.revenue)}</h2></div><div class="card"><h3>Beban</h3><h2>${rp(pl.expense)}</h2></div><div class="card"><h3>Laba/Rugi Bersih</h3><h2 class="${pl.profit>=0?'balance-positive':'balance-negative'}">${rp(pl.profit)}</h2></div></div><div class="card" style="margin-top:18px"><h3>Grafik Pendapatan vs Beban</h3>${renderBarChart(monthly,'income','Pendapatan 6 Bulan')}${renderBarChart(monthly,'expense','Beban 6 Bulan')}</div>`;
+  }
+  if(tab==='balance'){
+    accBody.innerHTML=`<div class="grid3"><div class="card"><h3>Aset</h3><h2>${rp(bs.assets)}</h2></div><div class="card"><h3>Liabilitas</h3><h2>${rp(bs.liabilities)}</h2></div><div class="card"><h3>Ekuitas + Laba</h3><h2>${rp(bs.equity)}</h2></div></div><div class="card" style="margin-top:18px"><h3>Neraca</h3><p>Aset: <b>${rp(bs.assets)}</b></p><p>Liabilitas + Ekuitas: <b>${rp(bs.totalLE)}</b></p><p>Selisih: <b class="${bs.diff===0?'balance-positive':'balance-negative'}">${rp(bs.diff)}</b></p></div>`;
+  }
+}
+function renderLedgerSelected(){
+  const acc=ledgerAccount.value;
+  const rows=ledgerFor(acc).map(r=>`<tr><td>${r.date}</td><td>${r.ref}</td><td>${r.desc}</td><td>${rp(r.debitAmount)}</td><td>${rp(r.creditAmount)}</td><td>${rp(r.balance)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Belum ada mutasi akun ini.</td></tr>';
+  ledgerBox.innerHTML=`<div class="ledger-head"><b>${acc}</b> | Saldo: <b>${rp(accountBalance(acc))}</b></div><div class="wrap"><table><thead><tr><th>Tanggal</th><th>Ref</th><th>Keterangan</th><th>Debit</th><th>Kredit</th><th>Saldo</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function renderAccounting(){
+  ensureAccountingPro();
+  headActions.innerHTML=`<button class="btn green" onclick="openJournalModal()">＋ Jurnal</button><button class="btn blue" onclick="openAccountModal()">＋ Akun</button><button class="btn soft" onclick="exportCSV('journal')">Export Jurnal</button>`;
+  moduleContent.innerHTML=`<div class="acc-tabs"><button id="tab-dashboard" class="acc-tab active" onclick="setAccTab('dashboard')">Dashboard</button><button id="tab-coa" class="acc-tab" onclick="setAccTab('coa')">COA</button><button id="tab-journal" class="acc-tab" onclick="setAccTab('journal')">Jurnal Umum</button><button id="tab-ledger" class="acc-tab" onclick="setAccTab('ledger')">Buku Besar</button><button id="tab-trial" class="acc-tab" onclick="setAccTab('trial')">Neraca Saldo</button><button id="tab-profit" class="acc-tab" onclick="setAccTab('profit')">Laba/Rugi</button><button id="tab-balance" class="acc-tab" onclick="setAccTab('balance')">Neraca</button></div><div id="accBody"></div>`;
+  renderAccountingTab('dashboard');
+}
+function openExpense(i=null){const r=i!=null?db.expenses[i]:[nextNo('EXP',db.expenses.length),'','Operasional',today(),'Rp 0','Lunas'];showModal(i!=null?'Edit Pengeluaran':'Catat Pengeluaran',`<div class="fg"><label>No</label><input id="expNo" class="ctrl" value="${safe(r[0])}"></div><div class="fg"><label>Keterangan</label><input id="expDesc" class="ctrl" value="${safe(r[1])}"></div><div class="fg"><label>Kategori</label><select id="expCat" class="ctrl">${['Operasional','Pembelian','Gaji','Transport','Marketing','Lainnya'].map(x=>`<option ${r[2]===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="fg"><label>Tanggal</label><input id="expDate" type="date" class="ctrl" value="${r[3]||today()}"></div><div class="fg"><label>Jumlah</label><input id="expAmt" class="ctrl" value="${safe(r[4])}"></div><div class="fg"><label>Status</label><select id="expStatus" class="ctrl"><option ${r[5]==='Lunas'?'selected':''}>Lunas</option><option ${r[5]==='Pending'?'selected':''}>Pending</option></select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveExpense(${i==null?'null':i})">Simpan</button>`)}async function saveExpense(i){const r=[expNo.value,expDesc.value,expCat.value,expDate.value,expAmt.value,expStatus.value];if(i===null){db.expenses.unshift(r);ensureAccountingPro();db.journal.unshift([expDate.value,expNo.value,'Beban Operasional','Kas',expDesc.value,accNum(expAmt.value),'Auto dari pengeluaran'])}else db.expenses[i]=r;await save();closeModal();renderAccounting();toast('Pengeluaran tersimpan')}
 function renderPricing(){if(!db.pricing.length){moduleContent.innerHTML=`<div class="card"><h3>Paket Harga masih kosong</h3><p>Tambahkan paket harga sesuai produk/jasa yang ingin dijual.</p><button class="btn green" style="margin-top:12px" onclick="openRecord('pricing')">＋ Tambah Paket</button></div>`;return}const rows=db.pricing.map((r,i)=>`<tr>${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===4?status(c):safe(c)}</td>`).join('')}<td><button class="act" onclick="offerPackage(${i})">🟢</button><button class="act" onclick="openRecord('pricing',${i})">✏️</button></td></tr>`).join('');moduleContent.innerHTML=`<div class="grid3">${db.pricing.map((p,i)=>`<div class="card"><h3>${p[0]}</h3><p>${p[1]}</p><h2>${p[2]}</h2><p>${p[3]}</p><button class="btn primary" onclick="offerPackage(${i})" style="margin-top:12px;width:100%">Tawarkan WA</button></div>`).join('')}</div><div style="margin-top:18px">${tableHTML(schemas.pricing,rows,`<button class="btn green" onclick="openRecord('pricing')">＋ Paket</button>`)}</div>`}
 function renderGeneric(mod){const rows=(db[mod]||[]).map((r,i)=>`<tr class="row" onclick="detail('${mod}',${i})">${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===r.length-1?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="openRecord('${mod}',${i})">✏️</button><button class="act" onclick="del('${mod}',${i})">🗑️</button></td></tr>`).join('')||`<tr><td colspan="${schemas[mod].length+1}" class="empty">Belum ada data.</td></tr>`;headActions.innerHTML=`<button class="btn green" onclick="openRecord('${mod}')">＋ Tambah</button>`;moduleContent.innerHTML=tableHTML(schemas[mod],rows,headActions.innerHTML)}
 function renderSettings(){headActions.innerHTML='';const staffRows=db.staff.map((r,i)=>`<tr><td><strong>${safe(r[0])}</strong><div class="mini">${safe(r[1])}</div></td><td>${safe(r[2])}</td><td><span class="pill">${safe(r[3])}</span></td><td>${status(r[4])}</td><td><button class="act" onclick="createInviteFromStaff(${i})">🔑</button><button class="act" onclick="openRecord('staff',${i})">✏️</button><button class="act" onclick="del('staff',${i})">🗑️</button></td></tr>`).join('');moduleContent.innerHTML=`<div class="grid2"><div class="card"><h3>Perusahaan</h3><div class="fg"><label>Nama</label><input id="setName" class="ctrl" value="${safe(db.company.name)}"></div><div class="fg"><label>Brand</label><input id="setBrand" class="ctrl" value="${safe(db.company.brand)}"></div><div class="fg"><label>Website</label><input id="setWeb" class="ctrl" value="${safe(db.company.website)}"></div><div class="fg"><label>WhatsApp</label><input id="setWa" class="ctrl" value="${safe(db.company.wa)}"></div><button class="btn primary" style="margin-top:14px" onclick="saveSettings()">Simpan</button></div><div class="card"><h3>Backup & Keamanan</h3><p>Backup/Restore/Reset hanya muncul untuk Owner/Admin. Gunakan rules di bawah untuk Firestore.</p><div class="head-actions" style="margin-top:12px"><button class="btn blue admin-only" onclick="backupData()">Backup</button><button class="btn green admin-only" onclick="restoreInput.click()">Restore</button><button class="btn red owner-only" onclick="resetCompanyData()">Reset</button></div></div></div><div style="margin-top:18px">${tableHTML(schemas.staff,staffRows,`<button class="btn green" onclick="openRecord('staff')">＋ Staff</button><button class="btn blue" onclick="createInvite()">Buat Invite</button><button class="btn green" onclick="auditFixStaff()">Audit Staff</button>`)}</div><div class="card" style="margin-top:18px"><h3>Invite Staff</h3><p>Staff daftar memakai invite code. Invite terakhir akan muncul di sini.</p><div id="inviteBox" class="box">Belum ada invite baru.</div></div><div class="card" style="margin-top:18px"><h3>Firestore Rules</h3><p>Paste ke Firestore Database &gt; Rules.</p><button class="btn blue" onclick="copyRules()">Copy Rules</button><pre class="code" id="rulesBox">rules_version = '2';
@@ -354,7 +562,7 @@ function openRecord(mod,i=null){editModule=mod;editIndex=i;const row=i!=null?db[
 function showModal(t,b,f,w=''){modal.classList.toggle('wide',w==='wide');modalTitle.textContent=t;modalBody.innerHTML=b;modalFoot.innerHTML=f;modalBg.classList.add('show')}function closeModal(){modalBg.classList.remove('show');modal.classList.remove('wide');editModule=null;editIndex=null}function nextNo(prefix,len){const d=new Date();return `${prefix}/${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}/${String(len+1).padStart(4,'0')}`}
 function printInvoice(i){const r=db.sales[i],items=JSON.parse(r[6]||'[]');const html=`<html><head><title>${r[0]}</title><style>body{font-family:Arial;padding:30px;color:#111}.top{display:flex;justify-content:space-between}.brand{font-size:24px;font-weight:900;color:#6d28d9}table{width:100%;border-collapse:collapse;margin-top:20px}td,th{border-bottom:1px solid #ddd;padding:10px;text-align:left}.total{text-align:right;font-size:20px;font-weight:bold;margin-top:18px}</style></head><body><div class="top"><div><div class="brand">${db.company.brand}</div><p>${db.company.name}<br>${db.company.website}<br>WA: ${db.company.wa}</p></div><div><h2>INVOICE</h2><p>${r[0]}<br>Tanggal: ${r[2]}<br>Jatuh Tempo: ${r[3]}</p></div></div><h3>Customer: ${r[1]}</h3><table><thead><tr><th>Produk</th><th>Qty</th><th>Harga</th><th>Total</th></tr></thead><tbody>${items.map(x=>`<tr><td>${x.name}</td><td>${x.qty}</td><td>${rp(x.price)}</td><td>${rp(x.total)}</td></tr>`).join('')}</tbody></table><div class="total">TOTAL: ${r[4]}</div><script>window.print();<\/script></body></html>`;const w=window.open('','_blank');w.document.write(html);w.document.close()}function sendInvoiceWA(i){const r=db.sales[i],c=db.crm.find(x=>x[0]===r[1]),wa=c?String(c[1]).replace(/[^0-9]/g,''):'';if(!wa)return alert('WA customer belum ada di CRM.');window.open('https://wa.me/62'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(`Halo ${r[1]}, berikut tagihan invoice ${r[0]} sebesar ${r[4]}. Terima kasih.`),'_blank')}function printPOS(i){const r=db.pos[i],items=JSON.parse(r[7]||'[]');const html=`<html><head><title>${r[0]}</title><style>body{font-family:Arial;max-width:320px;margin:auto;padding:18px}.c{text-align:center}.line{border-top:1px dashed #999;margin:10px 0}table{width:100%;font-size:12px}.total{font-size:17px;font-weight:bold}</style></head><body><div class="c"><b>${db.company.name}</b><br><small>${r[2]}</small></div><div class="line"></div><p>No: ${r[0]}<br>Kasir: ${r[1]}<br>Bayar: ${r[5]}<br>Tanggal: ${r[3]}</p><div class="line"></div><table>${items.map(x=>`<tr><td>${x.name} x${x.qty}</td><td style="text-align:right">${rp(x.total)}</td></tr>`).join('')}</table><div class="line"></div><div class="total">TOTAL: ${r[4]}</div><p class="c"><small>Terima kasih</small></p><script>window.print();<\/script></body></html>`;const w=window.open('','_blank');w.document.write(html);w.document.close()}
 function offerPackage(i){const p=db.pricing[i],w=String(db.company.wa||'').replace(/[^0-9]/g,'');if(!w)return alert('WA perusahaan belum diisi.');window.open('https://wa.me/62'+w.replace(/^0/,'')+'?text='+encodeURIComponent(`Halo, saya tertarik dengan ${db.company.brand}\nPaket: ${p[0]}\nHarga: ${p[2]}\nFitur: ${p[3]}`),'_blank')}function quickAdd(){if(active==='sales')openInvoice();else if(active==='pos')openPOS();else if(active==='inventory')openRecord('inventory');else if(schemas[active])openRecord(active);else setModule('crm')}
-function exportCSV(mod){const cols=schemas[mod];if(!cols)return toast('Tidak ada export');const lines=[cols.join(',')].concat((db[mod]||[]).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download(mod+'.csv',lines.join('\n'),'text/csv')}function backupData(){download('backup-kalierp-real-'+tenantId+'.json',JSON.stringify(db,null,2),'application/json')}async function restoreBackup(e){const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.company||!d.crm)throw Error();if(confirm('Restore data ke perusahaan ini?')){db=d;normalize();await save();applyShell();setModule('dashboard');toast('Restore berhasil')}}catch{alert('File backup tidak valid')}e.target.value=''}function download(n,c,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click();URL.revokeObjectURL(a.href)}async function resetCompanyData(){if(!isPureOwner())return toast('Hanya Owner');if(confirm('Reset semua data perusahaan?')){const c=db.company,s=db.staff;db=clone(defaultDB);db.company=c;db.staff=s;await save();setModule('dashboard');toast('Data reset')}}function copyRules(){navigator.clipboard.writeText(rulesBox.innerText).then(()=>toast('Rules dicopy'))}
+function exportCSV(mod){if(mod==='journal'){ensureAccountingPro();const lines=['Tanggal,Ref,Debit,Kredit,Keterangan,Nominal,Catatan'].concat(db.journal.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download('journal.csv',lines.join('\n'),'text/csv');return}const cols=schemas[mod];if(!cols)return toast('Tidak ada export');const lines=[cols.join(',')].concat((db[mod]||[]).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download(mod+'.csv',lines.join('\n'),'text/csv')}function backupData(){download('backup-kalierp-real-'+tenantId+'.json',JSON.stringify(db,null,2),'application/json')}async function restoreBackup(e){const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.company||!d.crm)throw Error();if(confirm('Restore data ke perusahaan ini?')){db=d;normalize();await save();applyShell();setModule('dashboard');toast('Restore berhasil')}}catch{alert('File backup tidak valid')}e.target.value=''}function download(n,c,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click();URL.revokeObjectURL(a.href)}async function resetCompanyData(){if(!isPureOwner())return toast('Hanya Owner');if(confirm('Reset semua data perusahaan?')){const c=db.company,s=db.staff;db=clone(defaultDB);db.company=c;db.staff=s;await save();setModule('dashboard');toast('Data reset')}}function copyRules(){navigator.clipboard.writeText(rulesBox.innerText).then(()=>toast('Rules dicopy'))}
 function searchTable(q){const table=document.getElementById('dataTable');if(!table)return;table.querySelectorAll('tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q.toLowerCase())?'':'none')}
 window.addEventListener('load',()=>setTimeout(()=>fb.onAuthStateChanged(fb.auth,u=>{if(u)boot(u)}),300));
 </script>
