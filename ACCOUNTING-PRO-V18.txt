@@ -1,0 +1,13 @@
+Accounting Pro V18:
+- COA profesional lebih lengkap
+- Filter periode
+- Dashboard accounting profesional
+- Jurnal umum seimbang
+- Buku besar per akun
+- Neraca saldo
+- Laba/rugi detail: pendapatan, HPP, laba kotor, beban, laba bersih
+- Neraca detail: aset lancar, aset tetap, liabilitas, ekuitas
+- Laporan arus kas
+- Aging piutang/hutang
+- Export laporan accounting
+- Auto jurnal invoice/POS/pengeluaran lebih rapi

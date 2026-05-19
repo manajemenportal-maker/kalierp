@@ -1,0 +1,29 @@
+KaliERP Commercial Ready V17
+
+Fokus penyempurnaan:
+1. Admin Commercial Panel
+   - daftar customer/tenant
+   - buat license
+   - tambah kuota user
+   - perpanjang masa aktif
+   - ubah status Active / Trial / Expired / Suspended
+   - catat pembayaran manual
+   - KPI customer dan estimasi revenue bulanan
+
+2. Firestore Rules V17
+   - admin irsukin@gmail.com
+   - payments collection
+   - tenant/customer management
+   - multi-user staff tetap aktif
+
+3. App
+   - informasi Paket Saya di dashboard
+   - tombol perpanjang/upgrade
+
+Upload minimal:
+- admin-license.html
+- app.html
+- firestore.rules
+- index.html bila ingin update landing
+
+Wajib publish firestore.rules v17 di Firebase.

@@ -1,0 +1,11 @@
+Tax/Coretax Prep V19
+
+Fitur:
+- Setting pajak: PKP, NPWP, NITKU, nama/alamat pajak, tarif PPN/PPh default
+- PPN keluaran otomatis dari Sales/Invoice
+- PPN masukan otomatis dari Expenses
+- Rekap masa pajak
+- Estimasi PPN kurang/lebih bayar
+- Export XML Draft Coretax
+- Export CSV Review
+- Catatan: XML draft harus dicocokkan dengan template resmi DJP terbaru sebelum upload final ke Coretax.

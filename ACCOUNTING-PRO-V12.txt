@@ -1,0 +1,16 @@
+KaliERP Accounting Pro V12
+
+Fitur baru:
+1. COA / Daftar Akun
+2. Jurnal Umum
+3. Buku Besar
+4. Neraca Saldo
+5. Laba/Rugi
+6. Neraca
+7. Grafik pendapatan, beban, laba/rugi 6 bulan
+8. Auto jurnal dari invoice, POS, dan pengeluaran
+
+Upload minimal:
+- app.html
+
+Rules tidak berubah dari v11, tetapi boleh upload firestore.rules dari paket ini agar konsisten.

@@ -2,13 +2,31 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    function signedIn() {
+      return request.auth != null;
+    }
+
     function isAdmin() {
-      return request.auth != null
-        && request.auth.token.email == 'irsukin@gmail.com';
+      return signedIn() && request.auth.token.email == 'irsukin@gmail.com';
+    }
+
+    function hasMember() {
+      return signedIn() && exists(/databases/$(database)/documents/members/$(request.auth.uid));
+    }
+
+    function memberDoc() {
+      return get(/databases/$(database)/documents/members/$(request.auth.uid));
+    }
+
+    function sameTenant(tenantId) {
+      return hasMember()
+        && memberDoc().data.tenantId == tenantId
+        && memberDoc().data.status == 'Aktif';
     }
 
     match /members/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+      allow create: if signedIn() && request.auth.uid == userId;
+      allow read, update: if signedIn() && request.auth.uid == userId;
       allow read, update, delete: if isAdmin();
     }
 
@@ -17,18 +35,19 @@ service cloud.firestore {
       allow create, update, delete: if isAdmin();
     }
 
+    match /payments/{paymentId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
     match /invites/{code} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null || isAdmin();
+      allow create, update, delete: if signedIn() || isAdmin();
     }
 
     match /tenants/{tenantId} {
-      allow create: if request.auth != null;
+      allow create: if signedIn();
       allow read, update, delete: if isAdmin();
-      allow read, update, delete: if request.auth != null
-        && exists(/databases/$(database)/documents/members/$(request.auth.uid))
-        && get(/databases/$(database)/documents/members/$(request.auth.uid)).data.tenantId == tenantId
-        && get(/databases/$(database)/documents/members/$(request.auth.uid)).data.status == 'Aktif';
+      allow read, update: if sameTenant(tenantId);
     }
 
     match /{document=**} {

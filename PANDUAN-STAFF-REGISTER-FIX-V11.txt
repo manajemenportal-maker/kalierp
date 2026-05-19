@@ -1,0 +1,31 @@
+STAFF REGISTER ORDER FIX V11
+
+Akar masalah:
+Pada versi sebelumnya, daftar staff melakukan:
+1. Baca invite
+2. Baca tenant
+3. Baru buat akun staff
+
+Firestore menolak langkah nomor 2, karena staff belum punya akun/member dan belum berhak membaca tenant.
+
+Perbaikan v11:
+1. Baca invite
+2. Buat akun Firebase staff
+3. Buat members/{uidStaff}
+4. Baru baca/update tenants/{tenantId}
+5. Tandai invite sebagai Dipakai
+
+Yang wajib diganti di hosting:
+- app.html
+- firestore.rules
+
+Setelah upload:
+1. Firebase Console > Firestore Database > Rules
+2. Paste firestore.rules v11
+3. Publish
+4. Ctrl+F5 di browser
+5. Test ulang daftar staff pakai invite code
+
+Catatan:
+Canvas yang bernama "Aplikasi Erp Mirip Odoo" masih versi lama/demo dan tidak memakai registerStaff multi-tenant.
+Jangan jadikan canvas itu patokan produksi.

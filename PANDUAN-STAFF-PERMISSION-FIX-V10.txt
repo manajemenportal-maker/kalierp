@@ -1,0 +1,40 @@
+STAFF PERMISSION FIX V10
+
+Masalah:
+Saat mendaftarkan staff muncul:
+Missing or insufficient permissions
+
+Penyebab:
+Firestore Rules lama hanya mengizinkan:
+tenants/{userId}
+
+Padahal proses staff butuh:
+1. Baca invites/{code}
+2. Membuat members/{uidStaff}
+3. Membaca tenants/{tenantId}
+4. Update tenants/{tenantId} untuk menambah staff ke erpDataJson
+
+Solusi:
+Pasang firestore.rules v10 ini ke Firebase.
+
+Cara pasang:
+Firebase Console
+> Firestore Database
+> Rules
+> hapus rules lama
+> paste isi firestore.rules dari paket v10
+> Publish
+
+Admin platform:
+irsukin@gmail.com
+
+Setelah Publish:
+1. Logout aplikasi
+2. Refresh pakai Ctrl+F5
+3. Login Owner
+4. Buat invite staff
+5. Logout
+6. Daftar staff pakai invite code
+
+Catatan:
+Kalau masih error, cek Console browser. Kalau error muncul di create member, berarti rules belum kepublish.

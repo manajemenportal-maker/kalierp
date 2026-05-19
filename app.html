@@ -24,7 +24,7 @@
     .auth-left h1{font-size:42px;line-height:1.05;margin-bottom:14px}.auth-left p{line-height:1.8;color:#f3e8ff}
     .points{display:grid;gap:12px;margin-top:24px}.points div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:13px;font-weight:800}
     .auth-right{padding:42px}.auth-right h2{font-size:28px;color:var(--t)}.auth-right p{margin-top:8px;color:var(--m);line-height:1.6}
-    .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:#f1f5f9;border-radius:18px;padding:6px;margin:18px 0}
+    .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:#f1f5f9;border-radius:18px;padding:6px;margin:18px 0}
     .tab{border-radius:14px;padding:11px;background:transparent;font-weight:900;color:#64748b}.tab.active{background:white;color:var(--p);box-shadow:0 8px 20px rgba(15,23,42,.08)}
     .form{display:none}.form.active{display:block}.fg{margin-top:14px}.fg label{display:block;font-size:13px;font-weight:900;color:#334155;margin-bottom:7px}
     .ctrl{width:100%;border:1px solid var(--l);border-radius:16px;padding:13px 14px;font-size:14px;outline:0;background:white}
@@ -53,7 +53,7 @@
     .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.kpi{background:white;border:1px solid var(--l);border-radius:28px;padding:20px;box-shadow:var(--sh)}
     .kpi-top{display:flex;justify-content:space-between;align-items:center}.kpi-icon{width:48px;height:48px;border-radius:18px;background:#f3e8ff;color:var(--p);display:grid;place-items:center;font-size:23px}.trend{border-radius:999px;padding:6px 10px;font-size:12px;font-weight:900;background:#ecfdf5;color:var(--g)}
     .kpi p{margin-top:16px;color:var(--m);font-size:13px;font-weight:800}.kpi h3{font-size:24px;color:var(--t);margin-top:4px}
-    .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:white;border:1px solid var(--l);border-radius:28px;padding:20px;box-shadow:var(--sh)}
+    .grid2{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:white;border:1px solid var(--l);border-radius:28px;padding:20px;box-shadow:var(--sh)}
     .card h3{font-size:18px;color:var(--t)}.card p{font-size:13px;color:var(--m);line-height:1.65;margin-top:6px}
     .table-card{background:white;border:1px solid var(--l);border-radius:28px;overflow:hidden;box-shadow:var(--sh)}.table-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px;border-bottom:1px solid var(--l)}
     .table-head h3{color:var(--t)}.table-head p{font-size:13px;color:var(--m);margin-top:4px}.table-actions{display:flex;gap:8px;flex-wrap:wrap}.wrap{overflow-x:auto}
@@ -89,6 +89,30 @@
 .ledger-head{background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:14px;margin:12px 0}
 .balance-positive{color:#047857;font-weight:900}.balance-negative{color:#be123c;font-weight:900}
 
+  .trial-ribbon{position:fixed;left:50%;top:10px;transform:translateX(-50%);z-index:1000;background:#fffbeb;color:#92400e;border:1px solid #fcd34d;border-radius:999px;padding:8px 14px;font-weight:900;font-size:12px;box-shadow:0 12px 30px rgba(15,23,42,.12)}.trial-lock-card{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:24px;padding:24px;text-align:center;box-shadow:0 18px 42px rgba(15,23,42,.08)}.trial-disabled{opacity:.55!important;filter:grayscale(.35)}
+  
+.acc-period{display:flex;gap:10px;flex-wrap:wrap;align-items:end;background:#f8fafc;border:1px solid #e2e8f0;border-radius:22px;padding:14px;margin-bottom:16px}
+.acc-period .fg{margin-top:0;min-width:160px}
+.acc-summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.acc-summary{background:white;border:1px solid #e2e8f0;border-radius:22px;padding:16px;box-shadow:0 12px 28px rgba(15,23,42,.05)}
+.acc-summary small{display:block;color:#64748b;font-weight:900;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.acc-summary b{display:block;font-size:22px;color:#0f172a;margin-top:7px}
+.acc-report-title{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:12px}
+.acc-report-title h3{margin:0}.acc-report-title small{color:#64748b}
+.acc-two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.report-table .section-row td{background:#f8fafc;font-weight:900;color:#0f172a}
+.report-table .total-row td{font-weight:900;border-top:2px solid #cbd5e1;background:#f8fafc}
+.journal-balanced{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;border-radius:999px;padding:5px 9px;font-weight:900;font-size:11px}
+.journal-unbalanced{background:#fff1f2;color:#be123c;border:1px solid #fecdd3;border-radius:999px;padding:5px 9px;font-weight:900;font-size:11px}
+@media(max-width:900px){.acc-summary-grid,.acc-two-col{grid-template-columns:1fr}.acc-period .fg{min-width:100%}}
+
+  
+.tax-badge{border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;display:inline-flex}
+.tax-ok{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0}.tax-warn{background:#fffbeb;color:#92400e;border:1px solid #fde68a}.tax-bad{background:#fff1f2;color:#be123c;border:1px solid #fecdd3}
+.tax-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}.tax-card{background:white;border:1px solid #e2e8f0;border-radius:22px;padding:16px;box-shadow:0 12px 28px rgba(15,23,42,.05)}.tax-card small{display:block;color:#64748b;font-weight:900;font-size:11px;text-transform:uppercase}.tax-card b{display:block;font-size:21px;color:#0f172a;margin-top:7px}
+.tax-tabs{display:flex;gap:8px;flex-wrap:wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:8px;margin-bottom:16px}.tax-tab{border-radius:14px;padding:10px 12px;background:white;border:1px solid #e2e8f0;color:#475569;font-weight:900;cursor:pointer}.tax-tab.active{background:#2563eb;color:white;border-color:#2563eb}
+@media(max-width:900px){.tax-grid{grid-template-columns:1fr}.tax-tabs{display:grid}}
+
   </style>
 </head>
 <body>
@@ -102,9 +126,10 @@
       </div>
       <div class="auth-right">
         <h2>Masuk ke KaliERP</h2><p>Login sebagai owner perusahaan atau staff yang sudah diundang.</p>
-        <div class="tabs"><button class="tab active" id="tabLogin" onclick="tabAuth('login')">Login</button><button class="tab" id="tabOwner" onclick="tabAuth('owner')">Daftar Owner</button><button class="tab" id="tabStaff" onclick="tabAuth('staff')">Daftar Staff</button></div>
+        <div class="tabs"><button class="tab active" id="tabLogin" onclick="tabAuth('login')">Login</button><button class="tab" id="tabOwner" onclick="tabAuth('owner')">Aktivasi Pembeli</button><button class="tab" id="tabTrial" onclick="tabAuth('trial')">Trial Gratis</button><button class="tab" id="tabStaff" onclick="tabAuth('staff')">Daftar Staff</button></div>
         <div class="form active" id="fLogin"><div class="fg"><label>Email</label><input id="loginEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="loginPass" type="password" class="ctrl"></div><button class="btn primary" style="width:100%;margin-top:18px" onclick="login()">Masuk</button></div>
         <div class="form" id="fOwner"><div class="fg"><label>Kode Aktivasi / License Code</label><input id="ownLicense" class="ctrl" placeholder="Contoh: KALI-BIZ-8F29K"></div><div class="fg"><label>Nama Perusahaan</label><input id="ownCompany" class="ctrl"></div><div class="fg"><label>Nama Owner/Admin</label><input id="ownName" class="ctrl"></div><div class="fg"><label>Email</label><input id="ownEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="ownPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn green" style="width:100%;margin-top:18px" onclick="registerOwner()">Aktivasi Pembeli</button></div>
+        <div class="form" id="fTrial"><div class="fg"><label>Nama Perusahaan / Nama Trial</label><input id="trialCompany" class="ctrl" placeholder="Contoh: PT Contoh Industri"></div><div class="fg"><label>Nama Anda</label><input id="trialName" class="ctrl"></div><div class="fg"><label>Email</label><input id="trialEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="trialPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" id="trialBtn" onclick="registerTrial()">Mulai Trial Read-Only</button></div>
         <div class="form" id="fStaff"><div class="fg"><label>Invite Code</label><input id="staffCode" class="ctrl" placeholder="Kode dari Owner/Admin"></div><div class="fg"><label>Nama Staff</label><input id="staffRegName" class="ctrl"></div><div class="fg"><label>Email Staff</label><input id="staffRegEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="staffRegPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" onclick="registerStaff()">Daftar Staff</button></div>
         <div class="err" id="authError"></div>
         <div class="note"><b>Catatan:</b> Owner wajib memakai kode aktivasi setelah pembayaran. Staff masuk memakai invite code dari menu Settings &gt; Staff.</div>
@@ -112,6 +137,7 @@
     </div>
   </section>
 
+  <div class="trial-ribbon hidden" id="trialRibbon">TRIAL READ-ONLY • Upgrade untuk menyimpan data</div>
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
   <div class="app hidden" id="app">
     <aside class="side" id="side"><div class="brand"><div class="mark">K</div><div><h1 id="brandName">KaliERP</h1><p>Business Operating System</p></div></div><div class="tenant"><b id="tenantName"></b><span id="tenantInfo"></span></div><nav class="nav" id="nav"></nav><div class="side-card"><strong>Cloud ERP</strong><span>Data tersimpan di Firebase dan akses menu mengikuti role user.</span></div></aside>
@@ -135,19 +161,27 @@ window.firebaseLoaded=true;
 <script>
 const STORAGE='kalierp_launch_v1';
 const modules=[{id:'dashboard',label:'Dashboard',icon:'📊',title:'Dashboard',sub:'Ringkasan kondisi bisnis hari ini.'},{id:'crm',label:'CRM',icon:'👥',title:'CRM & Customer',sub:'Kelola customer, follow up, WhatsApp, dan riwayat transaksi.'},{id:'sales',label:'Sales',icon:'🧾',title:'Sales & Invoice',sub:'Buat invoice profesional dan kirim tagihan.'},{id:'inventory',label:'Inventory',icon:'📦',title:'Inventory & Gudang',sub:'Produk, stok masuk, stok keluar, mutasi, dan alert stok.'},{id:'pos',label:'POS',icon:'🏪',title:'POS Kasir',sub:'Keranjang multi-item, struk, dan stok otomatis.'},{id:'accounting',label:'Accounting',icon:'💰',title:'Accounting',sub:'Pemasukan, pengeluaran, piutang, dan laba/rugi.'},{id:'project',label:'Project',icon:'🗂️',title:'Project',sub:'Kelola pekerjaan dan progress tim.'},{id:'hr',label:'HR',icon:'🧑‍💼',title:'HR',sub:'Data karyawan dan absensi.'},{id:'website',label:'Website',icon:'🌐',title:'Website',sub:'Halaman website dan katalog.'},{id:'pricing',label:'Paket',icon:'💎',title:'Paket Harga',sub:'Paket produk dan penawaran.'},{id:'settings',label:'Settings',icon:'⚙️',title:'Settings',sub:'Perusahaan, staff, role, backup, dan keamanan.'}];
-const access={Owner:['dashboard','crm','sales','inventory','pos','accounting','project','hr','website','pricing','settings'],Admin:['dashboard','crm','sales','inventory','pos','accounting','project','hr','website','pricing','settings'],Sales:['dashboard','crm','sales','pricing'],Finance:['dashboard','sales','accounting','pricing'],Gudang:['dashboard','inventory'],Kasir:['dashboard','pos','inventory'],Staff:['dashboard','project','hr']};
+const access={Owner:['dashboard','crm','sales','inventory','pos','accounting','tax','project','hr','website','pricing','settings'],Admin:['dashboard','crm','sales','inventory','pos','accounting','tax','project','hr','website','pricing','settings'],Sales:['dashboard','crm','sales','pricing'],Finance:['dashboard','sales','accounting','pricing'],Gudang:['dashboard','inventory'],Kasir:['dashboard','pos','inventory'],Staff:['dashboard','project','hr'],Trial:['dashboard','crm','sales','inventory','pos','accounting','tax','project','hr','website','settings']};
 const schemas={crm:['Customer','WhatsApp','Alamat','Kategori','Status','Catatan'],sales:['No Invoice','Customer','Tanggal','Jatuh Tempo','Total','Status','Items'],inventory:['SKU','Produk','Stok','Lokasi','Harga Jual','Min Stok'],pos:['No POS','Kasir','Cabang','Tanggal','Total','Metode','Status','Items'],accounting:['No','Keterangan','Tanggal','Jumlah','Status','Tipe'],expenses:['No','Keterangan','Kategori','Tanggal','Jumlah','Status'],project:['Proyek','Progress','Deadline','Tim','Status'],hr:['Karyawan','Jabatan','Absensi','Payroll','Status'],website:['Halaman','Visitor','Conversion','Status','PIC'],pricing:['Paket','Deskripsi','Harga','Fitur','Status'],staff:['Nama','Email','Jabatan','Role','Status']};
 function today(){return new Date().toISOString().slice(0,10)}
 const defaultDB={company:{name:'',brand:'KaliERP',plan:'Business',website:'',wa:'',email:''},crm:[],inventory:[],sales:[],pos:[],accounting:[],expenses:[],stockMoves:[],project:[],hr:[],website:[],pricing:[],staff:[],invites:[]};
 let user=null,tenantId=null,member=null,db=null,active='dashboard',editModule=null,editIndex=null,cart=[];
 function rp(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}function num(v){return Number(String(v||'').replace(/[^0-9]/g,''))||0}function clone(o){return JSON.parse(JSON.stringify(o))}function toast(m){toastEl.textContent=m;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),1800)}function safe(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
-function tabAuth(m){['login','owner','staff'].forEach(x=>{document.getElementById('tab'+cap(x)).classList.toggle('active',x===m);document.getElementById('f'+cap(x)).classList.toggle('active',x===m)});authError.style.display='none'}function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}function authMsg(m){authError.textContent=m;authError.style.display='block'}
+function tabAuth(m){['login','owner','trial','staff'].forEach(x=>{document.getElementById('tab'+cap(x)).classList.toggle('active',x===m);document.getElementById('f'+cap(x)).classList.toggle('active',x===m)});authError.style.display='none'}function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}function authMsg(m){authError.textContent=m;authError.style.display='block'}
 
 function showFast(title,text){console.log(title||'Memproses',text||'')}
 function hideFast(){}
 function btnBusy(id,label){const b=document.getElementById(id);if(b){b.dataset.old=b.innerHTML;b.innerHTML=label||'Memproses...';b.disabled=true}}
 function btnDone(id){const b=document.getElementById(id);if(b){b.innerHTML=b.dataset.old||b.innerHTML;b.disabled=false}}
 function fastErr(e){hideFast();btnDone('loginBtn');btnDone('ownerBtn');btnDone('staffBtn');authMsg(readErr(e))}
+
+const TRIAL_DEMO_DB={company:{name:'Trial KaliERP Demo',brand:'KaliERP',plan:'Trial',website:'www.kalimaja.web.id',wa:'085150973789',email:'',subscription:{plan:'Trial',status:'Trial',userLimit:1,activeUsers:1,pricePerUser:0,billingCycle:'trial',monthlyAmount:0,validUntil:'Trial Read-Only'}},crm:[['PT Contoh Industri','081200000001','Kawasan Industri','Pabrik','Hot','Contoh customer trial'],['CV Distribusi Nusantara','081200000002','Jakarta','Distributor','Warm','Contoh lead trial']],inventory:[['MAT-001','Bahan Baku Utama',120,'Gudang Utama','Rp 250.000',20],['FG-001','Produk Jadi A',48,'Gudang Barang Jadi','Rp 750.000',10],['SP-001','Sparepart Mesin',18,'Gudang Maintenance','Rp 125.000',5]],sales:[['INV/TRIAL/001','PT Contoh Industri','2026-05-01','2026-05-15','Rp 7.500.000','Lunas','[]']],pos:[['POS/TRIAL/001','Kasir Demo','Cabang Utama','2026-05-02','Rp 750.000','QRIS','Lunas','[]']],accounting:[['INV/TRIAL/001','PT Contoh Industri','2026-05-01','Rp 7.500.000','Lunas','Pemasukan']],expenses:[['EXP/TRIAL/001','Biaya Operasional Demo','Operasional','2026-05-03','Rp 1.250.000','Lunas']],stockMoves:[['2026-05-01','Masuk','MAT-001','Bahan Baku Utama',120,'Gudang Utama','Data trial']],project:[['Implementasi Produksi','65%','2026-06-30','Tim Operasional','Berjalan']],hr:[['Staff Demo','Supervisor Gudang','Hadir','-','Aktif']],website:[],pricing:[],staff:[['Trial User','trial@example.com','Owner Trial','Trial','Aktif']],invites:[],accounts:[['1000','Kas','Aset','Debit'],['1100','Bank','Aset','Debit'],['1200','Piutang Usaha','Aset','Debit'],['1300','Persediaan','Aset','Debit'],['2000','Hutang Usaha','Liabilitas','Kredit'],['3000','Modal Pemilik','Ekuitas','Kredit'],['4000','Pendapatan Penjualan','Pendapatan','Kredit'],['6000','Beban Operasional','Beban','Debit']],journal:[['2026-05-01','JR/TRIAL/001','Kas','Pendapatan Penjualan','Penjualan demo trial',7500000,'Trial'],['2026-05-03','JR/TRIAL/002','Beban Operasional','Kas','Biaya operasional demo',1250000,'Trial']]};
+function isTrialMode(){return (member&&member.role==='Trial')||(db&&db.company&&db.company.subscription&&db.company.subscription.status==='Trial')}
+function blockTrial(action='Fitur ini'){if(isTrialMode()){showTrialUpgrade(action);return true}return false}
+function showTrialUpgrade(action='Fitur ini'){showModal('Upgrade untuk membuka fitur',`<div class="trial-lock-card"><h2>${action} terkunci di mode Trial</h2><p>Mode trial hanya untuk melihat dashboard, modul, data contoh, dan laporan. Untuk menyimpan data, membuat invoice, POS, jurnal, staff, export, backup, atau operasional penuh, silakan upgrade paket.</p><div style="margin-top:16px"><a class="btn primary" href="https://wa.me/6285150973789?text=Halo%2C%20saya%20mau%20upgrade%20KaliERP%20dari%20trial.">Upgrade via WhatsApp</a></div></div>`,`<button class="btn soft" onclick="closeModal()">Tutup</button><a class="btn primary" href="https://wa.me/6285150973789?text=Halo%2C%20saya%20mau%20upgrade%20KaliERP%20dari%20trial.">Upgrade</a>`)}
+async function registerTrial(){try{if(!trialCompany.value||!trialName.value||!trialEmail.value||!trialPass.value)return authMsg('Lengkapi semua data trial.');if(typeof showFast==='function')showFast('Membuat akun trial','Menyiapkan demo read-only...');if(typeof btnBusy==='function')btnBusy('trialBtn','Membuat Trial...');const c=await fb.createUserWithEmailAndPassword(fb.auth,trialEmail.value.trim(),trialPass.value.trim());await fb.updateProfile(c.user,{displayName:trialName.value.trim()});const t=c.user.uid;const data=clone(TRIAL_DEMO_DB);data.company.name=trialCompany.value.trim();data.company.email=c.user.email;data.company.adminName=trialName.value.trim();data.staff=[[trialName.value.trim(),c.user.email,'Trial User','Trial','Aktif']];await fb.setDoc(fb.doc(fb.db,'members',c.user.uid),{tenantId:t,role:'Trial',name:trialName.value.trim(),email:c.user.email,status:'Aktif',createdAt:fb.serverTimestamp()});await fb.setDoc(fb.doc(fb.db,'tenants',t),{ownerUid:t,companyName:data.company.name,subscription:data.company.subscription,trial:true,erpDataJson:JSON.stringify(data),updatedAt:fb.serverTimestamp()});await boot(c.user)}catch(e){fastErr?fastErr(e):authMsg(readErr(e))}}
+function applyTrialUI(){if(!isTrialMode())return;if(document.getElementById('trialRibbon'))trialRibbon.classList.remove('hidden');document.querySelectorAll('.head-actions button,.table-actions button,.act,.owner-only,.admin-only').forEach(el=>el.classList.add('trial-disabled'))}
+
 async function registerOwner(){try{
 if(!ownLicense.value||!ownCompany.value||!ownName.value||!ownEmail.value||!ownPass.value)return authMsg('Lengkapi kode aktivasi dan semua data.');
 const code=ownLicense.value.trim().toUpperCase();
@@ -251,7 +285,7 @@ function subscriptionOK(){
   if(member&&member.role==='Owner'){
     const sub=db&&db.company?db.company.subscription:null;
     if(!sub)return false;
-    if(sub.status!=='Active')return false;
+    if(sub.status==='Trial')return true;if(sub.status==='Trial')return true;if(sub.status!=='Active')return false;
     if(sub.validUntil){
       const today=new Date().toISOString().slice(0,10);
       if(sub.validUntil<today)return false;
@@ -270,7 +304,7 @@ function showSubscriptionLock(){
   sectionTitle.textContent='Akun perlu aktivasi';
   sectionSub.textContent='Aplikasi terkunci sampai paket aktif.';
   nav.innerHTML='';
-  headActions.innerHTML='';
+  headActions.innerHTML='';setTimeout(applyTrialUI,120);
   moduleContent.innerHTML=`<div class="sub-lock"><h2>Akun belum aktif / masa aktif habis</h2><p>Silakan aktivasi, perpanjang, atau upgrade paket untuk memakai aplikasi.</p><div class="sub-card"><b>Status:</b> ${(sub&&sub.status)||'Tidak aktif'}<br><b>Paket:</b> ${(sub&&sub.plan)||'-'}<br><b>Valid sampai:</b> ${(sub&&sub.validUntil)||'-'}<br><b>Total tagihan bulanan:</b> ${sub&&sub.monthlyAmount?rp(sub.monthlyAmount):'Rp 0'}</div><div style="margin-top:16px"><a class="btn primary" href="https://wa.me/6285150973789?text=Halo%2C%20saya%20mau%20aktivasi%20atau%20upgrade%20KaliERP.">Upgrade / Bayar via WhatsApp</a><button class="btn soft" onclick="logout()">Keluar</button></div></div>`;
 }
 
@@ -315,77 +349,97 @@ function renderNav(){nav.innerHTML=modules.filter(m=>can(m.id)).map(m=>`<button 
 function setModule(id){if(!can(id)){toast('Role tidak punya akses');id='dashboard'}active=id;const m=modules.find(x=>x.id===id);pageTitle.textContent=m.title;sectionTitle.textContent=m.title;sectionSub.textContent=m.sub;renderNav();closeMenu();updateBottom();headActions.innerHTML='';if(id==='dashboard')return renderDashboard();if(id==='crm')return renderCRM();if(id==='sales')return renderSales();if(id==='inventory')return renderInventory();if(id==='pos')return renderPOS();if(id==='accounting')return renderAccounting();if(id==='pricing')return renderPricing();if(id==='settings')return renderSettings();return renderGeneric(id)}function updateBottom(){[...bottomNav.children].forEach(x=>x.classList.remove('active'));const map={dashboard:0,sales:1,inventory:2,settings:4};if(bottomNav.children[map[active]])bottomNav.children[map[active]].classList.add('active')}function openMenu(){side.classList.add('open');overlay.classList.add('show')}function closeMenu(){side.classList.remove('open');overlay.classList.remove('show')}
 function summary(){const paid=db.accounting.filter(r=>r[4]==='Lunas').reduce((s,r)=>s+num(r[3]),0);const unpaid=db.accounting.filter(r=>r[4]!=='Lunas').reduce((s,r)=>s+num(r[3]),0);const exp=db.expenses.reduce((s,r)=>s+num(r[4]),0);const stock=db.inventory.reduce((s,r)=>s+(Number(r[2])||0),0);const low=db.inventory.filter(r=>(Number(r[2])||0)<=Number(r[5]||5)).length;return{paid,unpaid,exp,profit:paid-exp,stock,low,customers:db.crm.length,pos:db.pos.length}}
 function kpi(items){return `<div class="kpis">${items.map(k=>`<div class="kpi"><div class="kpi-top"><div class="kpi-icon">${k[0]}</div><span class="trend">Real</span></div><p>${k[1]}</p><h3>${k[2]}</h3></div>`).join('')}</div>`}
-function renderDashboard(){const s=summary();const empty=(db.crm.length+db.inventory.length+db.sales.length+db.pos.length+db.accounting.length)===0;moduleContent.innerHTML=kpi([['💰','Pemasukan Lunas',rp(s.paid)],['⏳','Piutang',rp(s.unpaid)],['📦','Total Stok',s.stock.toLocaleString('id-ID')],['📈','Laba/Rugi',rp(s.profit)]])+(empty?`<div class="card" style="margin-top:18px"><h3>Akun baru masih kosong</h3><p>Mulai dari tambah customer di CRM, tambah produk di Inventory, lalu buat Invoice atau transaksi POS.</p><div class="head-actions" style="margin-top:12px"><button class="btn green" onclick="setModule('crm')">Tambah Customer</button><button class="btn blue" onclick="setModule('inventory')">Tambah Produk</button></div></div>`:'')+`<div class="grid3" style="margin-top:18px"><div class="card"><h3>Customer</h3><p>${s.customers} customer tercatat di CRM.</p></div><div class="card"><h3>Stok Menipis</h3><p>${s.low} produk perlu perhatian gudang.</p></div><div class="card"><h3>Transaksi POS</h3><p>${s.pos} transaksi kasir tercatat.</p></div></div>`}
+
+function subscriptionNotice(){
+  if(!db||!db.company||!db.company.subscription)return '';
+  const s=db.company.subscription;
+  const status=s.status||'-';
+  const valid=s.validUntil||'-';
+  const amount=s.monthlyAmount?rp(s.monthlyAmount):'Rp 0';
+  return `<div class="card" style="margin-bottom:18px"><h3>Paket Saya</h3><p>Status: <b>${status}</b> • Valid sampai: <b>${valid}</b> • Estimasi tagihan: <b>${amount}</b></p><div class="head-actions"><a class="btn green" href="https://wa.me/6285150973789?text=Halo%2C%20saya%20mau%20perpanjang%20atau%20upgrade%20KaliERP.">Perpanjang / Upgrade</a></div></div>`;
+}
+function renderDashboard(){const s=summary();const empty=(db.crm.length+db.inventory.length+db.sales.length+db.pos.length+db.accounting.length)===0;moduleContent.innerHTML=subscriptionNotice()+kpi([['💰','Pemasukan Lunas',rp(s.paid)],['⏳','Piutang',rp(s.unpaid)],['📦','Total Stok',s.stock.toLocaleString('id-ID')],['📈','Laba/Rugi',rp(s.profit)]])+(empty?`<div class="card" style="margin-top:18px"><h3>Akun baru masih kosong</h3><p>Mulai dari tambah customer di CRM, tambah produk di Inventory, lalu buat Invoice atau transaksi POS.</p><div class="head-actions" style="margin-top:12px"><button class="btn green" onclick="setModule('crm')">Tambah Customer</button><button class="btn blue" onclick="setModule('inventory')">Tambah Produk</button></div></div>`:'')+`<div class="grid3" style="margin-top:18px"><div class="card"><h3>Customer</h3><p>${s.customers} customer tercatat di CRM.</p></div><div class="card"><h3>Stok Menipis</h3><p>${s.low} produk perlu perhatian gudang.</p></div><div class="card"><h3>Transaksi POS</h3><p>${s.pos} transaksi kasir tercatat.</p></div></div>`}
 function tableHTML(schema,rows,actions=''){return `<div class="table-card"><div class="table-head"><div><h3>Data</h3><p>Klik baris untuk melihat detail.</p></div><div class="table-actions">${actions}</div></div><div class="wrap"><table id="dataTable"><thead><tr>${schema.map(c=>`<th>${c}</th>`).join('')}<th>Aksi</th></tr></thead><tbody>${rows}</tbody></table></div></div>`}
 function status(s){return `<span class="status ${s==='Lunas'||s==='Aktif'||s==='Published'?'green':s==='Hot'||s==='Promo'?'red':'amber'}">${safe(s)}</span>`}
 function renderCRM(){headActions.innerHTML=`<button class="btn green" onclick="openRecord('crm')">＋ Customer</button><button class="btn blue" onclick="exportCSV('crm')">Export</button>`;const rows=db.crm.map((r,i)=>`<tr class="row" onclick="customerDetail(${i})"><td><strong>${safe(r[0])}</strong><div class="mini">${safe(r[2])}</div></td><td>${safe(r[1])}</td><td>${safe(r[3])}</td><td>${status(r[4])}</td><td>${history(r[0]).length} transaksi</td><td onclick="event.stopPropagation()"><button class="act" onclick="customerDetail(${i})">👁️</button><button class="act" onclick="waCustomer(${i})">🟢</button><button class="act" onclick="openRecord('crm',${i})">✏️</button><button class="act" onclick="del('crm',${i})">🗑️</button></td></tr>`).join('')||`<tr><td colspan="6" class="empty">Belum ada customer.</td></tr>`;moduleContent.innerHTML=kpi([['👥','Total Customer',db.crm.length],['🔥','Hot Lead',db.crm.filter(r=>r[4]==='Hot').length],['🧾','Riwayat Transaksi',db.crm.reduce((s,r)=>s+history(r[0]).length,0)],['📱','WA Tersimpan',db.crm.filter(r=>r[1]).length]])+`<div style="margin-top:18px">${tableHTML(['Customer','WhatsApp','Kategori','Status','Riwayat'],rows,`<button class="btn green" onclick="openRecord('crm')">＋ Customer</button>`)}</div>`}
 function history(name){return db.sales.filter(r=>r[1]===name).map(r=>['Sales',r[0],r[2],r[4],r[5]]).concat(db.accounting.filter(r=>r[1]===name).map(r=>['Accounting',r[0],r[2],r[3],r[4]]))}function customerDetail(i){const r=db.crm[i],h=history(r[0]);showModal('Detail Customer',`<div class="full box"><b>${safe(r[0])}</b><p class="mini">WA: ${safe(r[1])} • Kategori: ${safe(r[3])}</p><p>${safe(r[2])}</p><p class="mini">${safe(r[5])}</p></div><div class="full table-card"><div class="table-head"><div><h3>Riwayat</h3></div></div><div class="wrap"><table><thead><tr><th>Modul</th><th>No</th><th>Tanggal</th><th>Jumlah</th><th>Status</th></tr></thead><tbody>${h.map(x=>`<tr>${x.map(y=>`<td>${safe(y)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="5" class="empty">Belum ada transaksi.</td></tr>'}</tbody></table></div></div>`,`<button class="btn soft" onclick="closeModal()">Tutup</button><button class="btn green" onclick="waCustomer(${i})">WhatsApp</button><button class="btn primary" onclick="openRecord('crm',${i})">Edit</button>`,'wide')}function waCustomer(i){const r=db.crm[i];const w=String(r[1]||'').replace(/[^0-9]/g,'');if(!w)return alert('Nomor WA belum ada.');window.open('https://wa.me/62'+w.replace(/^0/,'')+'?text='+encodeURIComponent(`Halo ${r[0]}, saya dari ${db.company.name}. Kami ingin follow up kebutuhan bisnis Anda.`),'_blank')}
 function renderSales(){headActions.innerHTML=`<button class="btn green" onclick="openInvoice()">🧾 Invoice</button>`;const rows=db.sales.map((r,i)=>`<tr class="row" onclick="detail('sales',${i})">${r.slice(0,6).map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===5?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="printInvoice(${i})">🧾</button><button class="act" onclick="sendInvoiceWA(${i})">🟢</button><button class="act" onclick="del('sales',${i})">🗑️</button></td></tr>`).join('')||`<tr><td colspan="7" class="empty">Belum ada invoice.</td></tr>`;moduleContent.innerHTML=tableHTML(['Invoice','Customer','Tanggal','Jatuh Tempo','Total','Status'],rows,`<button class="btn green" onclick="openInvoice()">Invoice Baru</button>`)}
-function openInvoice(){cart=[];const customers=db.crm.map(r=>r[0]);const opts=db.inventory.map((p,i)=>`<option value="${i}">${safe(p[0])} - ${safe(p[1])} | ${p[3]} | Stok ${p[2]} | ${p[4]}</option>`).join('');showModal('Invoice Profesional',`<div class="fg"><label>No Invoice</label><input id="invNo" class="ctrl" value="${nextNo('INV',db.sales.length)}"></div><div class="fg"><label>Customer CRM</label><select id="invCust" class="ctrl"><option value="">Pilih customer</option>${customers.map(c=>`<option>${safe(c)}</option>`).join('')}</select></div><div class="fg"><label>Customer Manual</label><input id="invCustNew" class="ctrl"></div><div class="fg"><label>Jatuh Tempo</label><input id="invDue" type="date" class="ctrl" value="${today()}"></div><div class="fg full"><label>Produk</label><select id="itemProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="itemQty" type="number" class="ctrl" value="1" min="1"></div><div class="fg"><label>Status</label><select id="invStatus" class="ctrl"><option>Menunggu Bayar</option><option>Sebagian</option><option>Lunas</option><option>Draft</option></select></div><div class="full"><button class="btn blue" onclick="addCart('invoice')">Tambah Item</button></div><div class="full box"><div id="cartBox" class="cart">Keranjang masih kosong.</div></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveInvoice()">Simpan Invoice</button>`,'wide')}
+function openInvoice(){if(blockTrial('Invoice'))return;cart=[];const customers=db.crm.map(r=>r[0]);const opts=db.inventory.map((p,i)=>`<option value="${i}">${safe(p[0])} - ${safe(p[1])} | ${p[3]} | Stok ${p[2]} | ${p[4]}</option>`).join('');showModal('Invoice Profesional',`<div class="fg"><label>No Invoice</label><input id="invNo" class="ctrl" value="${nextNo('INV',db.sales.length)}"></div><div class="fg"><label>Customer CRM</label><select id="invCust" class="ctrl"><option value="">Pilih customer</option>${customers.map(c=>`<option>${safe(c)}</option>`).join('')}</select></div><div class="fg"><label>Customer Manual</label><input id="invCustNew" class="ctrl"></div><div class="fg"><label>Jatuh Tempo</label><input id="invDue" type="date" class="ctrl" value="${today()}"></div><div class="fg full"><label>Produk</label><select id="itemProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="itemQty" type="number" class="ctrl" value="1" min="1"></div><div class="fg"><label>Status</label><select id="invStatus" class="ctrl"><option>Menunggu Bayar</option><option>Sebagian</option><option>Lunas</option><option>Draft</option></select></div><div class="full"><button class="btn blue" onclick="addCart('invoice')">Tambah Item</button></div><div class="full box"><div id="cartBox" class="cart">Keranjang masih kosong.</div></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveInvoice()">Simpan Invoice</button>`,'wide')}
 function addCart(mode){const idx=Number(itemProduct.value),q=Number(itemQty.value)||1,p=db.inventory[idx],st=Number(p[2])||0;if(q>st)return alert('Qty melebihi stok.');cart.push({idx,sku:p[0],name:p[1],loc:p[3],qty:q,price:num(p[4]),total:q*num(p[4])});renderCart()}function renderCart(){cartBox.innerHTML=cart.length?cart.map((x,i)=>`<div class="cart-row"><b>${safe(x.name)} x${x.qty}</b><span>${rp(x.total)}</span><button class="act" onclick="cart.splice(${i},1);renderCart()">🗑️</button></div>`).join('')+`<div class="cart-row"><b>Total</b><b>${rp(cart.reduce((s,x)=>s+x.total,0))}</b><span></span></div>`:'Keranjang masih kosong.'}
-async function saveInvoice(){if(!cart.length)return alert('Tambahkan item.');const customer=invCustNew.value.trim()||invCust.value;if(!customer)return alert('Pilih/isi customer.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'Invoice '+invNo.value])}if(!db.crm.find(r=>r[0]===customer))db.crm.unshift([customer,'','','Customer Baru','Warm','Dibuat dari invoice']);const total=cart.reduce((s,x)=>s+x.total,0);const row=[invNo.value,customer,today(),invDue.value,rp(total),invStatus.value,JSON.stringify(cart)];db.sales.unshift(row);db.accounting.unshift([row[0],customer,today(),rp(total),invStatus.value,'Pemasukan']);ensureAccountingPro();db.journal.unshift([today(),row[0],'Kas','Pendapatan Penjualan','Invoice '+customer,total,'Auto dari invoice']);await save();closeModal();setModule('sales');toast('Invoice tersimpan dan stok berkurang')}
+async function saveInvoice(){if(blockTrial('Simpan Invoice'))return;if(!cart.length)return alert('Tambahkan item.');const customer=invCustNew.value.trim()||invCust.value;if(!customer)return alert('Pilih/isi customer.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'Invoice '+invNo.value])}if(!db.crm.find(r=>r[0]===customer))db.crm.unshift([customer,'','','Customer Baru','Warm','Dibuat dari invoice']);const total=cart.reduce((s,x)=>s+x.total,0);const row=[invNo.value,customer,today(),invDue.value,rp(total),invStatus.value,JSON.stringify(cart)];db.sales.unshift(row);db.accounting.unshift([row[0],customer,today(),rp(total),invStatus.value,'Pemasukan']);ensureAccountingPro();db.journal.unshift([today(),row[0],invStatus.value==='Lunas'?'Kas':'Piutang Usaha','Pendapatan Penjualan','Invoice '+customer,total,'Auto dari invoice']);ensureAccountingPro();db.journal.unshift([today(),row[0],'Kas','Pendapatan Penjualan','Invoice '+customer,total,'Auto dari invoice']);await save();closeModal();setModule('sales');toast('Invoice tersimpan dan stok berkurang')}
 function renderInventory(){const low=db.inventory.filter(r=>Number(r[2])<=Number(r[5]||5));headActions.innerHTML=`<button class="btn green" onclick="openRecord('inventory')">＋ Produk</button><button class="btn blue" onclick="stockInOut('Masuk')">Stok Masuk</button><button class="btn red" onclick="stockInOut('Keluar')">Stok Keluar</button><button class="btn soft" onclick="moveStock()">Mutasi</button>`;const rows=db.inventory.map((r,i)=>`<tr class="row" onclick="detail('inventory',${i})">${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="openRecord('inventory',${i})">✏️</button><button class="act" onclick="del('inventory',${i})">🗑️</button></td></tr>`).join('');const moves=db.stockMoves.slice(0,10).map(r=>`<tr>${r.map(c=>`<td>${safe(c)}</td>`).join('')}</tr>`).join('')||'<tr><td colspan="7" class="empty">Belum ada mutasi.</td></tr>';moduleContent.innerHTML=`${low.length?`<div class="low">⚠️ Stok menipis: ${low.map(r=>r[1]+' ('+r[2]+')').join(', ')}</div>`:''}<div style="margin-top:18px">${tableHTML(schemas.inventory,rows,headActions.innerHTML)}</div><div class="table-card" style="margin-top:18px"><div class="table-head"><div><h3>Riwayat Stok</h3><p>Stok masuk, keluar, dan mutasi gudang.</p></div></div><div class="wrap"><table><thead><tr><th>Tanggal</th><th>Tipe</th><th>SKU</th><th>Produk</th><th>Qty</th><th>Lokasi</th><th>Catatan</th></tr></thead><tbody>${moves}</tbody></table></div></div>`}
-function stockInOut(type){const opts=db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | Stok ${p[2]} | ${p[3]}</option>`).join('');showModal('Stok '+type,`<div class="fg full"><label>Produk</label><select id="stockProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="stockQty" type="number" class="ctrl" value="1"></div><div class="fg"><label>Catatan</label><input id="stockNote" class="ctrl" value="${type==='Masuk'?'Pembelian / Koreksi':'Pemakaian / Koreksi'}"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveStock('${type}')">Simpan</button>`)}async function saveStock(type){const i=Number(stockProduct.value),q=Number(stockQty.value)||0,p=db.inventory[i],cur=Number(p[2])||0;if(type==='Keluar'&&q>cur)return alert('Qty melebihi stok.');p[2]=type==='Masuk'?cur+q:cur-q;db.stockMoves.unshift([today(),type,p[0],p[1],q,p[3],stockNote.value]);await save();closeModal();renderInventory();toast('Stok tersimpan')}
-function moveStock(){const opts=db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | ${p[3]}</option>`).join('');showModal('Mutasi Gudang',`<div class="fg full"><label>Produk</label><select id="moveProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="moveQty" type="number" class="ctrl" value="1"></div><div class="fg"><label>Lokasi Tujuan</label><input id="moveTo" class="ctrl" placeholder="Contoh: Cabang Bekasi"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveMove()">Mutasi</button>`)}async function saveMove(){const i=Number(moveProduct.value),q=Number(moveQty.value)||0,p=db.inventory[i],cur=Number(p[2])||0;if(q>cur)return alert('Qty melebihi stok.');const old=p[3];p[2]=cur-q;const newSku=p[0]+'-M'+String(db.inventory.length+1).padStart(3,'0');db.inventory.push([newSku,p[1],q,moveTo.value,p[4],p[5]]);db.stockMoves.unshift([today(),'Mutasi',p[0],p[1],q,old+' → '+moveTo.value,'Pindah gudang']);await save();closeModal();renderInventory();toast('Mutasi berhasil')}
-function renderPOS(){headActions.innerHTML=`<button class="btn green" onclick="openPOS()">🏪 Transaksi POS</button>`;const rows=db.pos.map((r,i)=>`<tr class="row" onclick="detail('pos',${i})">${r.slice(0,7).map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===6?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="printPOS(${i})">🧾</button><button class="act" onclick="del('pos',${i})">🗑️</button></td></tr>`).join('')||'<tr><td colspan="8" class="empty">Belum ada transaksi POS.</td></tr>';moduleContent.innerHTML=tableHTML(['No POS','Kasir','Cabang','Tanggal','Total','Metode','Status'],rows,`<button class="btn green" onclick="openPOS()">Transaksi POS</button>`)}function openPOS(){cart=[];showModal('POS Keranjang Multi Item',`<div class="fg"><label>No POS</label><input id="posNo" class="ctrl" value="${nextNo('POS',db.pos.length)}"></div><div class="fg"><label>Kasir</label><input id="posCashier" class="ctrl" value="${member.name||user.displayName||'Kasir'}"></div><div class="fg"><label>Cabang</label><input id="posBranch" class="ctrl" value="Toko Pusat"></div><div class="fg"><label>Metode Bayar</label><select id="posPay" class="ctrl"><option>Tunai</option><option>QRIS</option><option>Transfer</option><option>Debit</option></select></div><div class="fg full"><label>Produk</label><select id="itemProduct" class="ctrl">${db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | ${p[3]} | Stok ${p[2]} | ${p[4]}</option>`).join('')}</select></div><div class="fg"><label>Qty</label><input id="itemQty" type="number" min="1" class="ctrl" value="1"></div><div class="full"><button class="btn blue" onclick="addCart('pos')">Tambah Item</button></div><div class="full box"><div id="cartBox" class="cart">Keranjang masih kosong.</div></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="savePOS()">Bayar & Print Struk</button>`,'wide')}async function savePOS(){if(!cart.length)return alert('Tambahkan item.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'POS '+posNo.value])}const total=cart.reduce((s,x)=>s+x.total,0);const row=[posNo.value,posCashier.value,posBranch.value,today(),rp(total),posPay.value,'Lunas',JSON.stringify(cart)];db.pos.unshift(row);db.accounting.unshift([row[0],'POS - '+row[1],today(),rp(total),'Lunas','Pemasukan']);ensureAccountingPro();db.journal.unshift([today(),row[0],'Kas','Pendapatan Penjualan','POS '+row[1],total,'Auto dari POS']);await save();closeModal();setModule('pos');printPOS(0);toast('POS tersimpan dan stok berkurang')}
+function stockInOut(type){if(blockTrial('Stok Masuk/Keluar'))return;const opts=db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | Stok ${p[2]} | ${p[3]}</option>`).join('');showModal('Stok '+type,`<div class="fg full"><label>Produk</label><select id="stockProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="stockQty" type="number" class="ctrl" value="1"></div><div class="fg"><label>Catatan</label><input id="stockNote" class="ctrl" value="${type==='Masuk'?'Pembelian / Koreksi':'Pemakaian / Koreksi'}"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveStock('${type}')">Simpan</button>`)}async function saveStock(type){const i=Number(stockProduct.value),q=Number(stockQty.value)||0,p=db.inventory[i],cur=Number(p[2])||0;if(type==='Keluar'&&q>cur)return alert('Qty melebihi stok.');p[2]=type==='Masuk'?cur+q:cur-q;db.stockMoves.unshift([today(),type,p[0],p[1],q,p[3],stockNote.value]);await save();closeModal();renderInventory();toast('Stok tersimpan')}
+function moveStock(){if(blockTrial('Mutasi Gudang'))return;const opts=db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | ${p[3]}</option>`).join('');showModal('Mutasi Gudang',`<div class="fg full"><label>Produk</label><select id="moveProduct" class="ctrl">${opts}</select></div><div class="fg"><label>Qty</label><input id="moveQty" type="number" class="ctrl" value="1"></div><div class="fg"><label>Lokasi Tujuan</label><input id="moveTo" class="ctrl" placeholder="Contoh: Cabang Bekasi"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveMove()">Mutasi</button>`)}async function saveMove(){const i=Number(moveProduct.value),q=Number(moveQty.value)||0,p=db.inventory[i],cur=Number(p[2])||0;if(q>cur)return alert('Qty melebihi stok.');const old=p[3];p[2]=cur-q;const newSku=p[0]+'-M'+String(db.inventory.length+1).padStart(3,'0');db.inventory.push([newSku,p[1],q,moveTo.value,p[4],p[5]]);db.stockMoves.unshift([today(),'Mutasi',p[0],p[1],q,old+' → '+moveTo.value,'Pindah gudang']);await save();closeModal();renderInventory();toast('Mutasi berhasil')}
+function renderPOS(){headActions.innerHTML=`<button class="btn green" onclick="openPOS()">🏪 Transaksi POS</button>`;const rows=db.pos.map((r,i)=>`<tr class="row" onclick="detail('pos',${i})">${r.slice(0,7).map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===6?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="printPOS(${i})">🧾</button><button class="act" onclick="del('pos',${i})">🗑️</button></td></tr>`).join('')||'<tr><td colspan="8" class="empty">Belum ada transaksi POS.</td></tr>';moduleContent.innerHTML=tableHTML(['No POS','Kasir','Cabang','Tanggal','Total','Metode','Status'],rows,`<button class="btn green" onclick="openPOS()">Transaksi POS</button>`)}function openPOS(){if(blockTrial('POS'))return;cart=[];showModal('POS Keranjang Multi Item',`<div class="fg"><label>No POS</label><input id="posNo" class="ctrl" value="${nextNo('POS',db.pos.length)}"></div><div class="fg"><label>Kasir</label><input id="posCashier" class="ctrl" value="${member.name||user.displayName||'Kasir'}"></div><div class="fg"><label>Cabang</label><input id="posBranch" class="ctrl" value="Toko Pusat"></div><div class="fg"><label>Metode Bayar</label><select id="posPay" class="ctrl"><option>Tunai</option><option>QRIS</option><option>Transfer</option><option>Debit</option></select></div><div class="fg full"><label>Produk</label><select id="itemProduct" class="ctrl">${db.inventory.map((p,i)=>`<option value="${i}">${p[0]} - ${p[1]} | ${p[3]} | Stok ${p[2]} | ${p[4]}</option>`).join('')}</select></div><div class="fg"><label>Qty</label><input id="itemQty" type="number" min="1" class="ctrl" value="1"></div><div class="full"><button class="btn blue" onclick="addCart('pos')">Tambah Item</button></div><div class="full box"><div id="cartBox" class="cart">Keranjang masih kosong.</div></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="savePOS()">Bayar & Print Struk</button>`,'wide')}async function savePOS(){if(blockTrial('Simpan POS'))return;if(!cart.length)return alert('Tambahkan item.');for(const x of cart){db.inventory[x.idx][2]=Number(db.inventory[x.idx][2])-x.qty;db.stockMoves.unshift([today(),'Keluar',x.sku,x.name,x.qty,db.inventory[x.idx][3],'POS '+posNo.value])}const total=cart.reduce((s,x)=>s+x.total,0);const row=[posNo.value,posCashier.value,posBranch.value,today(),rp(total),posPay.value,'Lunas',JSON.stringify(cart)];db.pos.unshift(row);db.accounting.unshift([row[0],'POS - '+row[1],today(),rp(total),'Lunas','Pemasukan']);ensureAccountingPro();db.journal.unshift([today(),row[0],'Kas','Pendapatan Penjualan','POS '+row[1],total,'Auto dari POS']);ensureAccountingPro();db.journal.unshift([today(),row[0],'Kas','Pendapatan Penjualan','POS '+row[1],total,'Auto dari POS']);await save();closeModal();setModule('pos');printPOS(0);toast('POS tersimpan dan stok berkurang')}
+
 
 const ACCOUNTS_DEFAULT=[
-  ['1000','Kas','Aset','Debit'],
-  ['1100','Bank','Aset','Debit'],
-  ['1200','Piutang Usaha','Aset','Debit'],
-  ['1300','Persediaan','Aset','Debit'],
-  ['2000','Hutang Usaha','Liabilitas','Kredit'],
+  ['1000','Kas','Aset Lancar','Debit'],
+  ['1100','Bank','Aset Lancar','Debit'],
+  ['1200','Piutang Usaha','Aset Lancar','Debit'],
+  ['1300','Persediaan','Aset Lancar','Debit'],
+  ['1400','Uang Muka Pembelian','Aset Lancar','Debit'],
+  ['1500','Aset Tetap','Aset Tetap','Debit'],
+  ['1600','Akumulasi Penyusutan','Aset Tetap','Kredit'],
+  ['2000','Hutang Usaha','Liabilitas Lancar','Kredit'],
+  ['2100','Hutang Pajak','Liabilitas Lancar','Kredit'],
+  ['2200','Uang Muka Penjualan','Liabilitas Lancar','Kredit'],
   ['3000','Modal Pemilik','Ekuitas','Kredit'],
+  ['3100','Prive / Dividen','Ekuitas','Debit'],
+  ['3200','Laba Ditahan','Ekuitas','Kredit'],
   ['4000','Pendapatan Penjualan','Pendapatan','Kredit'],
   ['4100','Pendapatan Jasa','Pendapatan','Kredit'],
-  ['5000','Harga Pokok Penjualan','Beban','Debit'],
+  ['4200','Retur Penjualan','Pendapatan','Debit'],
+  ['5000','Harga Pokok Penjualan','Beban Pokok','Debit'],
   ['6000','Beban Operasional','Beban','Debit'],
   ['6100','Beban Transport','Beban','Debit'],
-  ['6200','Beban Gaji','Beban','Debit']
+  ['6200','Beban Gaji','Beban','Debit'],
+  ['6300','Beban Sewa','Beban','Debit'],
+  ['6400','Beban Listrik & Internet','Beban','Debit'],
+  ['6500','Beban Penyusutan','Beban','Debit'],
+  ['7000','Pendapatan Lain-lain','Pendapatan Lain','Kredit'],
+  ['8000','Beban Lain-lain','Beban Lain','Debit']
 ];
+let accFilter={from:'',to:'',basis:'accrual'};
+function accInitPeriod(){
+  const d=new Date(), first=new Date(d.getFullYear(),d.getMonth(),1), last=new Date(d.getFullYear(),d.getMonth()+1,0);
+  accFilter.from=accFilter.from||first.toISOString().slice(0,10);
+  accFilter.to=accFilter.to||last.toISOString().slice(0,10);
+}
 function ensureAccountingPro(){
   db.accounts=db.accounts&&db.accounts.length?db.accounts:clone(ACCOUNTS_DEFAULT);
   db.journal=db.journal||[];
   db.accounting=db.accounting||[];
   db.expenses=db.expenses||[];
-  // migrasi pemasukan lama ke jurnal kalau jurnal kosong
+  db.payables=db.payables||[];
+  db.receivables=db.receivables||[];
+  accInitPeriod();
   if(!db.journal.length){
     (db.accounting||[]).forEach(r=>{
-      const amount=num(r[3]||r[4]);
-      if(amount>0){
-        db.journal.push([r[2]||today(),'AUTO-'+(r[0]||Date.now()),'Kas','Pendapatan Penjualan',r[1]||'Pemasukan',amount,'Auto dari transaksi']);
-      }
+      const amount=accNum(r[3]||r[4]); if(amount>0) db.journal.push([r[2]||today(),'AUTO-'+(r[0]||Date.now()),'Kas','Pendapatan Penjualan',r[1]||'Pemasukan',amount,'Auto dari transaksi']);
     });
     (db.expenses||[]).forEach(r=>{
-      const amount=num(r[4]||r[3]);
-      if(amount>0){
-        db.journal.push([r[3]||today(),'AUTO-'+(r[0]||Date.now()),'Beban Operasional','Kas',r[1]||'Pengeluaran',amount,'Auto dari pengeluaran']);
-      }
+      const amount=accNum(r[4]||r[3]); if(amount>0) db.journal.push([r[3]||today(),'AUTO-'+(r[0]||Date.now()),'Beban Operasional','Kas',r[1]||'Pengeluaran',amount,'Auto dari pengeluaran']);
     });
   }
 }
 function accNum(v){return Number(String(v||'').replace(/[^0-9-]/g,''))||0}
-function accountType(name){
+function inPeriod(date){ensureAccountingPro(); const d=String(date||today()).slice(0,10); return (!accFilter.from||d>=accFilter.from)&&(!accFilter.to||d<=accFilter.to)}
+function accByName(name){ensureAccountingPro();return db.accounts.find(x=>x[1]===name||x[0]===name)||['9999',name,'Aset Lancar','Debit']}
+function accountType(name){return accByName(name)[2]}
+function normalSide(name){return accByName(name)[3]}
+function journalRows(all=false){
   ensureAccountingPro();
-  const a=db.accounts.find(x=>x[1]===name||x[0]===name);
-  return a?a[2]:'Aset';
+  return (db.journal||[]).map((j,i)=>({i,date:j[0],ref:j[1],debit:j[2],credit:j[3],desc:j[4],amount:accNum(j[5]),note:j[6]||''}))
+    .filter(j=>all||inPeriod(j.date))
+    .sort((a,b)=>String(a.date).localeCompare(String(b.date)));
 }
-function normalSide(name){
-  ensureAccountingPro();
-  const a=db.accounts.find(x=>x[1]===name||x[0]===name);
-  return a?a[3]:'Debit';
-}
-function journalRows(){
-  ensureAccountingPro();
-  return (db.journal||[]).map((j,i)=>({i,date:j[0],ref:j[1],debit:j[2],credit:j[3],desc:j[4],amount:accNum(j[5]),note:j[6]||''}));
-}
-function ledgerFor(accName){
-  const rows=[];
-  let bal=0;
-  journalRows().sort((a,b)=>String(a.date).localeCompare(String(b.date))).forEach(j=>{
+function ledgerFor(accName,all=false){
+  const rows=[]; let bal=0;
+  journalRows(all).forEach(j=>{
     let debit=0,credit=0;
-    if(j.debit===accName){debit=j.amount}
-    if(j.credit===accName){credit=j.amount}
+    if(j.debit===accName)debit=j.amount;
+    if(j.credit===accName)credit=j.amount;
     if(debit||credit){
       const side=normalSide(accName);
       bal += side==='Debit' ? debit-credit : credit-debit;
@@ -394,47 +448,70 @@ function ledgerFor(accName){
   });
   return rows;
 }
-function accountBalance(accName){
-  const rows=ledgerFor(accName);
-  return rows.length?rows[rows.length-1].balance:0;
-}
-function trialBalance(){
+function accountBalance(accName,all=false){const rows=ledgerFor(accName,all);return rows.length?rows[rows.length-1].balance:0}
+function trialBalance(all=false){
   ensureAccountingPro();
   return db.accounts.map(a=>{
-    const bal=accountBalance(a[1]);
-    const side=a[3];
-    return {code:a[0],name:a[1],type:a[2],debit:side==='Debit'?Math.max(bal,0):Math.max(-bal,0),credit:side==='Kredit'?Math.max(bal,0):Math.max(-bal,0),balance:bal};
+    const bal=accountBalance(a[1],all), side=a[3];
+    return {code:a[0],name:a[1],type:a[2],side,debit:side==='Debit'?Math.max(bal,0):Math.max(-bal,0),credit:side==='Kredit'?Math.max(bal,0):Math.max(-bal,0),balance:bal};
   });
 }
 function profitLoss(){
-  const tb=trialBalance();
-  const revenue=tb.filter(x=>x.type==='Pendapatan').reduce((s,x)=>s+x.credit-x.debit,0);
-  const expense=tb.filter(x=>x.type==='Beban').reduce((s,x)=>s+x.debit-x.credit,0);
-  return {revenue,expense,profit:revenue-expense};
+  const tb=trialBalance(false);
+  const revenue=tb.filter(x=>['Pendapatan','Pendapatan Lain'].includes(x.type)).reduce((s,x)=>s+x.credit-x.debit,0);
+  const cogs=tb.filter(x=>x.type==='Beban Pokok').reduce((s,x)=>s+x.debit-x.credit,0);
+  const opex=tb.filter(x=>x.type==='Beban').reduce((s,x)=>s+x.debit-x.credit,0);
+  const other=tb.filter(x=>x.type==='Beban Lain').reduce((s,x)=>s+x.debit-x.credit,0);
+  const gross=revenue-cogs, profit=gross-opex-other;
+  return {revenue,cogs,gross,opex,other,profit};
 }
 function balanceSheet(){
-  const tb=trialBalance();
-  const assets=tb.filter(x=>x.type==='Aset').reduce((s,x)=>s+x.debit-x.credit,0);
-  const liabilities=tb.filter(x=>x.type==='Liabilitas').reduce((s,x)=>s+x.credit-x.debit,0);
+  const tb=trialBalance(true);
+  const assets=tb.filter(x=>String(x.type).startsWith('Aset')).reduce((s,x)=>s+x.debit-x.credit,0);
+  const currentAssets=tb.filter(x=>x.type==='Aset Lancar').reduce((s,x)=>s+x.debit-x.credit,0);
+  const fixedAssets=tb.filter(x=>x.type==='Aset Tetap').reduce((s,x)=>s+x.debit-x.credit,0);
+  const liabilities=tb.filter(x=>String(x.type).startsWith('Liabilitas')).reduce((s,x)=>s+x.credit-x.debit,0);
   const equityBase=tb.filter(x=>x.type==='Ekuitas').reduce((s,x)=>s+x.credit-x.debit,0);
-  const pl=profitLoss();
-  const equity=equityBase+pl.profit;
-  return {assets,liabilities,equity,totalLE:liabilities+equity,diff:assets-(liabilities+equity)};
+  const pl=profitLoss(); const equity=equityBase+pl.profit;
+  return {assets,currentAssets,fixedAssets,liabilities,equity,totalLE:liabilities+equity,diff:assets-(liabilities+equity)};
+}
+function cashFlow(){
+  const rows=journalRows(false); let inCash=0,outCash=0,opIn=0,opOut=0;
+  rows.forEach(j=>{
+    if(['Kas','Bank'].includes(j.debit)){inCash+=j.amount;opIn+=j.amount}
+    if(['Kas','Bank'].includes(j.credit)){outCash+=j.amount;opOut+=j.amount}
+  });
+  return {inCash,outCash,net:inCash-outCash,opIn,opOut};
+}
+function aging(type='receivable'){
+  const source=type==='receivable'?(db.sales||[]):(db.expenses||[]);
+  const now=new Date(today());
+  const buckets={'0-30':0,'31-60':0,'61-90':0,'>90':0};
+  source.forEach(r=>{
+    const status=String(r[5]||r[4]||'');
+    if(status==='Lunas')return;
+    const amount=accNum(type==='receivable'?(r[4]||r[3]):(r[4]||r[3]));
+    const date=new Date(String(type==='receivable'?(r[3]||r[2]):(r[3]||today())).slice(0,10));
+    const days=Math.floor((now-date)/(1000*60*60*24));
+    if(days<=30)buckets['0-30']+=amount; else if(days<=60)buckets['31-60']+=amount; else if(days<=90)buckets['61-90']+=amount; else buckets['>90']+=amount;
+  });
+  return buckets;
 }
 function monthKey(d){return String(d||today()).slice(0,7)}
 function chartDataMonthly(){
-  const months=[];
-  const now=new Date();
+  const months=[], now=new Date();
   for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);months.push(d.toISOString().slice(0,7))}
   return months.map(m=>{
-    let income=0,expense=0;
-    journalRows().forEach(j=>{
+    let income=0,expense=0,cash=0;
+    journalRows(true).forEach(j=>{
       if(monthKey(j.date)===m){
-        if(accountType(j.credit)==='Pendapatan')income+=j.amount;
-        if(accountType(j.debit)==='Beban')expense+=j.amount;
+        if(['Pendapatan','Pendapatan Lain'].includes(accountType(j.credit)))income+=j.amount;
+        if(['Beban','Beban Pokok','Beban Lain'].includes(accountType(j.debit)))expense+=j.amount;
+        if(['Kas','Bank'].includes(j.debit))cash+=j.amount;
+        if(['Kas','Bank'].includes(j.credit))cash-=j.amount;
       }
     });
-    return {m,income,expense,profit:income-expense};
+    return {m,income,expense,profit:income-expense,cash};
   });
 }
 function renderBarChart(data,key,label){
@@ -443,88 +520,256 @@ function renderBarChart(data,key,label){
   const labs=data.map(x=>`<div>${x.m.slice(5)}</div>`).join('');
   return `<div><b>${label}</b><div class="chart-box">${bars}</div><div class="chart-labels">${labs}</div></div>`;
 }
+function accPeriodHTML(){return `<div class="acc-period"><div class="fg"><label>Dari Tanggal</label><input id="accFrom" type="date" class="ctrl" value="${accFilter.from}"></div><div class="fg"><label>Sampai Tanggal</label><input id="accTo" type="date" class="ctrl" value="${accFilter.to}"></div><div class="fg"><label>Basis</label><select id="accBasis" class="ctrl"><option ${accFilter.basis==='accrual'?'selected':''}>accrual</option><option ${accFilter.basis==='cash'?'selected':''}>cash</option></select></div><button class="btn primary" onclick="applyAccPeriod()">Terapkan</button><button class="btn soft" onclick="exportAccountingReport()">Export Laporan</button></div>`}
+function applyAccPeriod(){accFilter.from=accFrom.value;accFilter.to=accTo.value;accFilter.basis=accBasis.value;renderAccounting()}
 function setAccTab(tab){
   document.querySelectorAll('.acc-tab').forEach(b=>b.classList.remove('active'));
   const btn=document.getElementById('tab-'+tab); if(btn)btn.classList.add('active');
   renderAccountingTab(tab);
 }
 async function saveJournalEntry(){
+  if(blockTrial&&blockTrial('Simpan Jurnal'))return;
   ensureAccountingPro();
-  const date=jrDate.value||today();
-  const ref=jrRef.value.trim()||('JR-'+Date.now());
-  const debit=jrDebit.value;
-  const credit=jrCredit.value;
-  const desc=jrDesc.value.trim()||'-';
-  const amount=accNum(jrAmount.value);
-  const note=jrNote.value.trim();
+  const date=jrDate.value||today(), ref=jrRef.value.trim()||('JR-'+Date.now()), debit=jrDebit.value, credit=jrCredit.value, desc=jrDesc.value.trim()||'-', amount=accNum(jrAmount.value), note=jrNote.value.trim();
   if(!debit||!credit)return alert('Pilih akun debit dan kredit.');
   if(debit===credit)return alert('Akun debit dan kredit tidak boleh sama.');
   if(amount<=0)return alert('Nominal harus lebih dari 0.');
   db.journal.unshift([date,ref,debit,credit,desc,amount,note]);
-  await save();
-  closeModal();
-  renderAccounting();
-  toast('Jurnal tersimpan');
+  await save();closeModal();renderAccounting();toast('Jurnal tersimpan dan seimbang');
 }
 function openJournalModal(){
+  if(blockTrial&&blockTrial('Jurnal Umum'))return;
   ensureAccountingPro();
   const opts=db.accounts.map(a=>`<option value="${a[1]}">${a[0]} - ${a[1]} (${a[2]})</option>`).join('');
   showModal('Tambah Jurnal Umum',`<div class="fg"><label>Tanggal</label><input id="jrDate" type="date" class="ctrl" value="${today()}"></div><div class="fg"><label>No Referensi</label><input id="jrRef" class="ctrl" value="JR/${Date.now()}"></div><div class="fg"><label>Akun Debit</label><select id="jrDebit" class="ctrl">${opts}</select></div><div class="fg"><label>Akun Kredit</label><select id="jrCredit" class="ctrl">${opts}</select></div><div class="fg full"><label>Keterangan</label><input id="jrDesc" class="ctrl" placeholder="Contoh: Pendapatan penjualan"></div><div class="fg"><label>Nominal</label><input id="jrAmount" class="ctrl" placeholder="Rp 0"></div><div class="fg"><label>Catatan</label><input id="jrNote" class="ctrl"></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveJournalEntry()">Simpan Jurnal</button>`,'wide')
 }
 function openAccountModal(){
-  showModal('Tambah Akun COA',`<div class="fg"><label>Kode Akun</label><input id="accCode" class="ctrl" placeholder="Contoh: 1010"></div><div class="fg"><label>Nama Akun</label><input id="accName" class="ctrl" placeholder="Contoh: Kas Kecil"></div><div class="fg"><label>Tipe</label><select id="accType" class="ctrl"><option>Aset</option><option>Liabilitas</option><option>Ekuitas</option><option>Pendapatan</option><option>Beban</option></select></div><div class="fg"><label>Normal Balance</label><select id="accSide" class="ctrl"><option>Debit</option><option>Kredit</option></select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveAccount()">Simpan Akun</button>`)
+  if(blockTrial&&blockTrial('Tambah Akun'))return;
+  showModal('Tambah Akun COA',`<div class="fg"><label>Kode Akun</label><input id="accCode" class="ctrl" placeholder="Contoh: 1010"></div><div class="fg"><label>Nama Akun</label><input id="accName" class="ctrl" placeholder="Contoh: Kas Kecil"></div><div class="fg"><label>Tipe</label><select id="accType" class="ctrl"><option>Aset Lancar</option><option>Aset Tetap</option><option>Liabilitas Lancar</option><option>Ekuitas</option><option>Pendapatan</option><option>Pendapatan Lain</option><option>Beban Pokok</option><option>Beban</option><option>Beban Lain</option></select></div><div class="fg"><label>Normal Balance</label><select id="accSide" class="ctrl"><option>Debit</option><option>Kredit</option></select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveAccount()">Simpan Akun</button>`)
 }
 async function saveAccount(){
-  ensureAccountingPro();
-  if(!accCode.value||!accName.value)return alert('Kode dan nama akun wajib diisi.');
+  if(blockTrial&&blockTrial('Simpan Akun'))return;
+  ensureAccountingPro(); if(!accCode.value||!accName.value)return alert('Kode dan nama akun wajib diisi.');
   db.accounts.push([accCode.value.trim(),accName.value.trim(),accType.value,accSide.value]);
   await save();closeModal();renderAccounting();toast('Akun ditambahkan');
 }
 function renderAccountingTab(tab){
   ensureAccountingPro();
-  const pl=profitLoss(), bs=balanceSheet(), monthly=chartDataMonthly();
+  const pl=profitLoss(), bs=balanceSheet(), cf=cashFlow(), monthly=chartDataMonthly(), tb=trialBalance(false);
   if(tab==='dashboard'){
-    accBody.innerHTML=`${kpi([['💰','Pendapatan',rp(pl.revenue)],['💸','Beban',rp(pl.expense)],['📈','Laba/Rugi',rp(pl.profit)],['⚖️','Selisih Neraca',rp(bs.diff)]])}<div class="grid2" style="margin-top:18px"><div class="card"><h3>Grafik Laba 6 Bulan</h3>${renderBarChart(monthly,'profit','Laba/Rugi Bulanan')}</div><div class="card"><h3>Komposisi Keuangan</h3><div class="donut"></div><p>Pendapatan, beban, aset, dan ekuitas divisualkan untuk membaca kondisi bisnis lebih cepat.</p></div></div>`;
+    accBody.innerHTML=`<div class="acc-summary-grid"><div class="acc-summary"><small>Pendapatan</small><b>${rp(pl.revenue)}</b></div><div class="acc-summary"><small>Beban Total</small><b>${rp(pl.cogs+pl.opex+pl.other)}</b></div><div class="acc-summary"><small>Laba/Rugi Bersih</small><b class="${pl.profit>=0?'balance-positive':'balance-negative'}">${rp(pl.profit)}</b></div><div class="acc-summary"><small>Arus Kas Bersih</small><b class="${cf.net>=0?'balance-positive':'balance-negative'}">${rp(cf.net)}</b></div></div><div class="grid2"><div class="card"><h3>Grafik Laba 6 Bulan</h3>${renderBarChart(monthly,'profit','Laba/Rugi Bulanan')}</div><div class="card"><h3>Grafik Arus Kas</h3>${renderBarChart(monthly,'cash','Cashflow Bulanan')}</div></div><div class="grid2" style="margin-top:18px"><div class="card"><h3>Aging Piutang</h3>${renderAging('receivable')}</div><div class="card"><h3>Aging Hutang / Beban</h3>${renderAging('payable')}</div></div>`;
   }
   if(tab==='coa'){
-    const rows=db.accounts.map((a,i)=>`<tr><td><strong>${a[0]}</strong></td><td>${a[1]}</td><td>${a[2]}</td><td>${a[3]}</td><td>${rp(accountBalance(a[1]))}</td><td><button class="act" onclick="db.accounts.splice(${i},1);save().then(()=>renderAccounting())">🗑️</button></td></tr>`).join('');
+    const rows=db.accounts.map((a,i)=>`<tr><td><strong>${a[0]}</strong></td><td>${a[1]}</td><td>${a[2]}</td><td>${a[3]}</td><td>${rp(accountBalance(a[1],true))}</td><td><button class="act" onclick="if(confirm('Hapus akun?')){db.accounts.splice(${i},1);save().then(()=>renderAccounting())}">🗑️</button></td></tr>`).join('');
     accBody.innerHTML=tableHTML(['Kode','Nama Akun','Tipe','Normal','Saldo'],rows,`<button class="btn green" onclick="openAccountModal()">＋ Akun</button>`);
   }
   if(tab==='journal'){
-    const rows=journalRows().map(j=>`<tr><td><strong>${j.date}</strong></td><td>${j.ref}</td><td>${j.debit}</td><td>${j.credit}</td><td>${j.desc}</td><td>${rp(j.amount)}</td><td><button class="act" onclick="db.journal.splice(${j.i},1);save().then(()=>renderAccounting())">🗑️</button></td></tr>`).join('')||'<tr><td colspan="7" class="empty">Belum ada jurnal.</td></tr>';
-    accBody.innerHTML=tableHTML(['Tanggal','Ref','Debit','Kredit','Keterangan','Nominal'],rows,`<button class="btn green" onclick="openJournalModal()">＋ Jurnal</button>`);
+    const totalDebit=journalRows(false).reduce((s,j)=>s+j.amount,0), totalCredit=totalDebit;
+    const rows=journalRows(false).map(j=>`<tr><td><strong>${j.date}</strong></td><td>${j.ref}</td><td>${j.debit}</td><td>${j.credit}</td><td>${j.desc}</td><td>${rp(j.amount)}</td><td><span class="journal-balanced">Seimbang</span></td><td><button class="act" onclick="db.journal.splice(${j.i},1);save().then(()=>renderAccounting())">🗑️</button></td></tr>`).join('')||'<tr><td colspan="8" class="empty">Belum ada jurnal.</td></tr>';
+    accBody.innerHTML=`<div class="card"><h3>Kontrol Jurnal</h3><p>Total Debit: <b>${rp(totalDebit)}</b> • Total Kredit: <b>${rp(totalCredit)}</b> • Status: <span class="journal-balanced">Seimbang</span></p></div>${tableHTML(['Tanggal','Ref','Debit','Kredit','Keterangan','Nominal','Status'],rows,`<button class="btn green" onclick="openJournalModal()">＋ Jurnal</button>`)}`;
   }
   if(tab==='ledger'){
-    const account=db.accounts[0]?.[1]||'Kas';
     const opts=db.accounts.map(a=>`<option>${a[1]}</option>`).join('');
-    accBody.innerHTML=`<div class="card"><h3>Buku Besar</h3><p>Pilih akun untuk melihat mutasi debit, kredit, dan saldo berjalan.</p><div class="fg"><label>Pilih Akun</label><select id="ledgerAccount" class="ctrl" onchange="renderLedgerSelected()">${opts}</select></div><div id="ledgerBox"></div></div>`;
+    accBody.innerHTML=`<div class="card"><div class="acc-report-title"><h3>Buku Besar</h3><small>Mutasi per akun dalam periode</small></div><div class="fg"><label>Pilih Akun</label><select id="ledgerAccount" class="ctrl" onchange="renderLedgerSelected()">${opts}</select></div><div id="ledgerBox"></div></div>`;
     setTimeout(renderLedgerSelected,50);
   }
   if(tab==='trial'){
-    const rows=trialBalance().map(x=>`<tr><td><strong>${x.code}</strong></td><td>${x.name}</td><td>${x.type}</td><td>${rp(x.debit)}</td><td>${rp(x.credit)}</td></tr>`).join('');
-    const td=trialBalance().reduce((s,x)=>s+x.debit,0), tc=trialBalance().reduce((s,x)=>s+x.credit,0);
+    const rows=tb.map(x=>`<tr><td><strong>${x.code}</strong></td><td>${x.name}</td><td>${x.type}</td><td>${rp(x.debit)}</td><td>${rp(x.credit)}</td></tr>`).join('');
+    const td=tb.reduce((s,x)=>s+x.debit,0), tc=tb.reduce((s,x)=>s+x.credit,0);
     accBody.innerHTML=`${tableHTML(['Kode','Akun','Tipe','Debit','Kredit'],rows,'')}<div class="card" style="margin-top:18px"><h3>Total Neraca Saldo</h3><p>Total Debit: <b>${rp(td)}</b> | Total Kredit: <b>${rp(tc)}</b> | Selisih: <b class="${td===tc?'balance-positive':'balance-negative'}">${rp(td-tc)}</b></p></div>`;
   }
   if(tab==='profit'){
-    accBody.innerHTML=`<div class="grid3"><div class="card"><h3>Pendapatan</h3><h2>${rp(pl.revenue)}</h2></div><div class="card"><h3>Beban</h3><h2>${rp(pl.expense)}</h2></div><div class="card"><h3>Laba/Rugi Bersih</h3><h2 class="${pl.profit>=0?'balance-positive':'balance-negative'}">${rp(pl.profit)}</h2></div></div><div class="card" style="margin-top:18px"><h3>Grafik Pendapatan vs Beban</h3>${renderBarChart(monthly,'income','Pendapatan 6 Bulan')}${renderBarChart(monthly,'expense','Beban 6 Bulan')}</div>`;
+    accBody.innerHTML=`<div class="card report-table"><div class="acc-report-title"><h3>Laporan Laba/Rugi</h3><small>${accFilter.from} s/d ${accFilter.to}</small></div><table><tbody><tr class="section-row"><td>Pendapatan</td><td>${rp(pl.revenue)}</td></tr><tr><td>Harga Pokok Penjualan</td><td>${rp(pl.cogs)}</td></tr><tr class="total-row"><td>Laba Kotor</td><td>${rp(pl.gross)}</td></tr><tr><td>Beban Operasional</td><td>${rp(pl.opex)}</td></tr><tr><td>Beban Lain-lain</td><td>${rp(pl.other)}</td></tr><tr class="total-row"><td>Laba/Rugi Bersih</td><td class="${pl.profit>=0?'balance-positive':'balance-negative'}">${rp(pl.profit)}</td></tr></tbody></table></div>`;
   }
   if(tab==='balance'){
-    accBody.innerHTML=`<div class="grid3"><div class="card"><h3>Aset</h3><h2>${rp(bs.assets)}</h2></div><div class="card"><h3>Liabilitas</h3><h2>${rp(bs.liabilities)}</h2></div><div class="card"><h3>Ekuitas + Laba</h3><h2>${rp(bs.equity)}</h2></div></div><div class="card" style="margin-top:18px"><h3>Neraca</h3><p>Aset: <b>${rp(bs.assets)}</b></p><p>Liabilitas + Ekuitas: <b>${rp(bs.totalLE)}</b></p><p>Selisih: <b class="${bs.diff===0?'balance-positive':'balance-negative'}">${rp(bs.diff)}</b></p></div>`;
+    accBody.innerHTML=`<div class="card report-table"><div class="acc-report-title"><h3>Neraca</h3><small>Per ${accFilter.to}</small></div><table><tbody><tr class="section-row"><td>Aset Lancar</td><td>${rp(bs.currentAssets)}</td></tr><tr><td>Aset Tetap</td><td>${rp(bs.fixedAssets)}</td></tr><tr class="total-row"><td>Total Aset</td><td>${rp(bs.assets)}</td></tr><tr class="section-row"><td>Liabilitas</td><td>${rp(bs.liabilities)}</td></tr><tr><td>Ekuitas + Laba Berjalan</td><td>${rp(bs.equity)}</td></tr><tr class="total-row"><td>Total Liabilitas + Ekuitas</td><td>${rp(bs.totalLE)}</td></tr><tr class="total-row"><td>Selisih Neraca</td><td class="${bs.diff===0?'balance-positive':'balance-negative'}">${rp(bs.diff)}</td></tr></tbody></table></div>`;
   }
+  if(tab==='cashflow'){
+    accBody.innerHTML=`<div class="grid3"><div class="card"><h3>Kas Masuk</h3><h2>${rp(cf.inCash)}</h2></div><div class="card"><h3>Kas Keluar</h3><h2>${rp(cf.outCash)}</h2></div><div class="card"><h3>Arus Kas Bersih</h3><h2 class="${cf.net>=0?'balance-positive':'balance-negative'}">${rp(cf.net)}</h2></div></div><div class="card" style="margin-top:18px"><h3>Grafik Arus Kas 6 Bulan</h3>${renderBarChart(monthly,'cash','Cashflow Bulanan')}</div>`;
+  }
+}
+function renderAging(type){
+  const a=aging(type);
+  return `<table><thead><tr><th>Umur</th><th>Nominal</th></tr></thead><tbody>${Object.entries(a).map(([k,v])=>`<tr><td>${k} hari</td><td>${rp(v)}</td></tr>`).join('')}</tbody></table>`;
 }
 function renderLedgerSelected(){
   const acc=ledgerAccount.value;
-  const rows=ledgerFor(acc).map(r=>`<tr><td>${r.date}</td><td>${r.ref}</td><td>${r.desc}</td><td>${rp(r.debitAmount)}</td><td>${rp(r.creditAmount)}</td><td>${rp(r.balance)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Belum ada mutasi akun ini.</td></tr>';
-  ledgerBox.innerHTML=`<div class="ledger-head"><b>${acc}</b> | Saldo: <b>${rp(accountBalance(acc))}</b></div><div class="wrap"><table><thead><tr><th>Tanggal</th><th>Ref</th><th>Keterangan</th><th>Debit</th><th>Kredit</th><th>Saldo</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  const rows=ledgerFor(acc,false).map(r=>`<tr><td>${r.date}</td><td>${r.ref}</td><td>${r.desc}</td><td>${rp(r.debitAmount)}</td><td>${rp(r.creditAmount)}</td><td>${rp(r.balance)}</td></tr>`).join('')||'<tr><td colspan="6" class="empty">Belum ada mutasi akun ini.</td></tr>';
+  ledgerBox.innerHTML=`<div class="ledger-head"><b>${acc}</b> | Saldo Periode: <b>${rp(accountBalance(acc,false))}</b></div><div class="wrap"><table><thead><tr><th>Tanggal</th><th>Ref</th><th>Keterangan</th><th>Debit</th><th>Kredit</th><th>Saldo</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function exportAccountingReport(){if(blockTrial('Export Laporan Accounting'))return;
+  ensureAccountingPro();
+  const pl=profitLoss(), bs=balanceSheet(), cf=cashFlow();
+  const lines=[
+    'LAPORAN ACCOUNTING KALIERP',
+    `Periode,${accFilter.from},${accFilter.to}`,
+    '',
+    'LABA RUGI',
+    `Pendapatan,${pl.revenue}`,
+    `HPP,${pl.cogs}`,
+    `Laba Kotor,${pl.gross}`,
+    `Beban Operasional,${pl.opex}`,
+    `Laba Bersih,${pl.profit}`,
+    '',
+    'NERACA',
+    `Aset,${bs.assets}`,
+    `Liabilitas,${bs.liabilities}`,
+    `Ekuitas,${bs.equity}`,
+    `Selisih,${bs.diff}`,
+    '',
+    'ARUS KAS',
+    `Kas Masuk,${cf.inCash}`,
+    `Kas Keluar,${cf.outCash}`,
+    `Net Cashflow,${cf.net}`
+  ];
+  download('laporan-accounting.csv',lines.join('\n'),'text/csv');
+}
+
+function ensureTax(){
+  db.taxSettings=db.taxSettings||{pkp:false,npwp:'',nitku:'',nama:'',alamat:'',ppnRate:11,pphRate:2,coretaxReady:false};
+  db.taxInvoices=db.taxInvoices||[];
+  db.taxInputs=db.taxInputs||[];
+}
+function taxPeriodDefault(){
+  const d=new Date(); return {year:d.getFullYear(),month:String(d.getMonth()+1).padStart(2,'0')};
+}
+let taxFilter=taxPeriodDefault();
+function taxMonth(date){return String(date||today()).slice(0,7)}
+function taxPeriod(){return `${taxFilter.year}-${taxFilter.month}`}
+function taxRate(){ensureTax();return Number(db.taxSettings.ppnRate||11)}
+function deriveTaxFromSales(){
+  ensureTax();
+  const existing=new Set((db.taxInvoices||[]).map(x=>x[0]));
+  (db.sales||[]).forEach(r=>{
+    const no=r[0]||('INV-'+Date.now()), customer=r[1]||'-', date=r[2]||today(), amount=num(r[3]||r[4]), status=r[4]||r[5]||'-';
+    if(!existing.has(no)&&amount>0){
+      const dpp=Math.round(amount/(1+taxRate()/100)), ppn=amount-dpp;
+      db.taxInvoices.push([no,date,customer,'',dpp,ppn,status,'Draft','Penjualan dari invoice']);
+    }
+  });
+}
+function deriveTaxFromExpenses(){
+  ensureTax();
+  const existing=new Set((db.taxInputs||[]).map(x=>x[0]));
+  (db.expenses||[]).forEach(r=>{
+    const no=r[0]||('EXP-'+Date.now()), vendor=r[1]||'-', date=r[3]||today(), amount=num(r[4]||r[3]), status=r[5]||'-';
+    if(!existing.has(no)&&amount>0){
+      const dpp=Math.round(amount/(1+taxRate()/100)), ppn=amount-dpp;
+      db.taxInputs.push([no,date,vendor,'',dpp,ppn,status,'Draft','Pajak masukan dari expense']);
+    }
+  });
+}
+function taxRowsOut(){ensureTax();deriveTaxFromSales();return (db.taxInvoices||[]).filter(x=>taxMonth(x[1])===taxPeriod())}
+function taxRowsIn(){ensureTax();deriveTaxFromExpenses();return (db.taxInputs||[]).filter(x=>taxMonth(x[1])===taxPeriod())}
+function taxSummary(){
+  const out=taxRowsOut(), inn=taxRowsIn();
+  const dppOut=out.reduce((s,x)=>s+num(x[4]),0), ppnOut=out.reduce((s,x)=>s+num(x[5]),0);
+  const dppIn=inn.reduce((s,x)=>s+num(x[4]),0), ppnIn=inn.reduce((s,x)=>s+num(x[5]),0);
+  return {out,inn,dppOut,ppnOut,dppIn,ppnIn,ppnPayable:ppnOut-ppnIn};
+}
+function setTaxTab(tab){
+  document.querySelectorAll('.tax-tab').forEach(b=>b.classList.remove('active'));
+  const btn=document.getElementById('tax-'+tab); if(btn)btn.classList.add('active');
+  renderTaxTab(tab);
+}
+function xmlEsc(v){return String(v??'').replace(/[<>&'"]/g,m=>({'<':'&lt;','>':'&gt;','&':'&amp;',"'":'&apos;','"':'&quot;'}[m]))}
+function buildCoretaxXML(type='out'){
+  ensureTax();
+  const rows=type==='out'?taxRowsOut():taxRowsIn();
+  const s=db.taxSettings;
+  const items=rows.map(r=>`  <TaxInvoice>
+    <DocumentNumber>${xmlEsc(r[0])}</DocumentNumber>
+    <TaxPeriod>${xmlEsc(taxPeriod())}</TaxPeriod>
+    <Date>${xmlEsc(r[1])}</Date>
+    <CounterpartyName>${xmlEsc(r[2])}</CounterpartyName>
+    <CounterpartyNPWP>${xmlEsc(r[3]||'')}</CounterpartyNPWP>
+    <DPP>${num(r[4])}</DPP>
+    <VAT>${num(r[5])}</VAT>
+    <Status>${xmlEsc(r[7]||'Draft')}</Status>
+    <Description>${xmlEsc(r[8]||'')}</Description>
+  </TaxInvoice>`).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<CoretaxDraft type="${type==='out'?'PajakKeluaran':'PajakMasukan'}">
+  <Taxpayer>
+    <Name>${xmlEsc(s.nama||db.company?.name||'')}</Name>
+    <NPWP>${xmlEsc(s.npwp||'')}</NPWP>
+    <NITKU>${xmlEsc(s.nitku||'')}</NITKU>
+    <Address>${xmlEsc(s.alamat||'')}</Address>
+  </Taxpayer>
+  <Period>${xmlEsc(taxPeriod())}</Period>
+${items}
+</CoretaxDraft>`;
+}
+function downloadTaxXML(type='out'){
+  if(blockTrial&&blockTrial('Export Coretax XML'))return;
+  const xml=buildCoretaxXML(type);
+  download(`coretax-${type}-${taxPeriod()}.xml`,xml,'application/xml');
+}
+function downloadTaxCSV(type='out'){
+  if(blockTrial&&blockTrial('Export Pajak CSV'))return;
+  const rows=type==='out'?taxRowsOut():taxRowsIn();
+  const head=['No Dokumen','Tanggal','Lawan Transaksi','NPWP','DPP','PPN','Status Bayar','Status Pajak','Keterangan'];
+  const lines=[head.join(',')].concat(rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')));
+  download(`pajak-${type}-${taxPeriod()}.csv`,lines.join('\n'),'text/csv');
+}
+function saveTaxSettings(){
+  if(blockTrial&&blockTrial('Simpan Setting Pajak'))return;
+  ensureTax();
+  db.taxSettings={pkp:taxPKP.checked,npwp:taxNPWP.value,nitku:taxNITKU.value,nama:taxName.value,alamat:taxAddress.value,ppnRate:Number(taxPPN.value||11),pphRate:Number(taxPPh.value||2),coretaxReady:true};
+  save().then(()=>{toast('Setting pajak tersimpan');renderTax()});
+}
+function addTaxOut(){
+  if(blockTrial&&blockTrial('Tambah Pajak Keluaran'))return;
+  ensureTax();
+  db.taxInvoices.unshift(['FPK/'+Date.now(),today(),'Customer Baru','',0,0,'Belum Lunas','Draft','Manual']);
+  save().then(()=>renderTax());
+}
+function addTaxIn(){
+  if(blockTrial&&blockTrial('Tambah Pajak Masukan'))return;
+  ensureTax();
+  db.taxInputs.unshift(['FPM/'+Date.now(),today(),'Vendor Baru','',0,0,'Belum Lunas','Draft','Manual']);
+  save().then(()=>renderTax());
+}
+function renderTaxTab(tab){
+  ensureTax();deriveTaxFromSales();deriveTaxFromExpenses();
+  const sm=taxSummary();
+  if(tab==='dashboard'){
+    taxBody.innerHTML=`<div class="tax-grid"><div class="tax-card"><small>DPP Keluaran</small><b>${rp(sm.dppOut)}</b></div><div class="tax-card"><small>PPN Keluaran</small><b>${rp(sm.ppnOut)}</b></div><div class="tax-card"><small>PPN Masukan</small><b>${rp(sm.ppnIn)}</b></div><div class="tax-card"><small>Kurang/Lebih Bayar</small><b class="${sm.ppnPayable>=0?'balance-negative':'balance-positive'}">${rp(sm.ppnPayable)}</b></div></div><div class="card"><h3>Status Coretax</h3><p>Modul ini menyiapkan data pajak, rekap masa pajak, dan XML draft. Sebelum upload final, cocokkan dengan template XML resmi DJP/Coretax terbaru.</p><p>PKP: <b>${db.taxSettings.pkp?'Ya':'Belum'}</b> • NPWP: <b>${db.taxSettings.npwp||'-'}</b> • Tarif PPN: <b>${taxRate()}%</b></p></div>`;
+  }
+  if(tab==='settings'){
+    const s=db.taxSettings;
+    taxBody.innerHTML=`<div class="card"><h3>Identitas Pajak Perusahaan</h3><div class="grid2"><div class="fg"><label>Nama WP/PKP</label><input id="taxName" class="ctrl" value="${s.nama||db.company?.name||''}"></div><div class="fg"><label>NPWP</label><input id="taxNPWP" class="ctrl" value="${s.npwp||''}" placeholder="00.000.000.0-000.000"></div><div class="fg"><label>NITKU</label><input id="taxNITKU" class="ctrl" value="${s.nitku||''}"></div><div class="fg"><label>Tarif PPN %</label><input id="taxPPN" class="ctrl" value="${s.ppnRate||11}"></div><div class="fg"><label>Tarif PPh Default %</label><input id="taxPPh" class="ctrl" value="${s.pphRate||2}"></div><div class="fg"><label>PKP?</label><label><input id="taxPKP" type="checkbox" ${s.pkp?'checked':''}> Perusahaan PKP</label></div><div class="fg full"><label>Alamat Pajak</label><input id="taxAddress" class="ctrl" value="${s.alamat||''}"></div></div><button class="btn primary" onclick="saveTaxSettings()">Simpan Setting Pajak</button></div>`;
+  }
+  if(tab==='out'){
+    const rows=sm.out.map((r,i)=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]||'-'}</td><td>${rp(r[4])}</td><td>${rp(r[5])}</td><td><span class="tax-badge ${r[7]==='Siap Coretax'?'tax-ok':'tax-warn'}">${r[7]}</span></td></tr>`).join('')||'<tr><td colspan="7">Belum ada pajak keluaran.</td></tr>';
+    taxBody.innerHTML=`${tableHTML(['No Dokumen','Tanggal','Customer','NPWP','DPP','PPN','Status'],rows,`<button class="btn green" onclick="addTaxOut()">＋ Pajak Keluaran</button><button class="btn blue" onclick="downloadTaxXML('out')">Export XML Draft</button><button class="btn soft" onclick="downloadTaxCSV('out')">Export CSV Review</button>`)}`;
+  }
+  if(tab==='in'){
+    const rows=sm.inn.map((r,i)=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]||'-'}</td><td>${rp(r[4])}</td><td>${rp(r[5])}</td><td><span class="tax-badge ${r[7]==='Siap Coretax'?'tax-ok':'tax-warn'}">${r[7]}</span></td></tr>`).join('')||'<tr><td colspan="7">Belum ada pajak masukan.</td></tr>';
+    taxBody.innerHTML=`${tableHTML(['No Dokumen','Tanggal','Vendor','NPWP','DPP','PPN','Status'],rows,`<button class="btn green" onclick="addTaxIn()">＋ Pajak Masukan</button><button class="btn blue" onclick="downloadTaxXML('in')">Export XML Draft</button><button class="btn soft" onclick="downloadTaxCSV('in')">Export CSV Review</button>`)}`;
+  }
+  if(tab==='spt'){
+    taxBody.innerHTML=`<div class="card"><h3>Rekap Masa Pajak ${taxPeriod()}</h3><table><tbody><tr><td>DPP Pajak Keluaran</td><td>${rp(sm.dppOut)}</td></tr><tr><td>PPN Keluaran</td><td>${rp(sm.ppnOut)}</td></tr><tr><td>DPP Pajak Masukan</td><td>${rp(sm.dppIn)}</td></tr><tr><td>PPN Masukan</td><td>${rp(sm.ppnIn)}</td></tr><tr><td><b>PPN Kurang/Lebih Bayar</b></td><td><b>${rp(sm.ppnPayable)}</b></td></tr></tbody></table><p style="margin-top:12px;color:#64748b">Catatan: ini rekap persiapan. Pelaporan resmi tetap mengikuti validasi dan template Coretax DJP.</p></div>`;
+  }
+}
+function renderTax(){
+  ensureTax();deriveTaxFromSales();deriveTaxFromExpenses();
+  headActions.innerHTML=`<button class="btn blue" onclick="downloadTaxXML('out')">Export XML Keluaran</button><button class="btn soft" onclick="downloadTaxCSV('out')">CSV Review</button>`;
+  const years=[new Date().getFullYear()-1,new Date().getFullYear(),new Date().getFullYear()+1].map(y=>`<option ${String(y)===String(taxFilter.year)?'selected':''}>${y}</option>`).join('');
+  const months=Array.from({length:12},(_,i)=>String(i+1).padStart(2,'0')).map(m=>`<option ${m===taxFilter.month?'selected':''}>${m}</option>`).join('');
+  moduleContent.innerHTML=`<div class="acc-period"><div class="fg"><label>Tahun Pajak</label><select id="taxYear" class="ctrl">${years}</select></div><div class="fg"><label>Masa Pajak</label><select id="taxMonthSel" class="ctrl">${months}</select></div><button class="btn primary" onclick="taxFilter.year=taxYear.value;taxFilter.month=taxMonthSel.value;renderTax()">Terapkan</button></div><div class="tax-tabs"><button id="tax-dashboard" class="tax-tab active" onclick="setTaxTab('dashboard')">Dashboard Pajak</button><button id="tax-settings" class="tax-tab" onclick="setTaxTab('settings')">Setting Pajak</button><button id="tax-out" class="tax-tab" onclick="setTaxTab('out')">PPN Keluaran</button><button id="tax-in" class="tax-tab" onclick="setTaxTab('in')">PPN Masukan</button><button id="tax-spt" class="tax-tab" onclick="setTaxTab('spt')">Rekap SPT</button></div><div id="taxBody"></div>`;
+  renderTaxTab('dashboard');
 }
 
 function renderAccounting(){
   ensureAccountingPro();
-  headActions.innerHTML=`<button class="btn green" onclick="openJournalModal()">＋ Jurnal</button><button class="btn blue" onclick="openAccountModal()">＋ Akun</button><button class="btn soft" onclick="exportCSV('journal')">Export Jurnal</button>`;
-  moduleContent.innerHTML=`<div class="acc-tabs"><button id="tab-dashboard" class="acc-tab active" onclick="setAccTab('dashboard')">Dashboard</button><button id="tab-coa" class="acc-tab" onclick="setAccTab('coa')">COA</button><button id="tab-journal" class="acc-tab" onclick="setAccTab('journal')">Jurnal Umum</button><button id="tab-ledger" class="acc-tab" onclick="setAccTab('ledger')">Buku Besar</button><button id="tab-trial" class="acc-tab" onclick="setAccTab('trial')">Neraca Saldo</button><button id="tab-profit" class="acc-tab" onclick="setAccTab('profit')">Laba/Rugi</button><button id="tab-balance" class="acc-tab" onclick="setAccTab('balance')">Neraca</button></div><div id="accBody"></div>`;
+  headActions.innerHTML=`<button class="btn green" onclick="openJournalModal()">＋ Jurnal</button><button class="btn blue" onclick="openAccountModal()">＋ Akun</button><button class="btn soft" onclick="exportAccountingReport()">Export Laporan</button>`;
+  moduleContent.innerHTML=`${accPeriodHTML()}<div class="acc-tabs"><button id="tab-dashboard" class="acc-tab active" onclick="setAccTab('dashboard')">Dashboard</button><button id="tab-coa" class="acc-tab" onclick="setAccTab('coa')">COA</button><button id="tab-journal" class="acc-tab" onclick="setAccTab('journal')">Jurnal Umum</button><button id="tab-ledger" class="acc-tab" onclick="setAccTab('ledger')">Buku Besar</button><button id="tab-trial" class="acc-tab" onclick="setAccTab('trial')">Neraca Saldo</button><button id="tab-profit" class="acc-tab" onclick="setAccTab('profit')">Laba/Rugi</button><button id="tab-balance" class="acc-tab" onclick="setAccTab('balance')">Neraca</button><button id="tab-cashflow" class="acc-tab" onclick="setAccTab('cashflow')">Arus Kas</button></div><div id="accBody"></div>`;
   renderAccountingTab('dashboard');
 }
-function openExpense(i=null){const r=i!=null?db.expenses[i]:[nextNo('EXP',db.expenses.length),'','Operasional',today(),'Rp 0','Lunas'];showModal(i!=null?'Edit Pengeluaran':'Catat Pengeluaran',`<div class="fg"><label>No</label><input id="expNo" class="ctrl" value="${safe(r[0])}"></div><div class="fg"><label>Keterangan</label><input id="expDesc" class="ctrl" value="${safe(r[1])}"></div><div class="fg"><label>Kategori</label><select id="expCat" class="ctrl">${['Operasional','Pembelian','Gaji','Transport','Marketing','Lainnya'].map(x=>`<option ${r[2]===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="fg"><label>Tanggal</label><input id="expDate" type="date" class="ctrl" value="${r[3]||today()}"></div><div class="fg"><label>Jumlah</label><input id="expAmt" class="ctrl" value="${safe(r[4])}"></div><div class="fg"><label>Status</label><select id="expStatus" class="ctrl"><option ${r[5]==='Lunas'?'selected':''}>Lunas</option><option ${r[5]==='Pending'?'selected':''}>Pending</option></select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveExpense(${i==null?'null':i})">Simpan</button>`)}async function saveExpense(i){const r=[expNo.value,expDesc.value,expCat.value,expDate.value,expAmt.value,expStatus.value];if(i===null){db.expenses.unshift(r);ensureAccountingPro();db.journal.unshift([expDate.value,expNo.value,'Beban Operasional','Kas',expDesc.value,accNum(expAmt.value),'Auto dari pengeluaran'])}else db.expenses[i]=r;await save();closeModal();renderAccounting();toast('Pengeluaran tersimpan')}
+
+
+function openExpense(i=null){if(blockTrial('Pengeluaran'))return;const r=i!=null?db.expenses[i]:[nextNo('EXP',db.expenses.length),'','Operasional',today(),'Rp 0','Lunas'];showModal(i!=null?'Edit Pengeluaran':'Catat Pengeluaran',`<div class="fg"><label>No</label><input id="expNo" class="ctrl" value="${safe(r[0])}"></div><div class="fg"><label>Keterangan</label><input id="expDesc" class="ctrl" value="${safe(r[1])}"></div><div class="fg"><label>Kategori</label><select id="expCat" class="ctrl">${['Operasional','Pembelian','Gaji','Transport','Marketing','Lainnya'].map(x=>`<option ${r[2]===x?'selected':''}>${x}</option>`).join('')}</select></div><div class="fg"><label>Tanggal</label><input id="expDate" type="date" class="ctrl" value="${r[3]||today()}"></div><div class="fg"><label>Jumlah</label><input id="expAmt" class="ctrl" value="${safe(r[4])}"></div><div class="fg"><label>Status</label><select id="expStatus" class="ctrl"><option ${r[5]==='Lunas'?'selected':''}>Lunas</option><option ${r[5]==='Pending'?'selected':''}>Pending</option></select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveExpense(${i==null?'null':i})">Simpan</button>`)}async function saveExpense(i){if(blockTrial('Simpan Pengeluaran'))return;const r=[expNo.value,expDesc.value,expCat.value,expDate.value,expAmt.value,expStatus.value];if(i===null){db.expenses.unshift(r);ensureAccountingPro();db.journal.unshift([expDate.value,expNo.value,'Beban Operasional','Kas',expDesc.value,accNum(expAmt.value),'Auto dari pengeluaran'])}else db.expenses[i]=r;await save();closeModal();renderAccounting();toast('Pengeluaran tersimpan')}
 function renderPricing(){if(!db.pricing.length){moduleContent.innerHTML=`<div class="card"><h3>Paket Harga masih kosong</h3><p>Tambahkan paket harga sesuai produk/jasa yang ingin dijual.</p><button class="btn green" style="margin-top:12px" onclick="openRecord('pricing')">＋ Tambah Paket</button></div>`;return}const rows=db.pricing.map((r,i)=>`<tr>${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===4?status(c):safe(c)}</td>`).join('')}<td><button class="act" onclick="offerPackage(${i})">🟢</button><button class="act" onclick="openRecord('pricing',${i})">✏️</button></td></tr>`).join('');moduleContent.innerHTML=`<div class="grid3">${db.pricing.map((p,i)=>`<div class="card"><h3>${p[0]}</h3><p>${p[1]}</p><h2>${p[2]}</h2><p>${p[3]}</p><button class="btn primary" onclick="offerPackage(${i})" style="margin-top:12px;width:100%">Tawarkan WA</button></div>`).join('')}</div><div style="margin-top:18px">${tableHTML(schemas.pricing,rows,`<button class="btn green" onclick="openRecord('pricing')">＋ Paket</button>`)}</div>`}
 function renderGeneric(mod){const rows=(db[mod]||[]).map((r,i)=>`<tr class="row" onclick="detail('${mod}',${i})">${r.map((c,j)=>`<td>${j===0?'<strong>'+safe(c)+'</strong>':j===r.length-1?status(c):safe(c)}</td>`).join('')}<td onclick="event.stopPropagation()"><button class="act" onclick="openRecord('${mod}',${i})">✏️</button><button class="act" onclick="del('${mod}',${i})">🗑️</button></td></tr>`).join('')||`<tr><td colspan="${schemas[mod].length+1}" class="empty">Belum ada data.</td></tr>`;headActions.innerHTML=`<button class="btn green" onclick="openRecord('${mod}')">＋ Tambah</button>`;moduleContent.innerHTML=tableHTML(schemas[mod],rows,headActions.innerHTML)}
 function renderSettings(){headActions.innerHTML='';const staffRows=db.staff.map((r,i)=>`<tr><td><strong>${safe(r[0])}</strong><div class="mini">${safe(r[1])}</div></td><td>${safe(r[2])}</td><td><span class="pill">${safe(r[3])}</span></td><td>${status(r[4])}</td><td><button class="act" onclick="createInviteFromStaff(${i})">🔑</button><button class="act" onclick="openRecord('staff',${i})">✏️</button><button class="act" onclick="del('staff',${i})">🗑️</button></td></tr>`).join('');moduleContent.innerHTML=`<div class="grid2"><div class="card"><h3>Perusahaan</h3><div class="fg"><label>Nama</label><input id="setName" class="ctrl" value="${safe(db.company.name)}"></div><div class="fg"><label>Brand</label><input id="setBrand" class="ctrl" value="${safe(db.company.brand)}"></div><div class="fg"><label>Website</label><input id="setWeb" class="ctrl" value="${safe(db.company.website)}"></div><div class="fg"><label>WhatsApp</label><input id="setWa" class="ctrl" value="${safe(db.company.wa)}"></div><button class="btn primary" style="margin-top:14px" onclick="saveSettings()">Simpan</button></div><div class="card"><h3>Backup & Keamanan</h3><p>Backup/Restore/Reset hanya muncul untuk Owner/Admin. Gunakan rules di bawah untuk Firestore.</p><div class="head-actions" style="margin-top:12px"><button class="btn blue admin-only" onclick="backupData()">Backup</button><button class="btn green admin-only" onclick="restoreInput.click()">Restore</button><button class="btn red owner-only" onclick="resetCompanyData()">Reset</button></div></div></div><div style="margin-top:18px">${tableHTML(schemas.staff,staffRows,`<button class="btn green" onclick="openRecord('staff')">＋ Staff</button><button class="btn blue" onclick="createInvite()">Buat Invite</button><button class="btn green" onclick="auditFixStaff()">Audit Staff</button>`)}</div><div class="card" style="margin-top:18px"><h3>Invite Staff</h3><p>Staff daftar memakai invite code. Invite terakhir akan muncul di sini.</p><div id="inviteBox" class="box">Belum ada invite baru.</div></div><div class="card" style="margin-top:18px"><h3>Firestore Rules</h3><p>Paste ke Firestore Database &gt; Rules.</p><button class="btn blue" onclick="copyRules()">Copy Rules</button><pre class="code" id="rulesBox">rules_version = '2';
@@ -557,14 +802,14 @@ async function auditFixStaff(){
   toast(changed?'Audit staff selesai: data tertukar sudah dirapikan.':'Audit staff selesai: data sudah rapi.');
 }
 
-async function saveSettings(){db.company.name=setName.value;db.company.brand=setBrand.value;db.company.website=setWeb.value;db.company.wa=setWa.value;await save();applyShell();toast('Settings disimpan')}function createCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}async function createInvite(){const sub=db.company.subscription;if(sub&&Number(sub.activeUsers||0)>=Number(sub.userLimit||1)){alert('Kuota user sudah penuh. Silakan upgrade jumlah user.');return}showModal('Buat Invite Staff',`<div class="fg"><label>Email Staff</label><input id="invEmail" class="ctrl"></div><div class="fg"><label>Nama / Jabatan</label><input id="invJob" class="ctrl" value="Staff"></div><div class="fg"><label>Role</label><select id="invRole" class="ctrl">${Object.keys(access).filter(x=>x!=='Owner').map(r=>`<option>${r}</option>`).join('')}</select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveInvite()">Buat Code</button>`)}async function createInviteFromStaff(i){const r=db.staff[i];await createInvite();setTimeout(()=>{invEmail.value=r[1];invJob.value=r[2];invRole.value=r[3]},50)}async function saveInvite(){const code=createCode();await fb.setDoc(fb.doc(fb.db,'invites',code),{tenantId,role:invRole.value,email:invEmail.value.trim(),jabatan:invJob.value.trim(),status:'Aktif',createdAt:fb.serverTimestamp()});db.invites.unshift([code,invEmail.value.trim(),invRole.value,'Aktif',today()]);await save();closeModal();renderSettings();inviteBox.innerHTML=`<b>Kode Invite:</b> <span class="pill">${code}</span><p class="mini">Kirim kode ini ke staff untuk registrasi.</p>`;toast('Invite code dibuat')}
-function openRecord(mod,i=null){editModule=mod;editIndex=i;const row=i!=null?db[mod][i]:schemas[mod].map(()=> '');showModal((i!=null?'Edit ':'Tambah ')+(mod),schemas[mod].map((f,j)=>`<div class="fg ${j===0?'full':''}"><label>${f}</label><input class="ctrl rec" value="${safe(row[j]||'')}"></div>`).join(''),`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveRecord()">Simpan</button>`)}async function saveRecord(){let r=[...document.querySelectorAll('.rec')].map(x=>x.value.trim()||'-');if(editModule==='staff'){const msg=validateStaffInput(r[0],r[1],r[2],r[3],r[4]);if(msg){alert(msg);return}r=normalizeStaffRow(r)}if(editIndex!=null)db[editModule][editIndex]=r;else db[editModule].unshift(r);normalizeAllRows();await save();closeModal();setModule(active);toast('Data tersimpan')}async function del(mod,i){if(confirm('Hapus data ini?')){db[mod].splice(i,1);await save();setModule(active);toast('Data dihapus')}}function detail(mod,i){const r=db[mod][i];showModal('Detail',`<div class="full">${schemas[mod].map((c,j)=>`<div class="box"><b>${c}</b><p>${safe(r[j]||'-')}</p></div>`).join('')}</div>`,`<button class="btn soft" onclick="closeModal()">Tutup</button><button class="btn primary" onclick="openRecord('${mod}',${i})">Edit</button>`)}
+async function saveSettings(){if(blockTrial('Simpan Settings'))return;db.company.name=setName.value;db.company.brand=setBrand.value;db.company.website=setWeb.value;db.company.wa=setWa.value;await save();applyShell();toast('Settings disimpan')}function createCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}async function createInvite(){if(blockTrial('Invite Staff'))return;const sub=db.company.subscription;if(sub&&Number(sub.activeUsers||0)>=Number(sub.userLimit||1)){alert('Kuota user sudah penuh. Silakan upgrade jumlah user.');return}showModal('Buat Invite Staff',`<div class="fg"><label>Email Staff</label><input id="invEmail" class="ctrl"></div><div class="fg"><label>Nama / Jabatan</label><input id="invJob" class="ctrl" value="Staff"></div><div class="fg"><label>Role</label><select id="invRole" class="ctrl">${Object.keys(access).filter(x=>x!=='Owner').map(r=>`<option>${r}</option>`).join('')}</select></div>`,`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveInvite()">Buat Code</button>`)}async function createInviteFromStaff(i){const r=db.staff[i];await createInvite();setTimeout(()=>{invEmail.value=r[1];invJob.value=r[2];invRole.value=r[3]},50)}async function saveInvite(){const code=createCode();await fb.setDoc(fb.doc(fb.db,'invites',code),{tenantId,role:invRole.value,email:invEmail.value.trim(),jabatan:invJob.value.trim(),status:'Aktif',createdAt:fb.serverTimestamp()});db.invites.unshift([code,invEmail.value.trim(),invRole.value,'Aktif',today()]);await save();closeModal();renderSettings();inviteBox.innerHTML=`<b>Kode Invite:</b> <span class="pill">${code}</span><p class="mini">Kirim kode ini ke staff untuk registrasi.</p>`;toast('Invite code dibuat')}
+function openRecord(mod,i=null){if(blockTrial('Tambah/Edit Data'))return;editModule=mod;editIndex=i;const row=i!=null?db[mod][i]:schemas[mod].map(()=> '');showModal((i!=null?'Edit ':'Tambah ')+(mod),schemas[mod].map((f,j)=>`<div class="fg ${j===0?'full':''}"><label>${f}</label><input class="ctrl rec" value="${safe(row[j]||'')}"></div>`).join(''),`<button class="btn soft" onclick="closeModal()">Batal</button><button class="btn primary" onclick="saveRecord()">Simpan</button>`)}async function saveRecord(){if(blockTrial('Simpan Data'))return;let r=[...document.querySelectorAll('.rec')].map(x=>x.value.trim()||'-');if(editModule==='staff'){const msg=validateStaffInput(r[0],r[1],r[2],r[3],r[4]);if(msg){alert(msg);return}r=normalizeStaffRow(r)}if(editIndex!=null)db[editModule][editIndex]=r;else db[editModule].unshift(r);normalizeAllRows();await save();closeModal();setModule(active);toast('Data tersimpan')}async function del(mod,i){if(blockTrial('Hapus Data'))return;if(confirm('Hapus data ini?')){db[mod].splice(i,1);await save();setModule(active);toast('Data dihapus')}}function detail(mod,i){const r=db[mod][i];showModal('Detail',`<div class="full">${schemas[mod].map((c,j)=>`<div class="box"><b>${c}</b><p>${safe(r[j]||'-')}</p></div>`).join('')}</div>`,`<button class="btn soft" onclick="closeModal()">Tutup</button><button class="btn primary" onclick="openRecord('${mod}',${i})">Edit</button>`)}
 function showModal(t,b,f,w=''){modal.classList.toggle('wide',w==='wide');modalTitle.textContent=t;modalBody.innerHTML=b;modalFoot.innerHTML=f;modalBg.classList.add('show')}function closeModal(){modalBg.classList.remove('show');modal.classList.remove('wide');editModule=null;editIndex=null}function nextNo(prefix,len){const d=new Date();return `${prefix}/${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}/${String(len+1).padStart(4,'0')}`}
 function printInvoice(i){const r=db.sales[i],items=JSON.parse(r[6]||'[]');const html=`<html><head><title>${r[0]}</title><style>body{font-family:Arial;padding:30px;color:#111}.top{display:flex;justify-content:space-between}.brand{font-size:24px;font-weight:900;color:#6d28d9}table{width:100%;border-collapse:collapse;margin-top:20px}td,th{border-bottom:1px solid #ddd;padding:10px;text-align:left}.total{text-align:right;font-size:20px;font-weight:bold;margin-top:18px}</style></head><body><div class="top"><div><div class="brand">${db.company.brand}</div><p>${db.company.name}<br>${db.company.website}<br>WA: ${db.company.wa}</p></div><div><h2>INVOICE</h2><p>${r[0]}<br>Tanggal: ${r[2]}<br>Jatuh Tempo: ${r[3]}</p></div></div><h3>Customer: ${r[1]}</h3><table><thead><tr><th>Produk</th><th>Qty</th><th>Harga</th><th>Total</th></tr></thead><tbody>${items.map(x=>`<tr><td>${x.name}</td><td>${x.qty}</td><td>${rp(x.price)}</td><td>${rp(x.total)}</td></tr>`).join('')}</tbody></table><div class="total">TOTAL: ${r[4]}</div><script>window.print();<\/script></body></html>`;const w=window.open('','_blank');w.document.write(html);w.document.close()}function sendInvoiceWA(i){const r=db.sales[i],c=db.crm.find(x=>x[0]===r[1]),wa=c?String(c[1]).replace(/[^0-9]/g,''):'';if(!wa)return alert('WA customer belum ada di CRM.');window.open('https://wa.me/62'+wa.replace(/^0/,'')+'?text='+encodeURIComponent(`Halo ${r[1]}, berikut tagihan invoice ${r[0]} sebesar ${r[4]}. Terima kasih.`),'_blank')}function printPOS(i){const r=db.pos[i],items=JSON.parse(r[7]||'[]');const html=`<html><head><title>${r[0]}</title><style>body{font-family:Arial;max-width:320px;margin:auto;padding:18px}.c{text-align:center}.line{border-top:1px dashed #999;margin:10px 0}table{width:100%;font-size:12px}.total{font-size:17px;font-weight:bold}</style></head><body><div class="c"><b>${db.company.name}</b><br><small>${r[2]}</small></div><div class="line"></div><p>No: ${r[0]}<br>Kasir: ${r[1]}<br>Bayar: ${r[5]}<br>Tanggal: ${r[3]}</p><div class="line"></div><table>${items.map(x=>`<tr><td>${x.name} x${x.qty}</td><td style="text-align:right">${rp(x.total)}</td></tr>`).join('')}</table><div class="line"></div><div class="total">TOTAL: ${r[4]}</div><p class="c"><small>Terima kasih</small></p><script>window.print();<\/script></body></html>`;const w=window.open('','_blank');w.document.write(html);w.document.close()}
 function offerPackage(i){const p=db.pricing[i],w=String(db.company.wa||'').replace(/[^0-9]/g,'');if(!w)return alert('WA perusahaan belum diisi.');window.open('https://wa.me/62'+w.replace(/^0/,'')+'?text='+encodeURIComponent(`Halo, saya tertarik dengan ${db.company.brand}\nPaket: ${p[0]}\nHarga: ${p[2]}\nFitur: ${p[3]}`),'_blank')}function quickAdd(){if(active==='sales')openInvoice();else if(active==='pos')openPOS();else if(active==='inventory')openRecord('inventory');else if(schemas[active])openRecord(active);else setModule('crm')}
-function exportCSV(mod){if(mod==='journal'){ensureAccountingPro();const lines=['Tanggal,Ref,Debit,Kredit,Keterangan,Nominal,Catatan'].concat(db.journal.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download('journal.csv',lines.join('\n'),'text/csv');return}const cols=schemas[mod];if(!cols)return toast('Tidak ada export');const lines=[cols.join(',')].concat((db[mod]||[]).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download(mod+'.csv',lines.join('\n'),'text/csv')}function backupData(){download('backup-kalierp-real-'+tenantId+'.json',JSON.stringify(db,null,2),'application/json')}async function restoreBackup(e){const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.company||!d.crm)throw Error();if(confirm('Restore data ke perusahaan ini?')){db=d;normalize();await save();applyShell();setModule('dashboard');toast('Restore berhasil')}}catch{alert('File backup tidak valid')}e.target.value=''}function download(n,c,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click();URL.revokeObjectURL(a.href)}async function resetCompanyData(){if(!isPureOwner())return toast('Hanya Owner');if(confirm('Reset semua data perusahaan?')){const c=db.company,s=db.staff;db=clone(defaultDB);db.company=c;db.staff=s;await save();setModule('dashboard');toast('Data reset')}}function copyRules(){navigator.clipboard.writeText(rulesBox.innerText).then(()=>toast('Rules dicopy'))}
+function exportCSV(mod){if(blockTrial('Export Data'))return;if(mod==='journal'){ensureAccountingPro();const lines=['Tanggal,Ref,Debit,Kredit,Keterangan,Nominal,Catatan'].concat(db.journal.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download('journal.csv',lines.join('\n'),'text/csv');return}const cols=schemas[mod];if(!cols)return toast('Tidak ada export');const lines=[cols.join(',')].concat((db[mod]||[]).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download(mod+'.csv',lines.join('\n'),'text/csv')}function backupData(){if(blockTrial('Backup'))return;download('backup-kalierp-real-'+tenantId+'.json',JSON.stringify(db,null,2),'application/json')}async function restoreBackup(e){if(blockTrial('Restore'))return;const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.company||!d.crm)throw Error();if(confirm('Restore data ke perusahaan ini?')){db=d;normalize();await save();applyShell();setModule('dashboard');toast('Restore berhasil')}}catch{alert('File backup tidak valid')}e.target.value=''}function download(n,c,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click();URL.revokeObjectURL(a.href)}async function resetCompanyData(){if(blockTrial('Reset Data'))return;if(!isPureOwner())return toast('Hanya Owner');if(confirm('Reset semua data perusahaan?')){const c=db.company,s=db.staff;db=clone(defaultDB);db.company=c;db.staff=s;await save();setModule('dashboard');toast('Data reset')}}function copyRules(){navigator.clipboard.writeText(rulesBox.innerText).then(()=>toast('Rules dicopy'))}
 function searchTable(q){const table=document.getElementById('dataTable');if(!table)return;table.querySelectorAll('tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q.toLowerCase())?'':'none')}
-window.addEventListener('load',()=>setTimeout(()=>fb.onAuthStateChanged(fb.auth,u=>{if(u)boot(u)}),300));
+window.addEventListener('load',()=>{if(new URLSearchParams(location.search).get('trial')==='1'){setTimeout(()=>tabAuth('trial'),250)}});window.addEventListener('load',()=>setTimeout(()=>fb.onAuthStateChanged(fb.auth,u=>{if(u)boot(u)}),300));
 </script>
 </body>
 </html>
