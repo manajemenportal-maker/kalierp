@@ -1,0 +1,1 @@
+Logo KaliERP 3D sudah dimasukkan ke coding utama. File baru: kalierp-logo-3d.png. Sudah diterapkan di landing page, aplikasi utama, dan admin panel dengan ukuran responsif.

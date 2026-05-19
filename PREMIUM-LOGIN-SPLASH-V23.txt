@@ -1,0 +1,12 @@
+KaliERP Premium Login + Splash V23
+
+Penambahan:
+1. Splash/loading screen premium dengan logo KaliERP
+2. showFast/hideFast aktif untuk login, aktivasi pembeli, trial, staff, dan boot workspace
+3. Login page diperbarui:
+   - tampilan lebih premium
+   - hero enterprise
+   - quick info chips
+   - metric cards
+4. Tombol login/owner/staff diberi id agar respons loading lebih jelas
+5. Semua perubahan sudah masuk ke coding utama app.html

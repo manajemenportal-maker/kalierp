@@ -4,6 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KaliERP Real Launch</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#6d28d9">
   <style>
     :root{
       --p:#6d28d9;--p2:#c026d3;--o:#fb5a1f;--bg:#f1f5f9;--t:#0f172a;--m:#64748b;
@@ -20,7 +26,15 @@
     .auth{min-height:100vh;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at 15% 5%,rgba(192,38,211,.24),transparent 28%),linear-gradient(135deg,#0f172a,#312e81 50%,#6d28d9)}
     .auth-card{width:100%;max-width:1080px;background:white;border-radius:34px;overflow:hidden;box-shadow:0 35px 100px rgba(0,0,0,.28);display:grid;grid-template-columns:1fr 1fr}
     .auth-left{padding:42px;color:white;background:linear-gradient(135deg,#581c87,#6d28d9,#c026d3)}
-    .logo{width:62px;height:62px;border-radius:22px;background:white;color:var(--p);display:grid;place-items:center;font-weight:900;font-size:30px;margin-bottom:22px}
+    
+.logo{width:auto;height:auto;border-radius:0;background:transparent;color:inherit;display:block;place-items:unset;font-weight:900;font-size:30px;margin:0 0 18px}
+.logo img{display:block;width:220px;max-width:100%;height:auto;filter:drop-shadow(0 12px 26px rgba(15,23,42,.14))}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.mark{width:auto;height:auto;border-radius:0;display:block;place-items:unset;color:inherit;font-weight:900;font-size:21px;background:transparent;box-shadow:none}
+.mark img{display:block;width:155px;max-width:100%;height:auto;filter:drop-shadow(0 10px 22px rgba(15,23,42,.12))}
+.brand h1{font-size:19px;font-weight:900;color:var(--t)}.brand p{font-size:12px;color:var(--m);font-weight:700;margin-top:4px}
+@media(max-width:768px){.logo img{width:180px}.mark img{width:128px}}
+
     .auth-left h1{font-size:42px;line-height:1.05;margin-bottom:14px}.auth-left p{line-height:1.8;color:#f3e8ff}
     .points{display:grid;gap:12px;margin-top:24px}.points div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:13px;font-weight:800}
     .auth-right{padding:42px}.auth-right h2{font-size:28px;color:var(--t)}.auth-right p{margin-top:8px;color:var(--m);line-height:1.6}
@@ -113,24 +127,146 @@
 .tax-tabs{display:flex;gap:8px;flex-wrap:wrap;background:#f8fafc;border:1px solid #e2e8f0;border-radius:20px;padding:8px;margin-bottom:16px}.tax-tab{border-radius:14px;padding:10px 12px;background:white;border:1px solid #e2e8f0;color:#475569;font-weight:900;cursor:pointer}.tax-tab.active{background:#2563eb;color:white;border-color:#2563eb}
 @media(max-width:900px){.tax-grid{grid-template-columns:1fr}.tax-tabs{display:grid}}
 
+  
+    .auth{min-height:100vh;display:grid;place-items:center;padding:18px;background:
+      radial-gradient(circle at 10% 10%,rgba(192,38,211,.25),transparent 26%),
+      radial-gradient(circle at 90% 20%,rgba(37,99,235,.25),transparent 28%),
+      linear-gradient(135deg,#0b1120,#1e1b4b 48%,#6d28d9)}
+    .auth-card{width:100%;max-width:1160px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-radius:36px;overflow:hidden;box-shadow:0 35px 100px rgba(0,0,0,.30);display:grid;grid-template-columns:1.05fr .95fr;border:1px solid rgba(255,255,255,.35)}
+    .auth-left{padding:42px;color:white;background:
+      radial-gradient(circle at 0 0,rgba(255,255,255,.22),transparent 26%),
+      linear-gradient(145deg,#43116d,#6d28d9 50%,#c026d3)}
+    .auth-left h1{font-size:44px;line-height:1.02;margin-bottom:14px}
+    .auth-left p{line-height:1.8;color:#f5eaff}
+    .login-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);font-size:12px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;margin-bottom:16px}
+    .hero-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+    .hero-metric{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:14px}
+    .hero-metric b{display:block;font-size:20px}.hero-metric small{display:block;color:#f5d0fe;line-height:1.45;margin-top:4px}
+    .points.glass-points{display:grid;gap:10px;margin-top:18px}
+    .points.glass-points div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:12px 14px}
+    .auth-right{padding:42px;background:linear-gradient(180deg,#ffffff,#fcfbff)}
+    .auth-right h2{font-size:31px;color:var(--t)}
+    .auth-right p{margin-top:8px;color:var(--m);line-height:1.6}
+    .auth-quick{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 20px}
+    .auth-quick span{background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;color:#475569}
+    .tabs{background:#eef2ff;border-radius:18px;padding:6px;gap:6px}
+    .tab{border-radius:14px}
+    .tab.active{box-shadow:0 12px 26px rgba(15,23,42,.10)}
+    .note{background:#fffbeb;border:1px solid #fde68a;border-radius:18px;padding:14px 16px;color:#92400e}
+    .ctrl{border-radius:16px}
+    .splash-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:
+      radial-gradient(circle at 20% 15%,rgba(192,38,211,.28),transparent 26%),
+      radial-gradient(circle at 80% 20%,rgba(37,99,235,.24),transparent 26%),
+      linear-gradient(135deg,#090f1f,#1e1b4b 48%,#6d28d9)}
+    .splash-screen.hidden{display:none}
+    .splash-card{width:min(92vw,520px);background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(12px);border-radius:34px;padding:30px 24px;text-align:center;box-shadow:0 30px 90px rgba(0,0,0,.28)}
+    .splash-logo{display:block;width:280px;max-width:80vw;height:auto;margin:0 auto 18px;filter:drop-shadow(0 16px 34px rgba(0,0,0,.22))}
+    .splash-title{color:white;font-size:24px;font-weight:900}
+    .splash-sub{color:#ddd6fe;line-height:1.65;margin-top:8px}
+    .splash-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden;margin-top:18px}
+    .splash-bar span{display:block;height:100%;width:38%;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#60a5fa,#f0abfc);animation:splashLoad 1.4s infinite ease-in-out}
+    .splash-status{margin-top:12px;color:#f8fafc;font-size:13px;font-weight:800}
+    @keyframes splashLoad{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+    @media(max-width:1100px){.auth-card{grid-template-columns:1fr}}
+    @media(max-width:768px){
+      .auth{padding:12px}.auth-card{border-radius:28px}.auth-left,.auth-right{padding:22px}
+      .auth-left h1{font-size:30px}.hero-metrics{grid-template-columns:1fr}.auth-quick{gap:8px}
+      .splash-card{padding:22px 16px}.splash-logo{width:220px}.splash-title{font-size:20px}
+    }
+
+  
+    .main{animation:shellIn .38s ease both}
+    @keyframes shellIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    .module-anim{animation:moduleIn .34s ease both}
+    @keyframes moduleIn{from{opacity:0;transform:translateY(14px) scale(.992)}to{opacity:1;transform:none}}
+    .card,.kpi,.row-card,.modal,.auth-card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+    .card:hover,.kpi:hover{transform:translateY(-2px);box-shadow:0 24px 55px rgba(15,23,42,.10)}
+    .btn,.round,.act,.tab,.nav a,.bitem{transition:transform .16s ease,box-shadow .16s ease,background .16s ease,color .16s ease}
+    .btn:active,.round:active,.act:active,.tab:active,.nav a:active,.bitem:active{transform:scale(.97)}
+    .premium-hero{position:relative;overflow:hidden;border-radius:32px;padding:26px;background:
+      radial-gradient(circle at 88% 10%,rgba(255,255,255,.28),transparent 26%),
+      linear-gradient(135deg,#0f172a,#312e81 50%,#6d28d9);color:white;box-shadow:0 28px 70px rgba(49,46,129,.28);margin-bottom:18px}
+    .premium-hero:before{content:'';position:absolute;inset:auto -80px -120px auto;width:280px;height:280px;border-radius:50%;background:rgba(34,211,238,.18)}
+    .premium-hero h2{font-size:30px;margin-bottom:8px}
+    .premium-hero p{color:#ddd6fe;line-height:1.7;max-width:720px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .hero-chip{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);color:white;border-radius:999px;padding:10px 13px;font-size:12px;font-weight:900}
+    .premium-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0}
+    .premium-kpi{position:relative;overflow:hidden;background:white;border:1px solid #e2e8f0;border-radius:26px;padding:18px;box-shadow:0 16px 38px rgba(15,23,42,.06);min-height:118px}
+    .premium-kpi:after{content:'';position:absolute;right:-26px;top:-26px;width:96px;height:96px;border-radius:50%;background:linear-gradient(135deg,rgba(109,40,217,.13),rgba(34,211,238,.10))}
+    .premium-kpi .ico{width:42px;height:42px;border-radius:16px;display:grid;place-items:center;background:#f1f5f9;font-size:21px;margin-bottom:12px}
+    .premium-kpi small{display:block;color:#64748b;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.055em}
+    .premium-kpi b{display:block;font-size:24px;color:#0f172a;margin-top:7px}
+    .premium-kpi span{display:block;color:#64748b;font-size:12px;margin-top:4px}
+    .dash-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;margin-top:18px}
+    .dash-card{background:white;border:1px solid #e2e8f0;border-radius:26px;padding:18px;box-shadow:0 16px 38px rgba(15,23,42,.06)}
+    .dash-card h3{margin-bottom:8px}
+    .mini-bars{display:flex;align-items:flex-end;gap:9px;height:160px;padding-top:16px}
+    .mini-bar{flex:1;border-radius:12px 12px 7px 7px;background:linear-gradient(180deg,#8b5cf6,#2563eb);min-height:18px;position:relative}
+    .mini-bar:nth-child(2n){background:linear-gradient(180deg,#22d3ee,#059669)}
+    .mini-bar small{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:10px;color:#64748b;font-weight:900;margin-bottom:5px;white-space:nowrap}
+    .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}
+    .quick-card{border:1px solid #e2e8f0;background:linear-gradient(180deg,#ffffff,#f8fafc);border-radius:22px;padding:15px;cursor:pointer;box-shadow:0 12px 28px rgba(15,23,42,.05);transition:.2s ease}
+    .quick-card:hover{transform:translateY(-3px);box-shadow:0 20px 42px rgba(15,23,42,.10);border-color:#c4b5fd}
+    .quick-card .qico{font-size:26px;margin-bottom:9px}.quick-card b{display:block;color:#0f172a}.quick-card small{color:#64748b;line-height:1.45}
+    .activity-list{display:grid;gap:10px;margin-top:12px}
+    .activity-item{display:flex;gap:10px;align-items:flex-start;border:1px solid #f1f5f9;background:#f8fafc;border-radius:18px;padding:12px}
+    .activity-item .dot2{width:10px;height:10px;border-radius:50%;background:#6d28d9;margin-top:6px;flex:0 0 auto}
+    .activity-item b{display:block;font-size:13px;color:#0f172a}.activity-item small{display:block;color:#64748b;line-height:1.45;margin-top:2px}
+    .sub-premium{display:flex;justify-content:space-between;gap:16px;align-items:center;background:linear-gradient(135deg,#ecfeff,#f5f3ff);border:1px solid #c4b5fd;border-radius:26px;padding:18px;margin-bottom:18px}
+    .sub-premium h3{margin-bottom:5px}.sub-premium p{color:#475569;line-height:1.6}
+    .status-pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 12px;background:white;border:1px solid #e2e8f0;font-weight:900;color:#334155;font-size:12px}
+    .skeleton-shine{background:linear-gradient(90deg,#f1f5f9,#ffffff,#f1f5f9);background-size:200% 100%;animation:shine 1.3s infinite}
+    @keyframes shine{0%{background-position:200% 0}100%{background-position:-200% 0}}
+    @media(max-width:1100px){.premium-kpis,.quick-grid{grid-template-columns:repeat(2,1fr)}.dash-grid{grid-template-columns:1fr}}
+    @media(max-width:640px){.premium-kpis,.quick-grid{grid-template-columns:1fr}.premium-hero{border-radius:24px;padding:20px}.premium-hero h2{font-size:24px}.sub-premium{display:block}.sub-premium .head-actions{margin-top:12px}}
+
   </style>
 </head>
 <body>
+  <div class="splash-screen" id="splashScreen">
+    <div class="splash-card">
+      <img src="kalierp-logo-3d-transparent.png" alt="KaliERP" class="splash-logo" />
+      <div class="splash-title" id="splashTitle">Menyiapkan KaliERP...</div>
+      <div class="splash-sub" id="splashText">Memuat branding, sistem login, dan workspace bisnis Anda.</div>
+      <div class="splash-bar"><span></span></div>
+      <div class="splash-status" id="splashStatus">Harap tunggu sebentar</div>
+    </div>
+  </div>
+
+
   <section class="auth" id="authScreen">
     <div class="auth-card">
       <div class="auth-left">
-        <div class="logo">K</div>
-        <h1>KaliERP untuk operasional bisnis modern.</h1>
-        <p>Kelola customer, penjualan, stok, kasir, accounting, staff, dan laporan bisnis dalam satu aplikasi yang terhubung.</p>
-        <div class="points"><div>✅ Multi-user dengan role akses</div><div>✅ Inventory, POS, invoice, dan accounting saling terhubung</div><div>✅ Siap dipakai usaha jasa, retail, trading, dan service</div></div>
+        <div class="login-badge">Enterprise Cloud ERP</div>
+        <div class="logo"><img src="kalierp-logo-3d-transparent.png" alt="KaliERP" /></div>
+        <h1>KaliERP untuk operasional bisnis yang rapi, cepat, dan profesional.</h1>
+        <p>Kelola customer, vendor, penjualan, inventory, POS, accounting, tax, dan staff dalam satu sistem yang modern dan saling terhubung.</p>
+        <div class="hero-metrics">
+          <div class="hero-metric"><b>Multi User</b><small>Role akses owner, admin, sales, finance, gudang, kasir, dan trial.</small></div>
+          <div class="hero-metric"><b>Realtime</b><small>Data operasional, laporan, dan kontrol bisnis lebih cepat dibaca.</small></div>
+          <div class="hero-metric"><b>Cloud Ready</b><small>Siap dipakai untuk jualan, onboarding customer, dan operasional harian.</small></div>
+        </div>
+        <div class="points glass-points">
+          <div>✅ CRM, Inventory, Sales, POS, Accounting, Tax/Coretax saling terhubung.</div>
+          <div>✅ Cocok untuk jasa, retail, trading, distributor, pabrik, dan industri.</div>
+          <div>✅ Trial read-only tersedia, lalu upgrade untuk operasional penuh.</div>
+        </div>
       </div>
       <div class="auth-right">
-        <h2>Masuk ke KaliERP</h2><p>Login sebagai owner perusahaan atau staff yang sudah diundang.</p>
+        <h2>Masuk ke KaliERP</h2>
+        <p>Login sebagai customer aktif, owner perusahaan, staff yang sudah diundang, atau mulai dengan trial gratis read-only.</p>
+        <div class="auth-quick">
+          <span>⚡ Fast Login</span>
+          <span>🔒 Multi-user Access</span>
+          <span>🧾 Accounting & Tax</span>
+          <span>☁️ Cloud Business System</span>
+        </div>
         <div class="tabs"><button class="tab active" id="tabLogin" onclick="tabAuth('login')">Login</button><button class="tab" id="tabOwner" onclick="tabAuth('owner')">Aktivasi Pembeli</button><button class="tab" id="tabTrial" onclick="tabAuth('trial')">Trial Gratis</button><button class="tab" id="tabStaff" onclick="tabAuth('staff')">Daftar Staff</button></div>
-        <div class="form active" id="fLogin"><div class="fg"><label>Email</label><input id="loginEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="loginPass" type="password" class="ctrl"></div><button class="btn primary" style="width:100%;margin-top:18px" onclick="login()">Masuk</button></div>
-        <div class="form" id="fOwner"><div class="fg"><label>Kode Aktivasi / License Code</label><input id="ownLicense" class="ctrl" placeholder="Contoh: KALI-BIZ-8F29K"></div><div class="fg"><label>Nama Perusahaan</label><input id="ownCompany" class="ctrl"></div><div class="fg"><label>Nama Owner/Admin</label><input id="ownName" class="ctrl"></div><div class="fg"><label>Email</label><input id="ownEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="ownPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn green" style="width:100%;margin-top:18px" onclick="registerOwner()">Aktivasi Pembeli</button></div>
+        <div class="form active" id="fLogin"><div class="fg"><label>Email</label><input id="loginEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="loginPass" type="password" class="ctrl"></div><button class="btn primary" style="width:100%;margin-top:18px" id="loginBtn" onclick="login()">Masuk</button></div>
+        <div class="form" id="fOwner"><div class="fg"><label>Kode Aktivasi / License Code</label><input id="ownLicense" class="ctrl" placeholder="Contoh: KALI-BIZ-8F29K"></div><div class="fg"><label>Nama Perusahaan</label><input id="ownCompany" class="ctrl"></div><div class="fg"><label>Nama Owner/Admin</label><input id="ownName" class="ctrl"></div><div class="fg"><label>Email</label><input id="ownEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="ownPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn green" style="width:100%;margin-top:18px" id="ownerBtn" onclick="registerOwner()">Aktivasi Pembeli</button></div>
         <div class="form" id="fTrial"><div class="fg"><label>Nama Perusahaan / Nama Trial</label><input id="trialCompany" class="ctrl" placeholder="Contoh: PT Contoh Industri"></div><div class="fg"><label>Nama Anda</label><input id="trialName" class="ctrl"></div><div class="fg"><label>Email</label><input id="trialEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="trialPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" id="trialBtn" onclick="registerTrial()">Mulai Trial Read-Only</button></div>
-        <div class="form" id="fStaff"><div class="fg"><label>Invite Code</label><input id="staffCode" class="ctrl" placeholder="Kode dari Owner/Admin"></div><div class="fg"><label>Nama Staff</label><input id="staffRegName" class="ctrl"></div><div class="fg"><label>Email Staff</label><input id="staffRegEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="staffRegPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" onclick="registerStaff()">Daftar Staff</button></div>
+        <div class="form" id="fStaff"><div class="fg"><label>Invite Code</label><input id="staffCode" class="ctrl" placeholder="Kode dari Owner/Admin"></div><div class="fg"><label>Nama Staff</label><input id="staffRegName" class="ctrl"></div><div class="fg"><label>Email Staff</label><input id="staffRegEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="staffRegPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" id="staffBtn" onclick="registerStaff()">Daftar Staff</button></div>
         <div class="err" id="authError"></div>
         <div class="note"><b>Catatan:</b> Owner wajib memakai kode aktivasi setelah pembayaran. Staff masuk memakai invite code dari menu Settings &gt; Staff.</div>
       </div>
@@ -140,7 +276,7 @@
   <div class="trial-ribbon hidden" id="trialRibbon">TRIAL READ-ONLY • Upgrade untuk menyimpan data</div>
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
   <div class="app hidden" id="app">
-    <aside class="side" id="side"><div class="brand"><div class="mark">K</div><div><h1 id="brandName">KaliERP</h1><p>Business Operating System</p></div></div><div class="tenant"><b id="tenantName"></b><span id="tenantInfo"></span></div><nav class="nav" id="nav"></nav><div class="side-card"><strong>Cloud ERP</strong><span>Data tersimpan di Firebase dan akses menu mengikuti role user.</span></div></aside>
+    <aside class="side" id="side"><div class="brand"><div class="mark"><img src="kalierp-logo-3d-transparent.png" alt="KaliERP" /></div><div><h1 id="brandName">KaliERP</h1><p>Business Operating System</p></div></div><div class="tenant"><b id="tenantName"></b><span id="tenantInfo"></span></div><nav class="nav" id="nav"></nav><div class="side-card"><strong>Cloud ERP</strong><span>Data tersimpan di Firebase dan akses menu mengikuti role user.</span></div></aside>
     <main class="main"><header class="top"><div class="top-left"><button class="menu" onclick="openMenu()">☰</button><div><div class="small-label">ERP Online</div><div class="title" id="pageTitle">Dashboard</div></div></div><div class="search">🔎 <input id="searchInput" placeholder="Cari data..." onkeyup="searchTable(this.value)"></div><div class="actions"><button class="round owner-only admin-only" data-icon="💾" onclick="backupData()">Backup</button><button class="round owner-only admin-only" data-icon="📥" onclick="restoreInput.click()">Restore</button><button class="round owner-only" data-icon="⚠️" onclick="resetCompanyData()">Reset</button><button class="profile"><span class="avatar">KS</span><span id="userLabel">User</span></button><button class="round" data-icon="⎋" onclick="logout()">Keluar</button></div></header>
       <section class="content"><section class="hero"><span class="badge">✨ ERP terintegrasi untuk bisnis</span><h2>Operasional, penjualan, stok, kasir, dan keuangan dalam satu sistem.</h2><p>Semua transaksi saling terhubung: invoice dan POS mengurangi stok, pemasukan masuk ke accounting, customer punya riwayat transaksi, dan staff hanya melihat menu sesuai role.</p><div class="hero-row"><button class="btn primary" onclick="quickAdd()">＋ Tambah Cepat</button><button class="btn dark" onclick="window.print()">Print Laporan</button></div></section>
       <section class="mobile-tools"><button class="mitem" onclick="setModule('crm')"><span class="micon">👥</span>CRM</button><button class="mitem" onclick="setModule('sales')"><span class="micon">🧾</span>Sales</button><button class="mitem" onclick="setModule('inventory')"><span class="micon">📦</span>Stok</button><button class="mitem" onclick="setModule('pos')"><span class="micon">🏪</span>POS</button><button class="mitem" onclick="setModule('accounting')"><span class="micon">💰</span>Finance</button></section>
@@ -169,8 +305,17 @@ let user=null,tenantId=null,member=null,db=null,active='dashboard',editModule=nu
 function rp(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}function num(v){return Number(String(v||'').replace(/[^0-9]/g,''))||0}function clone(o){return JSON.parse(JSON.stringify(o))}function toast(m){toastEl.textContent=m;toastEl.classList.add('show');setTimeout(()=>toastEl.classList.remove('show'),1800)}function safe(s){return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
 function tabAuth(m){['login','owner','trial','staff'].forEach(x=>{document.getElementById('tab'+cap(x)).classList.toggle('active',x===m);document.getElementById('f'+cap(x)).classList.toggle('active',x===m)});authError.style.display='none'}function cap(s){return s.charAt(0).toUpperCase()+s.slice(1)}function authMsg(m){authError.textContent=m;authError.style.display='block'}
 
-function showFast(title,text){console.log(title||'Memproses',text||'')}
-function hideFast(){}
+function showFast(title,text){
+  const el=document.getElementById('splashScreen');
+  if(el){el.classList.remove('hidden')}
+  if(document.getElementById('splashTitle')) splashTitle.textContent=title||'Memproses...';
+  if(document.getElementById('splashText')) splashText.textContent=text||'Mohon tunggu sebentar';
+  if(document.getElementById('splashStatus')) splashStatus.textContent='Sedang memproses';
+}
+function hideFast(){
+  const el=document.getElementById('splashScreen');
+  if(el){el.classList.add('hidden')}
+}
 function btnBusy(id,label){const b=document.getElementById(id);if(b){b.dataset.old=b.innerHTML;b.innerHTML=label||'Memproses...';b.disabled=true}}
 function btnDone(id){const b=document.getElementById(id);if(b){b.innerHTML=b.dataset.old||b.innerHTML;b.disabled=false}}
 function fastErr(e){hideFast();btnDone('loginBtn');btnDone('ownerBtn');btnDone('staffBtn');authMsg(readErr(e))}
@@ -183,6 +328,8 @@ async function registerTrial(){try{if(!trialCompany.value||!trialName.value||!tr
 function applyTrialUI(){if(!isTrialMode())return;if(document.getElementById('trialRibbon'))trialRibbon.classList.remove('hidden');document.querySelectorAll('.head-actions button,.table-actions button,.act,.owner-only,.admin-only').forEach(el=>el.classList.add('trial-disabled'))}
 
 async function registerOwner(){try{
+showFast&&showFast('Mengaktifkan pembeli','Memeriksa license dan menyiapkan perusahaan...');
+btnBusy&&btnBusy('ownerBtn','Mengaktifkan...');
 if(!ownLicense.value||!ownCompany.value||!ownName.value||!ownEmail.value||!ownPass.value)return authMsg('Lengkapi kode aktivasi dan semua data.');
 const code=ownLicense.value.trim().toUpperCase();
 const licSnap=await fb.getDoc(fb.doc(fb.db,'licenses',code));
@@ -221,7 +368,7 @@ await fb.setDoc(fb.doc(fb.db,'members',c.user.uid),{tenantId:t,role:'Owner',name
 await fb.setDoc(fb.doc(fb.db,'tenants',t),{ownerUid:t,companyName:data.company.name,subscription:data.company.subscription,erpDataJson:JSON.stringify(data),updatedAt:fb.serverTimestamp()});
 await fb.updateDoc(fb.doc(fb.db,'licenses',code),{status:'Used',tenantId:t,usedBy:c.user.uid,usedAt:fb.serverTimestamp()});
 await boot(c.user);
-}catch(e){authMsg(readErr(e))}}
+}catch(e){fastErr?fastErr(e):authMsg(readErr(e))}}
 async function registerStaff(){try{
 showFast&&showFast('Daftar staff','Mengecek invite dan membuat akses staff...');
 btnBusy&&btnBusy('staffBtn','Mendaftar...');
@@ -278,8 +425,8 @@ await fb.setDoc(fb.doc(fb.db,'tenants',invite.tenantId),{
 
 await boot(c.user);
 }catch(e){fastErr?fastErr(e):authMsg(readErr(e))}}
-async function login(){try{await fb.signInWithEmailAndPassword(fb.auth,loginEmail.value.trim(),loginPass.value.trim())}catch(e){authMsg(readErr(e))}}async function logout(){await fb.signOut(fb.auth);location.reload()}function readErr(e){if(e.code==='auth/email-already-in-use')return'Email sudah terdaftar.';if(e.code==='auth/weak-password')return'Password minimal 6 karakter.';if(e.code==='auth/invalid-credential')return'Email atau password salah.';return e.message||'Terjadi error.'}
-async function boot(u){user=u;let ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));if(!ms.exists()){await new Promise(r=>setTimeout(r,700));ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));}if(!ms.exists()){authMsg('Akun belum punya akses perusahaan. Coba klik Login lagi atau cek dokumen members di Firestore.');return}member=ms.data();tenantId=member.tenantId;const ts=await fb.getDoc(fb.doc(fb.db,'tenants',tenantId));db=clone(defaultDB);if(ts.exists()){const raw=ts.data();if(raw.erpDataJson){try{db=JSON.parse(raw.erpDataJson)}catch(e){db=raw.erpData||clone(defaultDB)}}else if(raw.erpData){db=raw.erpData}}normalize();if(!subscriptionOK()){showSubscriptionLock();return}await save();authScreen.classList.add('hidden');app.classList.remove('hidden');applyShell();setModule('dashboard')}
+async function login(){try{showFast&&showFast('Masuk ke KaliERP','Memverifikasi akun dan menyiapkan workspace...');btnBusy&&btnBusy('loginBtn','Memproses...');await fb.signInWithEmailAndPassword(fb.auth,loginEmail.value.trim(),loginPass.value.trim())}catch(e){fastErr?fastErr(e):authMsg(readErr(e))}}async function logout(){await fb.signOut(fb.auth);location.reload()}function readErr(e){if(e.code==='auth/email-already-in-use')return'Email sudah terdaftar.';if(e.code==='auth/weak-password')return'Password minimal 6 karakter.';if(e.code==='auth/invalid-credential')return'Email atau password salah.';return e.message||'Terjadi error.'}
+async function boot(u){showFast&&showFast('Memuat workspace','Menyiapkan dashboard dan data perusahaan...');user=u;let ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));if(!ms.exists()){await new Promise(r=>setTimeout(r,700));ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));}if(!ms.exists()){hideFast&&hideFast();authMsg('Akun belum punya akses perusahaan. Coba klik Login lagi atau cek dokumen members di Firestore.');return}member=ms.data();tenantId=member.tenantId;const ts=await fb.getDoc(fb.doc(fb.db,'tenants',tenantId));db=clone(defaultDB);if(ts.exists()){const raw=ts.data();if(raw.erpDataJson){try{db=JSON.parse(raw.erpDataJson)}catch(e){db=raw.erpData||clone(defaultDB)}}else if(raw.erpData){db=raw.erpData}}normalize();if(!subscriptionOK()){hideFast&&hideFast();showSubscriptionLock();return}await save();authScreen.classList.add('hidden');app.classList.remove('hidden');applyShell();setModule('dashboard');setTimeout(()=>hideFast&&hideFast(),500);btnDone&&btnDone('loginBtn');btnDone&&btnDone('ownerBtn');btnDone&&btnDone('staffBtn');btnDone&&btnDone('trialBtn')}
 
 function subscriptionOK(){
   if(member&&member.role==='Owner'){
@@ -346,19 +493,101 @@ function normalize(){db.company=db.company||clone(defaultDB.company);['crm','inv
 async function save(){localStorage.setItem(STORAGE+'_'+tenantId,JSON.stringify(db));await fb.setDoc(fb.doc(fb.db,'tenants',tenantId),{companyName:db.company.name,erpDataJson:JSON.stringify(db),updatedAt:fb.serverTimestamp()},{merge:true})}
 function isOwner(){return ['Owner','Admin'].includes(member?.role)}function isPureOwner(){return member?.role==='Owner'}function can(id){return (access[member?.role]||[]).includes(id)}function applyShell(){brandName.textContent=db.company.brand;tenantName.textContent=db.company.name;tenantInfo.textContent='Role: '+member.role+' • '+user.email;userLabel.textContent=(member.name||user.displayName||'User')+' / '+member.role;document.querySelectorAll('.owner-only').forEach(e=>e.classList.toggle('hidden',!isPureOwner()));document.querySelectorAll('.admin-only').forEach(e=>e.classList.toggle('hidden',!isOwner()));renderNav()}
 function renderNav(){nav.innerHTML=modules.filter(m=>can(m.id)).map(m=>`<button class="${m.id===active?'active':''}" onclick="setModule('${m.id}')"><i>${m.icon}</i>${m.label}</button>`).join('')}
-function setModule(id){if(!can(id)){toast('Role tidak punya akses');id='dashboard'}active=id;const m=modules.find(x=>x.id===id);pageTitle.textContent=m.title;sectionTitle.textContent=m.title;sectionSub.textContent=m.sub;renderNav();closeMenu();updateBottom();headActions.innerHTML='';if(id==='dashboard')return renderDashboard();if(id==='crm')return renderCRM();if(id==='sales')return renderSales();if(id==='inventory')return renderInventory();if(id==='pos')return renderPOS();if(id==='accounting')return renderAccounting();if(id==='pricing')return renderPricing();if(id==='settings')return renderSettings();return renderGeneric(id)}function updateBottom(){[...bottomNav.children].forEach(x=>x.classList.remove('active'));const map={dashboard:0,sales:1,inventory:2,settings:4};if(bottomNav.children[map[active]])bottomNav.children[map[active]].classList.add('active')}function openMenu(){side.classList.add('open');overlay.classList.add('show')}function closeMenu(){side.classList.remove('open');overlay.classList.remove('show')}
+function setModule(id){
+  if(!can(id)){toast('Role tidak punya akses');id='dashboard'}
+  active=id;
+  const m=modules.find(x=>x.id===id);
+  pageTitle.textContent=m.title;sectionTitle.textContent=m.title;sectionSub.textContent=m.sub;
+  renderNav();closeMenu();updateBottom();headActions.innerHTML='';
+  moduleContent.classList.remove('module-anim');void moduleContent.offsetWidth;moduleContent.classList.add('module-anim');
+  if(id==='dashboard')return renderDashboard();
+  if(id==='crm')return renderCRM();
+  if(id==='sales')return renderSales();
+  if(id==='inventory')return renderInventory();
+  if(id==='pos')return renderPOS();
+  if(id==='accounting')return renderAccounting();
+  if(id==='tax')return renderTax();
+  if(id==='pricing')return renderPricing();
+  if(id==='settings')return renderSettings();
+  return renderGeneric(id)
+}
+function animateCurrentModule(){if(moduleContent){moduleContent.classList.remove('module-anim');void moduleContent.offsetWidth;moduleContent.classList.add('module-anim')}}
+function updateBottom(){[...bottomNav.children].forEach(x=>x.classList.remove('active'));const map={dashboard:0,sales:1,inventory:2,settings:4};if(bottomNav.children[map[active]])bottomNav.children[map[active]].classList.add('active')}function openMenu(){side.classList.add('open');overlay.classList.add('show')}function closeMenu(){side.classList.remove('open');overlay.classList.remove('show')}
 function summary(){const paid=db.accounting.filter(r=>r[4]==='Lunas').reduce((s,r)=>s+num(r[3]),0);const unpaid=db.accounting.filter(r=>r[4]!=='Lunas').reduce((s,r)=>s+num(r[3]),0);const exp=db.expenses.reduce((s,r)=>s+num(r[4]),0);const stock=db.inventory.reduce((s,r)=>s+(Number(r[2])||0),0);const low=db.inventory.filter(r=>(Number(r[2])||0)<=Number(r[5]||5)).length;return{paid,unpaid,exp,profit:paid-exp,stock,low,customers:db.crm.length,pos:db.pos.length}}
 function kpi(items){return `<div class="kpis">${items.map(k=>`<div class="kpi"><div class="kpi-top"><div class="kpi-icon">${k[0]}</div><span class="trend">Real</span></div><p>${k[1]}</p><h3>${k[2]}</h3></div>`).join('')}</div>`}
 
+
+function moneyVal(v){return Number(String(v||'').replace(/[^0-9-]/g,''))||0}
+function sumModuleAmount(mod,idx){
+  return (db[mod]||[]).reduce((s,r)=>s+moneyVal(r[idx]||0),0)
+}
+function monthlyMiniData(){
+  const labels=[], data=[];
+  const now=new Date();
+  for(let i=5;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    const key=d.toISOString().slice(0,7);
+    labels.push(key.slice(5));
+    let total=0;
+    (db.sales||[]).forEach(r=>{if(String(r[2]||today()).slice(0,7)===key)total+=moneyVal(r[4]||r[3])});
+    (db.pos||[]).forEach(r=>{if(String(r[3]||today()).slice(0,7)===key)total+=moneyVal(r[4])});
+    data.push(total);
+  }
+  return {labels,data};
+}
+function miniBarChart(){
+  const d=monthlyMiniData(), max=Math.max(...d.data,1);
+  return `<div class="mini-bars">${d.data.map((v,i)=>`<div class="mini-bar" style="height:${Math.max(14,v/max*145)}px"><small>${rp(v)}</small></div>`).join('')}</div><div class="chart-labels">${d.labels.map(x=>`<div>${x}</div>`).join('')}</div>`;
+}
+function latestActivities(){
+  const rows=[];
+  (db.sales||[]).slice(0,3).forEach(r=>rows.push(['Invoice '+safe(r[0]),safe(r[1])+' • '+safe(r[4])+' • '+safe(r[5])]));
+  (db.expenses||[]).slice(0,2).forEach(r=>rows.push(['Expense '+safe(r[0]),safe(r[1])+' • '+safe(r[4])+' • '+safe(r[5])]));
+  (db.stockMoves||[]).slice(0,2).forEach(r=>rows.push(['Stok '+safe(r[1]),safe(r[3])+' • Qty '+safe(r[4])]));
+  return rows.slice(0,6).map(x=>`<div class="activity-item"><span class="dot2"></span><div><b>${x[0]}</b><small>${x[1]}</small></div></div>`).join('')||`<div class="activity-item"><span class="dot2"></span><div><b>Belum ada aktivitas</b><small>Mulai input customer, stok, invoice, POS, atau jurnal.</small></div></div>`;
+}
 function subscriptionNotice(){
   if(!db||!db.company||!db.company.subscription)return '';
   const s=db.company.subscription;
-  const status=s.status||'-';
-  const valid=s.validUntil||'-';
-  const amount=s.monthlyAmount?rp(s.monthlyAmount):'Rp 0';
-  return `<div class="card" style="margin-bottom:18px"><h3>Paket Saya</h3><p>Status: <b>${status}</b> • Valid sampai: <b>${valid}</b> • Estimasi tagihan: <b>${amount}</b></p><div class="head-actions"><a class="btn green" href="https://wa.me/6285150973789?text=Halo%2C%20saya%20mau%20perpanjang%20atau%20upgrade%20KaliERP.">Perpanjang / Upgrade</a></div></div>`;
+  const status=s.status||'-', valid=s.validUntil||'-', amount=s.monthlyAmount?rp(s.monthlyAmount):'Rp 0';
+  return `<div class="sub-premium"><div><span class="status-pill">💎 Paket ${safe(s.plan||'-')}</span><h3>Paket Saya</h3><p>Status: <b>${safe(status)}</b> • Valid sampai: <b>${safe(valid)}</b> • Estimasi tagihan: <b>${amount}</b></p></div><div class="head-actions"><a class="btn green" href="https://wa.me/6285150973789?text=Halo%2C%20saya%20mau%20perpanjang%20atau%20upgrade%20KaliERP.">Perpanjang / Upgrade</a></div></div>`;
 }
-function renderDashboard(){const s=summary();const empty=(db.crm.length+db.inventory.length+db.sales.length+db.pos.length+db.accounting.length)===0;moduleContent.innerHTML=subscriptionNotice()+kpi([['💰','Pemasukan Lunas',rp(s.paid)],['⏳','Piutang',rp(s.unpaid)],['📦','Total Stok',s.stock.toLocaleString('id-ID')],['📈','Laba/Rugi',rp(s.profit)]])+(empty?`<div class="card" style="margin-top:18px"><h3>Akun baru masih kosong</h3><p>Mulai dari tambah customer di CRM, tambah produk di Inventory, lalu buat Invoice atau transaksi POS.</p><div class="head-actions" style="margin-top:12px"><button class="btn green" onclick="setModule('crm')">Tambah Customer</button><button class="btn blue" onclick="setModule('inventory')">Tambah Produk</button></div></div>`:'')+`<div class="grid3" style="margin-top:18px"><div class="card"><h3>Customer</h3><p>${s.customers} customer tercatat di CRM.</p></div><div class="card"><h3>Stok Menipis</h3><p>${s.low} produk perlu perhatian gudang.</p></div><div class="card"><h3>Transaksi POS</h3><p>${s.pos} transaksi kasir tercatat.</p></div></div>`}
+function renderDashboard(){
+  headActions.innerHTML=`<button class="btn green" onclick="quickAdd()">＋ Quick Add</button><button class="btn blue" onclick="setModule('accounting')">Accounting</button><button class="btn soft" onclick="setModule('settings')">Settings</button>`;
+  const salesTotal=sumModuleAmount('sales',4)+sumModuleAmount('pos',4);
+  const expenseTotal=sumModuleAmount('expenses',4);
+  const stockTotal=(db.inventory||[]).reduce((s,r)=>s+Number(r[2]||0),0);
+  const profit=salesTotal-expenseTotal;
+  moduleContent.innerHTML=`${subscriptionNotice()}
+  <div class="premium-hero">
+    <span class="hero-chip">🚀 KaliERP Business Cockpit</span>
+    <h2>Selamat datang, ${safe(member?.name||user?.displayName||'User')}</h2>
+    <p>Pantau customer, penjualan, stok, POS, accounting, tax, staff, dan aktivitas operasional perusahaan dalam satu dashboard yang lebih cepat dibaca.</p>
+    <div class="hero-actions">
+      <button class="btn primary" style="background:white;color:#6d28d9" onclick="quickAdd()">＋ Tambah Cepat</button>
+      <button class="btn soft" onclick="setModule('sales')">Lihat Sales</button>
+      <button class="btn soft" onclick="setModule('inventory')">Cek Inventory</button>
+    </div>
+  </div>
+  <div class="premium-kpis">
+    <div class="premium-kpi"><div class="ico">👥</div><small>Customer</small><b>${(db.crm||[]).length}</b><span>Database prospek dan pelanggan.</span></div>
+    <div class="premium-kpi"><div class="ico">💰</div><small>Penjualan + POS</small><b>${rp(salesTotal)}</b><span>Akumulasi transaksi.</span></div>
+    <div class="premium-kpi"><div class="ico">📦</div><small>Total Stok</small><b>${stockTotal}</b><span>Unit/item tersedia.</span></div>
+    <div class="premium-kpi"><div class="ico">📈</div><small>Estimasi Laba</small><b class="${profit>=0?'balance-positive':'balance-negative'}">${rp(profit)}</b><span>Penjualan dikurangi pengeluaran.</span></div>
+  </div>
+  <div class="quick-grid">
+    <div class="quick-card" onclick="setModule('crm')"><div class="qico">🤝</div><b>CRM</b><small>Kelola customer dan prospek.</small></div>
+    <div class="quick-card" onclick="setModule('sales')"><div class="qico">🧾</div><b>Invoice</b><small>Tagihan dan penjualan.</small></div>
+    <div class="quick-card" onclick="setModule('inventory')"><div class="qico">📦</div><b>Inventory</b><small>Stok dan gudang.</small></div>
+    <div class="quick-card" onclick="setModule('accounting')"><div class="qico">📊</div><b>Accounting</b><small>Jurnal dan laporan.</small></div>
+  </div>
+  <div class="dash-grid">
+    <div class="dash-card"><h3>Grafik Penjualan 6 Bulan</h3>${miniBarChart()}</div>
+    <div class="dash-card"><h3>Aktivitas Terbaru</h3><div class="activity-list">${latestActivities()}</div></div>
+  </div>`;
+}
+
+
 function tableHTML(schema,rows,actions=''){return `<div class="table-card"><div class="table-head"><div><h3>Data</h3><p>Klik baris untuk melihat detail.</p></div><div class="table-actions">${actions}</div></div><div class="wrap"><table id="dataTable"><thead><tr>${schema.map(c=>`<th>${c}</th>`).join('')}<th>Aksi</th></tr></thead><tbody>${rows}</tbody></table></div></div>`}
 function status(s){return `<span class="status ${s==='Lunas'||s==='Aktif'||s==='Published'?'green':s==='Hot'||s==='Promo'?'red':'amber'}">${safe(s)}</span>`}
 function renderCRM(){headActions.innerHTML=`<button class="btn green" onclick="openRecord('crm')">＋ Customer</button><button class="btn blue" onclick="exportCSV('crm')">Export</button>`;const rows=db.crm.map((r,i)=>`<tr class="row" onclick="customerDetail(${i})"><td><strong>${safe(r[0])}</strong><div class="mini">${safe(r[2])}</div></td><td>${safe(r[1])}</td><td>${safe(r[3])}</td><td>${status(r[4])}</td><td>${history(r[0]).length} transaksi</td><td onclick="event.stopPropagation()"><button class="act" onclick="customerDetail(${i})">👁️</button><button class="act" onclick="waCustomer(${i})">🟢</button><button class="act" onclick="openRecord('crm',${i})">✏️</button><button class="act" onclick="del('crm',${i})">🗑️</button></td></tr>`).join('')||`<tr><td colspan="6" class="empty">Belum ada customer.</td></tr>`;moduleContent.innerHTML=kpi([['👥','Total Customer',db.crm.length],['🔥','Hot Lead',db.crm.filter(r=>r[4]==='Hot').length],['🧾','Riwayat Transaksi',db.crm.reduce((s,r)=>s+history(r[0]).length,0)],['📱','WA Tersimpan',db.crm.filter(r=>r[1]).length]])+`<div style="margin-top:18px">${tableHTML(['Customer','WhatsApp','Kategori','Status','Riwayat'],rows,`<button class="btn green" onclick="openRecord('crm')">＋ Customer</button>`)}</div>`}
@@ -809,7 +1038,7 @@ function printInvoice(i){const r=db.sales[i],items=JSON.parse(r[6]||'[]');const 
 function offerPackage(i){const p=db.pricing[i],w=String(db.company.wa||'').replace(/[^0-9]/g,'');if(!w)return alert('WA perusahaan belum diisi.');window.open('https://wa.me/62'+w.replace(/^0/,'')+'?text='+encodeURIComponent(`Halo, saya tertarik dengan ${db.company.brand}\nPaket: ${p[0]}\nHarga: ${p[2]}\nFitur: ${p[3]}`),'_blank')}function quickAdd(){if(active==='sales')openInvoice();else if(active==='pos')openPOS();else if(active==='inventory')openRecord('inventory');else if(schemas[active])openRecord(active);else setModule('crm')}
 function exportCSV(mod){if(blockTrial('Export Data'))return;if(mod==='journal'){ensureAccountingPro();const lines=['Tanggal,Ref,Debit,Kredit,Keterangan,Nominal,Catatan'].concat(db.journal.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download('journal.csv',lines.join('\n'),'text/csv');return}const cols=schemas[mod];if(!cols)return toast('Tidak ada export');const lines=[cols.join(',')].concat((db[mod]||[]).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download(mod+'.csv',lines.join('\n'),'text/csv')}function backupData(){if(blockTrial('Backup'))return;download('backup-kalierp-real-'+tenantId+'.json',JSON.stringify(db,null,2),'application/json')}async function restoreBackup(e){if(blockTrial('Restore'))return;const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.company||!d.crm)throw Error();if(confirm('Restore data ke perusahaan ini?')){db=d;normalize();await save();applyShell();setModule('dashboard');toast('Restore berhasil')}}catch{alert('File backup tidak valid')}e.target.value=''}function download(n,c,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click();URL.revokeObjectURL(a.href)}async function resetCompanyData(){if(blockTrial('Reset Data'))return;if(!isPureOwner())return toast('Hanya Owner');if(confirm('Reset semua data perusahaan?')){const c=db.company,s=db.staff;db=clone(defaultDB);db.company=c;db.staff=s;await save();setModule('dashboard');toast('Data reset')}}function copyRules(){navigator.clipboard.writeText(rulesBox.innerText).then(()=>toast('Rules dicopy'))}
 function searchTable(q){const table=document.getElementById('dataTable');if(!table)return;table.querySelectorAll('tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q.toLowerCase())?'':'none')}
-window.addEventListener('load',()=>{if(new URLSearchParams(location.search).get('trial')==='1'){setTimeout(()=>tabAuth('trial'),250)}});window.addEventListener('load',()=>setTimeout(()=>fb.onAuthStateChanged(fb.auth,u=>{if(u)boot(u)}),300));
+window.addEventListener('load',()=>{if(new URLSearchParams(location.search).get('trial')==='1'){setTimeout(()=>tabAuth('trial'),250)}setTimeout(()=>hideFast&&hideFast(),1200)});window.addEventListener('load',()=>setTimeout(()=>fb.onAuthStateChanged(fb.auth,u=>{if(u)boot(u)}),300));
 </script>
 </body>
 </html>
