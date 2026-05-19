@@ -1,0 +1,27 @@
+KALIERP ADMIN CLEAN V9
+
+Inti solusi:
+- irsukin@gmail.com bisa login sebagai user berarti Firebase Authentication benar.
+- Jika admin error, penyebabnya bukan password, tapi admin panel/rules/akses data.
+- admin-license.html v9 tidak memakai members atau tenant untuk menentukan admin.
+- Admin hanya dicek dari request.auth.token.email == irsukin@gmail.com.
+
+Yang wajib upload:
+1. admin-license.html
+2. firestore.rules
+
+Yang wajib dipasang:
+Firebase Console > Firestore Database > Rules
+Paste isi firestore.rules v9
+Publish
+
+Masuk admin:
+https://domainmu.com/admin-license.html
+
+Email:
+irsukin@gmail.com
+
+Jika masih error:
+- Kalau error login password: reset password dari halaman admin.
+- Kalau error baca licenses/tenants: rules v9 belum dipublish atau browser masih cache file lama.
+- Tekan Ctrl+F5 setelah upload.

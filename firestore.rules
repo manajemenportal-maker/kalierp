@@ -4,21 +4,17 @@ service cloud.firestore {
 
     function isAdmin() {
       return request.auth != null
-        && request.auth.token.email in ['irsukin@gmail.com'];
+        && request.auth.token.email == 'irsukin@gmail.com';
     }
 
     match /members/{userId} {
-      allow read, write: if request.auth != null
-        && request.auth.uid == userId;
+      allow read, write: if request.auth != null && request.auth.uid == userId;
       allow read, update, delete: if isAdmin();
     }
 
     match /licenses/{code} {
       allow read: if true;
-      allow create, update, delete: if isAdmin()
-        || (request.auth != null
-          && resource.data.status == 'Available'
-          && request.resource.data.status == 'Used');
+      allow create, update, delete: if isAdmin();
     }
 
     match /invites/{code} {

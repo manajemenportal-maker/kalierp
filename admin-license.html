@@ -3,278 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KaliERP Admin License & Upgrade</title>
+  <title>KaliERP Admin License Clean</title>
   <style>
-    :root{--p:#6d28d9;--g:#059669;--r:#e11d48;--b:#2563eb;--l:#e2e8f0;--m:#64748b;--t:#0f172a;--bg:#f8fafc}
-    *{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#1e293b;padding:20px}
-    .wrap{max-width:1180px;margin:auto}.hero{background:linear-gradient(135deg,#581c87,#6d28d9,#c026d3);color:white;border-radius:30px;padding:28px;margin-bottom:18px}
-    h1{font-size:32px}.hero p{color:#f3e8ff;margin-top:8px;line-height:1.7}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:white;border:1px solid var(--l);border-radius:24px;padding:20px;box-shadow:0 16px 36px rgba(15,23,42,.07)}
+    :root{--p:#6d28d9;--b:#2563eb;--g:#059669;--r:#e11d48;--l:#e2e8f0;--m:#64748b;--t:#0f172a;--bg:#f8fafc}
+    *{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:#1e293b;padding:18px}
+    .wrap{max-width:1150px;margin:auto}.hero{background:linear-gradient(135deg,#581c87,#6d28d9,#c026d3);color:white;border-radius:28px;padding:26px;margin-bottom:16px}
+    .hero h1{font-size:32px}.hero p{color:#f3e8ff;line-height:1.7;margin-top:8px}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:white;border:1px solid var(--l);border-radius:24px;padding:20px;box-shadow:0 18px 42px rgba(15,23,42,.07)}
     .fg{margin-top:13px}.fg label{display:block;font-size:13px;font-weight:900;color:#334155;margin-bottom:7px}.ctrl{width:100%;border:1px solid var(--l);border-radius:14px;padding:12px;outline:0}
-    .ctrl:focus{border-color:var(--p);box-shadow:0 0 0 4px rgba(109,40,217,.1)}
-    .btn{border:0;border-radius:14px;padding:11px 14px;font-weight:900;cursor:pointer;display:inline-flex;gap:8px;align-items:center;justify-content:center}
-    .primary{background:var(--p);color:white}.soft{background:white;border:1px solid var(--l);color:#334155}.green{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0}.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}.red{background:#fff1f2;color:#be123c;border:1px solid #fecdd3}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.box{background:#f8fafc;border:1px solid var(--l);border-radius:18px;padding:14px;margin-top:14px;line-height:1.8}.code{font-size:26px;font-weight:900;color:var(--p);letter-spacing:.08em}.mini{font-size:13px;color:var(--m);line-height:1.65;margin-top:8px}
-    table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}td,th{border-bottom:1px solid #f1f5f9;padding:10px;text-align:left}th{color:#64748b;text-transform:uppercase;font-size:11px}.status{border-radius:999px;padding:5px 8px;background:#ecfdf5;color:#047857;font-weight:900;font-size:11px}.warn{background:#fffbeb;color:#b45309}.danger{background:#fff1f2;color:#be123c}.err{background:#fff1f2;color:#be123c;border:1px solid #fecdd3;border-radius:14px;padding:10px;margin-top:12px;display:none;font-weight:800}.ok{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;border-radius:14px;padding:10px;margin-top:12px;display:none;font-weight:800}
-    .tabs{display:flex;gap:8px;background:#f1f5f9;border-radius:18px;padding:6px;margin-bottom:16px}.tab{flex:1;border-radius:14px;padding:11px;font-weight:900;background:transparent;color:#64748b}.tab.active{background:white;color:var(--p);box-shadow:0 8px 20px rgba(15,23,42,.08)}.panel{display:none}.panel.active{display:block}
-    @media(max-width:850px){.grid{grid-template-columns:1fr}body{padding:12px}.hero{padding:20px;border-radius:22px}h1{font-size:25px}.tabs{display:grid}}
+    .btn{border:0;border-radius:14px;padding:11px 14px;font-weight:900;cursor:pointer;display:inline-flex;gap:8px;align-items:center;justify-content:center;text-decoration:none}
+    .primary{background:var(--p);color:white}.blue{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}.green{background:#ecfdf5;color:#047857;border:1px solid #a7f3d0}.soft{background:white;border:1px solid var(--l);color:#334155}.red{background:#fff1f2;color:#be123c;border:1px solid #fecdd3}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.box{background:#f8fafc;border:1px solid var(--l);border-radius:18px;padding:14px;margin-top:14px;line-height:1.8}
+    .err{display:none;background:#fff1f2;color:#be123c;border:1px solid #fecdd3;border-radius:14px;padding:11px;margin-top:12px;font-weight:800;white-space:pre-wrap}.ok{display:none;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;border-radius:14px;padding:11px;margin-top:12px;font-weight:800;white-space:pre-wrap}
+    .code{font-size:26px;font-weight:900;color:var(--p);letter-spacing:.06em;margin-top:8px}.mini{font-size:13px;color:var(--m);line-height:1.65;margin-top:8px}
+    table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}td,th{border-bottom:1px solid #f1f5f9;padding:10px;text-align:left}th{font-size:11px;color:#64748b;text-transform:uppercase}.tag{border-radius:999px;padding:5px 9px;background:#ecfdf5;color:#047857;font-weight:900;font-size:11px}.tag.used{background:#fffbeb;color:#b45309}.tag.bad{background:#fff1f2;color:#be123c}
+    @media(max-width:850px){.grid{grid-template-columns:1fr}body{padding:10px}.hero{border-radius:20px;padding:18px}.hero h1{font-size:25px}}
   </style>
 </head>
 <body>
 <div class="wrap">
   <section class="hero">
-    <h1>Admin License & Upgrade KaliERP</h1>
-    <p><b>ADMIN PANEL INI UNTUK PEMILIK APLIKASI.</b><br>Buat kode aktivasi baru dan tambah kuota user customer lama tanpa membuat akun baru.</p>
+    <h1>KaliERP Admin License</h1>
+    <p>Panel admin bersih. Login hanya dicek dari Firebase Authentication email: <b>irsukin@gmail.com</b>. Tidak memakai members, tenant, atau data perusahaan.</p>
   </section>
 
   <div class="grid">
     <div class="card">
-      <h2>Login Admin</h2>
-      <p class="mini">Gunakan login normal Email/Password dari Firebase Authentication. Password Gmail tidak otomatis sama dengan password Firebase.</p>
-      <div class="fg"><label>Email Admin</label><input id="email" class="ctrl" placeholder="irsukin@gmail.com"></div>
-      <div class="fg"><label>Password</label><input id="password" type="password" class="ctrl"></div>
-      <div class="row"><button class="btn primary" id="loginBtn" onclick="login()">Login Admin</button><button class="btn blue" onclick="resetAdminPassword()">Reset Password</button><button class="btn soft" onclick="logout()">Logout</button></div>
-      <div class="err" id="err"></div><div class="ok" id="ok"></div>
-      <div class="box"><b>Status:</b> <span id="status">Belum login</span></div><div class="box"><b>Checklist login normal:</b><br>1. Firebase Authentication &gt; Sign-in method &gt; Email/Password harus Enable.<br>2. Authentication &gt; Users harus ada user admin ini.<br>3. Password yang dipakai adalah password Firebase, bukan password Gmail.<br>4. Kalau ragu, klik Reset Password dari panel ini.</div>
+      <h2>Login Admin Normal</h2>
+      <p class="mini">Ini bukan login user/perusahaan. Ini khusus pemilik aplikasi untuk membuat license.</p>
+      <div class="fg"><label>Email Admin</label><input id="email" class="ctrl" value="irsukin@gmail.com"></div>
+      <div class="fg"><label>Password Firebase</label><input id="password" class="ctrl" type="password"></div>
+      <div class="row">
+        <button class="btn primary" id="loginBtn" onclick="login()">Login Admin</button>
+        <button class="btn blue" onclick="resetPassword()">Reset Password</button>
+        <button class="btn soft" onclick="logout()">Logout</button>
+      </div>
+      <div class="err" id="err"></div>
+      <div class="ok" id="ok"></div>
+      <div class="box">
+        <b>Status Auth:</b> <span id="authStatus">Belum login</span><br>
+        <b>Status Admin:</b> <span id="adminStatus">Belum dicek</span>
+      </div>
+      <div class="box">
+        <b>Checklist wajib:</b><br>
+        1. Authentication &gt; Sign-in method &gt; Email/Password = Enable<br>
+        2. Authentication &gt; Users harus ada: <b>irsukin@gmail.com</b><br>
+        3. Firestore Rules harus pakai rules v9 dari paket ini<br>
+        4. Buka admin dari <b>admin-license.html</b>, bukan app.html
+      </div>
     </div>
 
     <div class="card">
-      <div class="tabs">
-        <button class="tab active" id="tabNew" onclick="showTab('new')">Buat License Baru</button>
-        <button class="tab" id="tabUpgrade" onclick="showTab('upgrade')">Tambah Kuota Existing</button>
-      </div>
-
-      <div class="panel active" id="panelNew">
-        <h2>Buat License Code</h2>
-        <div class="fg"><label>Paket</label><select id="plan" class="ctrl" onchange="calc()"><option>Starter</option><option selected>Business</option><option>Lifetime</option></select></div>
-        <div class="fg"><label>Jumlah User Sesuai Permintaan Customer</label><input id="userLimit" type="number" min="1" value="5" class="ctrl" oninput="calc()"></div>
-        <div class="fg"><label>Masa Aktif Sampai</label><input id="validUntil" type="date" class="ctrl"></div>
-        <div class="fg"><label>Nama Customer / Catatan</label><input id="customerNote" class="ctrl" placeholder="Contoh: PT ABC - 7 user"></div>
-        <div class="box" id="calcBox"></div>
-        <div class="row"><button class="btn green" onclick="createLicense()">Buat License</button><button class="btn blue" onclick="loadAll()">Refresh</button></div>
-        <div class="box" id="result">Belum ada kode dibuat.</div>
-      </div>
-
-      <div class="panel" id="panelUpgrade">
-        <h2>Tambah Kuota Customer Lama</h2>
-        <p class="mini">Isi Tenant ID customer atau License Code yang pernah dipakai. Sistem akan menaikkan batas user dan menghitung ulang tagihan.</p>
-        <div class="fg"><label>Cari dengan</label><select id="findType" class="ctrl"><option value="tenant">Tenant ID</option><option value="license">License Code Lama</option></select></div>
-        <div class="fg"><label>Tenant ID / License Code</label><input id="findValue" class="ctrl" placeholder="Contoh UID tenant atau KALI-XXXX-XXXX"></div>
-        <div class="row"><button class="btn blue" onclick="findTenant()">Cari Customer</button></div>
-        <div class="box" id="tenantBox">Belum ada customer dipilih.</div>
-        <div class="fg"><label>Kuota User Baru / Total User Setelah Upgrade</label><input id="newUserLimit" type="number" min="1" value="10" class="ctrl" oninput="calcUpgrade()"></div>
-        <div class="fg"><label>Valid Sampai Baru</label><input id="newValidUntil" type="date" class="ctrl"></div>
-        <div class="fg"><label>Status Paket</label><select id="newStatus" class="ctrl"><option>Active</option><option>Expired</option><option>Suspended</option></select></div>
-        <div class="box" id="upgradeCalc">Cari customer dulu.</div>
-        <div class="row"><button class="btn green" onclick="upgradeQuota()">Simpan Upgrade Kuota</button></div>
-      </div>
+      <h2>Buat License / Kuota User</h2>
+      <div class="fg"><label>Paket</label><select id="plan" class="ctrl" onchange="calc()"><option>Starter</option><option selected>Business</option><option>Lifetime</option></select></div>
+      <div class="fg"><label>Jumlah User</label><input id="userLimit" type="number" min="1" class="ctrl" value="5" oninput="calc()"></div>
+      <div class="fg"><label>Valid Sampai</label><input id="validUntil" type="date" class="ctrl"></div>
+      <div class="fg"><label>Catatan Customer</label><input id="note" class="ctrl" placeholder="Contoh: PT ABC - Business 7 user"></div>
+      <div class="box" id="calcBox"></div>
+      <div class="row"><button class="btn green" onclick="createLicense()">Buat License</button><button class="btn blue" onclick="loadAll()">Refresh Data</button></div>
+      <div class="box" id="result">Belum ada kode dibuat.</div>
     </div>
-  </div>
-
-  <div class="card" style="margin-top:16px">
-    <h2>Tenant / Customer Terdaftar</h2>
-    <p class="mini">Kolom Tenant ID dipakai untuk upgrade kuota user customer lama.</p>
-    <div id="tenantList"></div>
   </div>
 
   <div class="card" style="margin-top:16px">
     <h2>License Terbaru</h2>
-    <p class="mini">License <b>Available</b> bisa diberikan ke customer. License <b>Used</b> sudah dipakai aktivasi.</p>
-    <div id="list"></div>
+    <div id="licenseList"></div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Customer / Tenant Terdaftar</h2>
+    <p class="mini">Ini hanya terbaca jika Firestore Rules v9 sudah dipasang.</p>
+    <div id="tenantList"></div>
   </div>
 </div>
 
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js';
-import { getFirestore, doc, setDoc, getDoc, updateDoc, getDocs, collection, serverTimestamp, query, orderBy, limit, where } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
+import { getFirestore, doc, setDoc, getDocs, collection, serverTimestamp, query, orderBy, limit } from 'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
 
-const firebaseConfig={apiKey:'AIzaSyDfTbFVolL7nfJbgoZCcg9CCUGgyky073Q',authDomain:'kalierp-d4905.firebaseapp.com',projectId:'kalierp-d4905',storageBucket:'kalierp-d4905.firebasestorage.app',messagingSenderId:'549448963486',appId:'1:549448963486:web:b2f3690cd509b87a72f28f',measurementId:'G-9WD9SJGW3J'};
-const app=initializeApp(firebaseConfig);
-window.auth=getAuth(app);window.db=getFirestore(app);
-window.fb={signInWithEmailAndPassword,sendPasswordResetEmail,signOut,onAuthStateChanged,doc,setDoc,getDoc,updateDoc,getDocs,collection,serverTimestamp,query,orderBy,limit,where};
+const firebaseConfig = {
+  apiKey: "AIzaSyDfTbFVolL7nfJbgoZCcg9CCUGgyky073Q",
+  authDomain: "kalierp-d4905.firebaseapp.com",
+  projectId: "kalierp-d4905",
+  storageBucket: "kalierp-d4905.firebasestorage.app",
+  messagingSenderId: "549448963486",
+  appId: "1:549448963486:web:b2f3690cd509b87a72f28f",
+  measurementId: "G-9WD9SJGW3J"
+};
+
+const app = initializeApp(firebaseConfig);
+window.auth = getAuth(app);
+window.db = getFirestore(app);
+window.fb = { signInWithEmailAndPassword, sendPasswordResetEmail, signOut, onAuthStateChanged, doc, setDoc, getDocs, collection, serverTimestamp, query, orderBy, limit };
 </script>
 
 <script>
-const ADMIN_EMAIL='irsukin@gmail.com';
-let currentUser=null;
-let selectedTenantId=null;
-let selectedTenantData=null;
+const ADMIN_EMAIL = 'irsukin@gmail.com';
+let currentUser = null;
 
-function rupiah(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}
-function todayPlus(days){const d=new Date();d.setDate(d.getDate()+days);return d.toISOString().slice(0,10)}
-function showErr(m){err.textContent=m;err.style.display='block';ok.style.display='none'}
-function showOk(m){ok.textContent=m;ok.style.display='block';err.style.display='none'}
-function clearMsg(){err.style.display='none';ok.style.display='none'}
-function code(){return 'KALI-'+Math.random().toString(36).slice(2,6).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase()}
-function showTab(t){tabNew.classList.toggle('active',t==='new');tabUpgrade.classList.toggle('active',t==='upgrade');panelNew.classList.toggle('active',t==='new');panelUpgrade.classList.toggle('active',t==='upgrade')}
-function planInfo(p=plan.value,u=Number(userLimit.value||1)){
+function rupiah(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID') }
+function todayPlus(days){ const d=new Date(); d.setDate(d.getDate()+days); return d.toISOString().slice(0,10) }
+function showErr(m){ err.textContent=m; err.style.display='block'; ok.style.display='none' }
+function showOk(m){ ok.textContent=m; ok.style.display='block'; err.style.display='none' }
+function clearMsg(){ err.style.display='none'; ok.style.display='none' }
+function isAdmin(){ return currentUser && String(currentUser.email||'').toLowerCase() === ADMIN_EMAIL }
+function requireAdmin(){ if(!currentUser){showErr('Belum login.'); return false} if(!isAdmin()){showErr('Email login bukan admin. Login sebagai: '+ADMIN_EMAIL); return false} return true }
+function authMsg(e){
+  const c=e&&e.code?e.code:'';
+  if(c==='auth/invalid-credential')return 'Login Firebase gagal. Password salah, user belum ada, atau Email/Password belum aktif.\nCoba klik Reset Password.';
+  if(c==='auth/operation-not-allowed')return 'Email/Password belum aktif di Firebase Authentication.';
+  if(c==='auth/too-many-requests')return 'Terlalu banyak percobaan. Tunggu sebentar atau reset password.';
+  return (e&&e.message)||'Login gagal.';
+}
+function code(){ return 'KALI-' + Math.random().toString(36).slice(2,6).toUpperCase() + '-' + Math.random().toString(36).slice(2,6).toUpperCase() }
+function planInfo(){
+  const p=plan.value, u=Number(userLimit.value||1);
   if(p==='Starter')return {plan:p,pricePerUser:23000,userLimit:u,billingCycle:'monthly',monthlyAmount:23000*u,oneTimePrice:0};
   if(p==='Business')return {plan:p,pricePerUser:75000,userLimit:u,billingCycle:'monthly',monthlyAmount:75000*u,oneTimePrice:0};
   return {plan:p,pricePerUser:0,userLimit:u,billingCycle:'lifetime',monthlyAmount:0,oneTimePrice:1500000};
 }
-function calc(){const x=planInfo();calcBox.innerHTML=`<b>Paket:</b> ${x.plan}<br><b>Kuota user:</b> ${x.userLimit}<br><b>Harga per user:</b> ${rupiah(x.pricePerUser)} / bulan<br><b>Total bulanan:</b> ${rupiah(x.monthlyAmount)}<br><b>Sekali bayar:</b> ${x.oneTimePrice?rupiah(x.oneTimePrice):'-'}`}
-function calcUpgrade(){
-  if(!selectedTenantData){upgradeCalc.innerHTML='Cari customer dulu.';return}
-  const sub=selectedTenantData.subscription||{};
-  const oldLimit=Number(sub.userLimit||1);
-  const newLimit=Number(newUserLimit.value||oldLimit);
-  const price=Number(sub.pricePerUser||0);
-  const addUser=Math.max(newLimit-oldLimit,0);
-  const monthly=String(sub.billingCycle||'monthly')==='monthly'?price*newLimit:0;
-  const addMonthly=String(sub.billingCycle||'monthly')==='monthly'?price*addUser:0;
-  upgradeCalc.innerHTML=`<b>Paket:</b> ${sub.plan||'-'}<br><b>User lama:</b> ${oldLimit}<br><b>User baru:</b> ${newLimit}<br><b>Tambahan user:</b> ${addUser}<br><b>Harga per user:</b> ${rupiah(price)} / bulan<br><b>Tambahan tagihan:</b> ${rupiah(addMonthly)} / bulan<br><b>Total tagihan baru:</b> ${rupiah(monthly)} / bulan`;
-}
-function authMessage(e){
-  const code=e&&e.code?e.code:'';
-  if(code==='auth/invalid-credential')return 'Email/password Firebase salah, user belum dibuat sebagai Email/Password, atau Sign-in Email/Password belum aktif.';
-  if(code==='auth/user-not-found')return 'User admin belum ada di Firebase Authentication. Buat dulu di Authentication > Users > Add user.';
-  if(code==='auth/wrong-password')return 'Password Firebase salah. Klik Reset Password atau buat password baru di Firebase.';
-  if(code==='auth/invalid-email')return 'Format email admin tidak valid.';
-  if(code==='auth/missing-password')return 'Password belum diisi.';
-  if(code==='auth/operation-not-allowed')return 'Email/Password belum aktif. Aktifkan di Authentication > Sign-in method > Email/Password.';
-  if(code==='auth/too-many-requests')return 'Terlalu banyak percobaan login. Tunggu sebentar atau reset password.';
-  return (e&&e.message)||'Login gagal.';
+function calc(){
+  const x=planInfo();
+  calcBox.innerHTML = `<b>Paket:</b> ${x.plan}<br><b>User:</b> ${x.userLimit}<br><b>Harga/User:</b> ${rupiah(x.pricePerUser)} / bulan<br><b>Total Bulanan:</b> ${rupiah(x.monthlyAmount)}<br><b>Sekali Bayar:</b> ${x.oneTimePrice?rupiah(x.oneTimePrice):'-'}`;
 }
 async function login(){
   clearMsg();
   const em=email.value.trim().toLowerCase();
   const pw=password.value;
-  if(!em||!pw)return showErr('Isi email admin dan password.');
-  if(em!==ADMIN_EMAIL)return showErr('Email ini bukan email admin yang diizinkan: '+ADMIN_EMAIL);
+  if(!em||!pw)return showErr('Isi email dan password.');
   try{
-    const b=document.getElementById('loginBtn'); if(b){b.textContent='Mengecek...';b.disabled=true;}
-    await fb.signInWithEmailAndPassword(auth,em,pw);
-    showOk('Login admin berhasil.');
-  }catch(e){ showErr(authMessage(e)); }
-  finally{ const b=document.getElementById('loginBtn'); if(b){b.textContent='Login Admin';b.disabled=false;} }
+    loginBtn.textContent='Mengecek...'; loginBtn.disabled=true;
+    await fb.signInWithEmailAndPassword(auth, em, pw);
+    showOk('Login Firebase berhasil. Mengecek akses admin...');
+  }catch(e){ showErr(authMsg(e)); }
+  finally{ loginBtn.textContent='Login Admin'; loginBtn.disabled=false; }
 }
-async function resetAdminPassword(){
+async function resetPassword(){
   clearMsg();
   const em=(email.value.trim()||ADMIN_EMAIL).toLowerCase();
-  if(em!==ADMIN_EMAIL)return showErr('Reset hanya untuk email admin: '+ADMIN_EMAIL);
-  try{
-    await fb.sendPasswordResetEmail(auth,em);
-    showOk('Link reset password sudah dikirim ke email admin. Cek inbox/spam.');
-  }catch(e){ showErr(authMessage(e)); }
+  try{ await fb.sendPasswordResetEmail(auth, em); showOk('Link reset password dikirim ke '+em+'. Cek inbox/spam.'); }
+  catch(e){ showErr(authMsg(e)); }
 }
-
-async function logout(){await fb.signOut(auth)}
-function requireAdmin(){if(!currentUser)return showErr('Login admin dulu.');if(currentUser.email!==ADMIN_EMAIL)return showErr('Email ini tidak diizinkan.');return true}
-
+async function logout(){ await fb.signOut(auth); }
 async function createLicense(){
-  clearMsg();if(!requireAdmin())return;
-  const x=planInfo();const c=code();
-  const data={...x,code:c,status:'Available',validUntil:validUntil.value||todayPlus(30),customerNote:customerNote.value||'',createdBy:currentUser.email,createdAt:fb.serverTimestamp()};
-  await fb.setDoc(fb.doc(db,'licenses',c),data);
-  result.innerHTML=`<b>License berhasil dibuat:</b><div class="code">${c}</div><div class="mini">Berikan kode ini ke customer setelah pembayaran.</div>`;
-  showOk('License berhasil dibuat.');
-  await loadAll();
+  clearMsg();
+  if(!requireAdmin())return;
+  const c=code();
+  const x=planInfo();
+  const data={...x, code:c, status:'Available', validUntil:validUntil.value||todayPlus(30), customerNote:note.value||'', createdBy:currentUser.email, createdAt:fb.serverTimestamp()};
+  try{
+    await fb.setDoc(fb.doc(db,'licenses',c), data);
+    result.innerHTML=`<b>License berhasil dibuat:</b><div class="code">${c}</div><div class="mini">Berikan kode ini ke customer setelah pembayaran.</div>`;
+    showOk('License berhasil dibuat.');
+    await loadAll();
+  }catch(e){ showErr('Gagal membuat license. Kemungkinan Firestore Rules v9 belum dipasang.\n\n'+e.message); }
 }
-
-
-function normalizeStaffRow(row){
-  const r=Array.isArray(row)?row:[];
-  let name=String(r[0]||'').trim();
-  let email=String(r[1]||'').trim();
-  let job=String(r[2]||'').trim();
-  let role=String(r[3]||'Staff').trim();
-  let status=String(r[4]||'Aktif').trim();
-  const roles=['Owner','Admin','Sales','Finance','Gudang','Kasir','Staff'];
-  function isEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||'').trim())}
-  if(isEmail(name) && !isEmail(email)){ const old=name; name=email||'-'; email=old; }
-  if(roles.includes(job) && !roles.includes(role)){ const oldRole=job; job=role||'-'; role=oldRole; }
-  if(!roles.includes(role)) role='Staff';
-  if(!['Aktif','Nonaktif','Suspended'].includes(status)) status='Aktif';
-  return [name||'-', email||'-', job||'-', role, status];
-}
-function normalizeERPData(erp){
-  erp=erp||{};
-  erp.staff=(erp.staff||[]).map(normalizeStaffRow);
-  erp.company=erp.company||{};
-  if(erp.company.subscription){
-    erp.company.subscription.activeUsers=erp.staff.filter(s=>String(s[4]||'Aktif')==='Aktif').length;
-  }
-  return erp;
-}
-
-function parseTenant(raw){
-  const data=raw||{};
-  let erp={};
-  if(data.erpDataJson){try{erp=JSON.parse(data.erpDataJson)}catch(e){erp={}}}
-  else if(data.erpData){erp=data.erpData}
-  erp=normalizeERPData(erp);return {raw:data,erp,subscription:data.subscription||(erp.company&&erp.company.subscription)||{}}
-}
-
-async function findTenant(){
-  clearMsg();if(!requireAdmin())return;
-  selectedTenantId=null;selectedTenantData=null;
-  const val=findValue.value.trim();
-  if(!val)return showErr('Isi Tenant ID atau License Code.');
-  if(findType.value==='tenant'){
-    const snap=await fb.getDoc(fb.doc(db,'tenants',val));
-    if(!snap.exists())return showErr('Tenant tidak ditemukan.');
-    selectedTenantId=val;selectedTenantData=parseTenant(snap.data());
-  }else{
-    const qs=await fb.getDocs(fb.query(fb.collection(db,'tenants'),fb.where('subscription.licenseCode','==',val.toUpperCase())));
-    if(qs.empty)return showErr('Tenant dengan license itu tidak ditemukan.');
-    const d=qs.docs[0];
-    selectedTenantId=d.id;selectedTenantData=parseTenant(d.data());
-  }
-  const sub=selectedTenantData.subscription||{};
-  const erp=selectedTenantData.erp||{};
-  const company=erp.company||{};
-  tenantBox.innerHTML=`<b>Tenant ID:</b> ${selectedTenantId}<br><b>Perusahaan:</b> ${company.name||selectedTenantData.raw.companyName||'-'}<br><b>Paket:</b> ${sub.plan||'-'}<br><b>Status:</b> ${sub.status||'-'}<br><b>User Limit:</b> ${sub.userLimit||0}<br><b>Active Users:</b> ${sub.activeUsers||0}<br><b>Total Bulanan:</b> ${rupiah(sub.monthlyAmount||0)}<br><b>Valid Sampai:</b> ${sub.validUntil||'-'}`;
-  newUserLimit.value=Number(sub.userLimit||1)+1;
-  newValidUntil.value=sub.validUntil||todayPlus(30);
-  newStatus.value=sub.status||'Active';
-  calcUpgrade();
-}
-
-async function upgradeQuota(){
-  clearMsg();if(!requireAdmin())return;
-  if(!selectedTenantId||!selectedTenantData)return showErr('Cari customer dulu.');
-  const newLimit=Number(newUserLimit.value||0);
-  if(newLimit<1)return showErr('Kuota user minimal 1.');
-  const data=selectedTenantData;
-  const erp=data.erp||{};
-  erp.company=erp.company||{};
-  const sub=data.subscription||erp.company.subscription||{};
-  const oldLimit=Number(sub.userLimit||1);
-  if(newLimit<Number(sub.activeUsers||0))return showErr('Kuota baru tidak boleh lebih kecil dari user aktif saat ini.');
-  sub.userLimit=newLimit;
-  sub.status=newStatus.value;
-  sub.validUntil=newValidUntil.value||sub.validUntil||todayPlus(30);
-  sub.activeUsers=(erp.staff||[]).filter(s=>String(s[4]||'Aktif')==='Aktif').length||Number(sub.activeUsers||1);
-  sub.monthlyAmount=String(sub.billingCycle||'monthly')==='monthly'?Number(sub.pricePerUser||0)*newLimit:0;
-  sub.upgradedAt=new Date().toISOString();
-  sub.upgradedBy=currentUser.email;
-  sub.upgradeNote=`Kuota diubah dari ${oldLimit} ke ${newLimit}`;
-  normalizeERPData(erp);erp.company.subscription=sub;
-  await fb.setDoc(fb.doc(db,'tenants',selectedTenantId),{subscription:sub,erpDataJson:JSON.stringify(erp),updatedAt:fb.serverTimestamp()},{merge:true});
-  showOk(`Kuota berhasil diubah dari ${oldLimit} menjadi ${newLimit} user.`);
-  await findTenant();
-  await loadTenants();
-}
-
 async function loadLicenses(){
-  if(!currentUser)return;
-  const snap=await fb.getDocs(fb.query(fb.collection(db,'licenses'),fb.orderBy('createdAt','desc'),fb.limit(25)));
-  const rows=[];snap.forEach(d=>{const x=d.data();rows.push(`<tr><td><b>${d.id}</b></td><td>${x.plan||'-'}</td><td>${x.userLimit||0}</td><td>${rupiah(x.pricePerUser||0)}</td><td>${rupiah(x.monthlyAmount||0)}</td><td>${x.validUntil||'-'}</td><td><span class="status ${x.status==='Available'?'':'warn'}">${x.status||'-'}</span></td></tr>`)});
-  list.innerHTML=`<table><thead><tr><th>Code</th><th>Paket</th><th>User</th><th>/User</th><th>Total/Bulan</th><th>Valid</th><th>Status</th></tr></thead><tbody>${rows.join('')||'<tr><td colspan="7">Belum ada license.</td></tr>'}</tbody></table>`;
+  if(!requireAdmin())return;
+  try{
+    const snap=await fb.getDocs(fb.query(fb.collection(db,'licenses'), fb.orderBy('createdAt','desc'), fb.limit(30)));
+    const rows=[];
+    snap.forEach(d=>{ const x=d.data(); rows.push(`<tr><td><b>${d.id}</b></td><td>${x.plan||'-'}</td><td>${x.userLimit||0}</td><td>${rupiah(x.pricePerUser||0)}</td><td>${rupiah(x.monthlyAmount||0)}</td><td>${x.validUntil||'-'}</td><td><span class="tag ${x.status==='Used'?'used':''}">${x.status||'-'}</span></td></tr>`) });
+    licenseList.innerHTML=`<table><thead><tr><th>Code</th><th>Paket</th><th>User</th><th>/User</th><th>Total</th><th>Valid</th><th>Status</th></tr></thead><tbody>${rows.join('')||'<tr><td colspan="7">Belum ada license.</td></tr>'}</tbody></table>`;
+  }catch(e){ licenseList.innerHTML='<div class="err" style="display:block">Gagal baca licenses. Pasang firestore.rules v9.\n'+e.message+'</div>'; }
 }
 async function loadTenants(){
-  if(!currentUser)return;
-  const snap=await fb.getDocs(fb.query(fb.collection(db,'tenants'),fb.orderBy('updatedAt','desc'),fb.limit(50)));
-  const rows=[];snap.forEach(d=>{const x=parseTenant(d.data());const sub=x.subscription||{};const company=(x.erp&&x.erp.company)||{};rows.push(`<tr><td><b>${d.id}</b></td><td>${company.name||d.data().companyName||'-'}</td><td>${sub.plan||'-'}</td><td>${sub.userLimit||0}</td><td>${sub.activeUsers||0}</td><td>${rupiah(sub.monthlyAmount||0)}</td><td>${sub.validUntil||'-'}</td><td><span class="status ${sub.status==='Active'?'':'danger'}">${sub.status||'-'}</span></td><td><button class="btn soft" onclick="selectTenant('${d.id}')">Pilih</button></td></tr>`)});
-  tenantList.innerHTML=`<table><thead><tr><th>Tenant ID</th><th>Perusahaan</th><th>Paket</th><th>Limit</th><th>Aktif</th><th>Total/Bulan</th><th>Valid</th><th>Status</th><th>Aksi</th></tr></thead><tbody>${rows.join('')||'<tr><td colspan="9">Belum ada tenant.</td></tr>'}</tbody></table>`;
+  if(!requireAdmin())return;
+  try{
+    const snap=await fb.getDocs(fb.query(fb.collection(db,'tenants'), fb.orderBy('updatedAt','desc'), fb.limit(50)));
+    const rows=[];
+    snap.forEach(d=>{
+      const x=d.data(); let erp={};
+      if(x.erpDataJson){ try{erp=JSON.parse(x.erpDataJson)}catch(e){} }
+      const sub=x.subscription || (erp.company&&erp.company.subscription) || {};
+      const company=(erp.company&&erp.company.name)||x.companyName||'-';
+      rows.push(`<tr><td><b>${d.id}</b></td><td>${company}</td><td>${sub.plan||'-'}</td><td>${sub.userLimit||0}</td><td>${sub.activeUsers||0}</td><td>${rupiah(sub.monthlyAmount||0)}</td><td>${sub.validUntil||'-'}</td><td><span class="tag ${sub.status==='Active'?'':'bad'}">${sub.status||'-'}</span></td></tr>`);
+    });
+    tenantList.innerHTML=`<table><thead><tr><th>Tenant ID</th><th>Perusahaan</th><th>Paket</th><th>Limit</th><th>Aktif</th><th>Total/Bulan</th><th>Valid</th><th>Status</th></tr></thead><tbody>${rows.join('')||'<tr><td colspan="8">Belum ada tenant.</td></tr>'}</tbody></table>`;
+  }catch(e){ tenantList.innerHTML='<div class="err" style="display:block">Gagal baca tenants. Pasang firestore.rules v9.\n'+e.message+'</div>'; }
 }
-async function selectTenant(id){showTab('upgrade');findType.value='tenant';findValue.value=id;await findTenant()}
-async function loadAll(){await loadLicenses();await loadTenants()}
+async function loadAll(){ await loadLicenses(); await loadTenants(); }
 
 window.addEventListener('load',()=>{
-  validUntil.value=todayPlus(30);newValidUntil.value=todayPlus(30);calc();
-  fb.onAuthStateChanged(auth,u=>{currentUser=u;status.textContent=u?u.email:'Belum login';if(u)loadAll()});
+  validUntil.value=todayPlus(30); calc();
+  fb.onAuthStateChanged(auth, async u=>{
+    currentUser=u;
+    authStatus.textContent = u ? u.email : 'Belum login';
+    adminStatus.textContent = u ? (isAdmin() ? 'ADMIN VALID' : 'BUKAN ADMIN') : 'Belum dicek';
+    adminStatus.style.color = u && isAdmin() ? '#047857' : '#be123c';
+    if(u && isAdmin()) await loadAll();
+    if(u && !isAdmin()) showErr('Login berhasil, tapi email ini bukan admin: '+ADMIN_EMAIL);
+  });
 });
 </script>
 </body>
