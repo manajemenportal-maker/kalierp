@@ -1,0 +1,25 @@
+XLifeWorks Migration Module v30
+
+Penambahan:
+1. Menu baru: Migrasi Data
+2. Sumber migrasi:
+   - Odoo
+   - Trello
+   - Circle
+   - Asana
+   - Basecamp
+   - Accurate / Jurnal.id
+   - Excel / CSV
+   - Aplikasi lain
+3. Fitur:
+   - pilih aplikasi lama
+   - rekomendasi mapping ke modul XLifeWorks
+   - alur migrasi: export, mapping, validasi, import, go-live
+   - download template CSV migrasi
+   - simulasi mapping
+   - materi jualan untuk merebut customer aplikasi lain
+4. Landing page ditambah section Program Pindah Aplikasi
+5. Template CSV migrasi disertakan
+
+Catatan:
+Fitur import final masih berbasis template/mapping. Untuk migrasi real customer, export data dari aplikasi lama, cocokkan kolom, validasi, lalu import/restore sesuai struktur XLifeWorks.

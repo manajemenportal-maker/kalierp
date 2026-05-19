@@ -1,0 +1,16 @@
+XLifeWorks v29
+
+Perubahan:
+- Kalimat layanan dikembalikan:
+  Platform ERP modern untuk perusahaan jasa, retail, trading, pabrik, industri, distribusi, dan operasional multi-cabang.
+
+- Branding tetap:
+  XLifeWorks
+  Business Operating System
+  www.xlifeworks.web.id
+
+Upload minimal:
+- index.html
+- app.html
+- admin-license.html
+- logo/icon files bila belum ada di hosting.

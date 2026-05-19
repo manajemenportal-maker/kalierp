@@ -1,0 +1,13 @@
+XLifeWorks v28
+
+Perubahan:
+- Slogan Business Operating System dikembalikan di samping/bawah logo XLifeWorks.
+- Nama aplikasi tetap XLifeWorks.
+- Website tetap www.xlifeworks.web.id.
+- Firebase project ID internal tetap tidak diubah agar koneksi aplikasi aman.
+
+Upload minimal:
+- index.html
+- app.html
+- admin-license.html
+- logo/icon files bila belum ada di hosting.

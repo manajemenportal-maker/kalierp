@@ -1,0 +1,18 @@
+XLifeWorks Final Branding v27
+
+Perubahan:
+1. Slogan lama Business Operating System dibersihkan.
+2. Branding aplikasi diseragamkan menjadi XLifeWorks.
+3. Website diganti menjadi www.xlifeworks.web.id.
+4. Logo kiri atas aplikasi memakai XLifeWorks.
+5. Footer landing, sidebar aplikasi, splash screen, login page, admin panel, WhatsApp text, manifest, dan data trial diperbarui.
+6. Firebase project ID internal tetap kalierp-d4905 agar koneksi aplikasi tidak rusak.
+
+Upload minimal:
+- index.html
+- app.html
+- admin-license.html
+- xlifeworks-logo-3d-transparent.png
+- xlifeworks-logo-3d.png
+- favicon/app icon files
+- site.webmanifest

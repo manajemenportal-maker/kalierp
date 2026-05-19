@@ -1,7 +1,7 @@
-KaliERP Premium Login + Splash V23
+XLifeWorks Premium Login + Splash V23
 
 Penambahan:
-1. Splash/loading screen premium dengan logo KaliERP
+1. Splash/loading screen premium dengan logo XLifeWorks
 2. showFast/hideFast aktif untuk login, aktivasi pembeli, trial, staff, dan boot workspace
 3. Login page diperbarui:
    - tampilan lebih premium

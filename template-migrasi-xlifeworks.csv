@@ -1,0 +1,20 @@
+module,old_field,xlifeworks_field,sample
+crm,company_name,Nama Customer,PT Contoh Industri
+crm,phone,WhatsApp,081200000001
+crm,email,Email,admin@contoh.co.id
+crm,address,Alamat,Kawasan Industri
+vendor,vendor_name,Nama Vendor,PT Supplier Utama
+vendor,term,Term Pembayaran,Term 30 hari
+inventory,sku,SKU,SKU-001
+inventory,product_name,Produk/Jasa,Bahan Baku Utama
+inventory,stock,Stok,120
+inventory,warehouse,Gudang,Gudang Utama
+sales,invoice_no,No Invoice,INV-001
+sales,customer,Customer,PT Contoh Industri
+sales,amount,Total,7500000
+project,project_name,Nama Proyek/Pekerjaan,Implementasi ERP
+project,status,Status,Berjalan
+accounting,date,Tanggal,2026-05-20
+accounting,debit_account,Debit,Kas
+accounting,credit_account,Kredit,Pendapatan Penjualan
+accounting,amount,Nominal,7500000
