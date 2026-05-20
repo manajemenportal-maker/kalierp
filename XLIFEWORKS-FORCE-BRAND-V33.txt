@@ -1,0 +1,24 @@
+XLifeWorks Force Brand v33
+
+Masalah:
+- Data lama di Firebase/localStorage masih menyimpan db.company.brand = KaliERP.
+- Karena itu sidebar kiri atas bisa tetap menampilkan KaliERP walaupun file logo sudah diganti.
+
+Perbaikan:
+- Ditambahkan forceXLifeWorksBrand().
+- Saat aplikasi boot, brand lama otomatis diganti ke XLifeWorks.
+- Website lama kalimaja otomatis diganti ke www.xlifeworks.web.id.
+- Sidebar kiri atas dipaksa menampilkan XLifeWorks + Business Operating System.
+- Logo memakai anti-cache ?v=33.
+
+Upload wajib:
+- app.html dari paket ini
+- index.html
+- admin-license.html
+- xlifeworks-logo-3d-transparent.png
+- xlifeworks-logo-3d.png
+
+Setelah upload:
+1. Buka aplikasi.
+2. Tekan Ctrl+F5.
+3. Kalau masih ada data lama, login lalu buka Settings dan pastikan Brand = XLifeWorks.
