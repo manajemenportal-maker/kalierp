@@ -363,10 +363,10 @@
           <span>☁️ Cloud Business System</span>
         </div>
         <div class="tabs"><button class="tab active" id="tabLogin" onclick="tabAuth('login')">Login</button><button class="tab" id="tabOwner" onclick="tabAuth('owner')">Aktivasi Pembeli</button><button class="tab" id="tabTrial" onclick="tabAuth('trial')">Trial Gratis</button><button class="tab" id="tabStaff" onclick="tabAuth('staff')">Daftar Staff</button></div>
-        <div class="form active" id="fLogin"><div class="fg"><label>Email</label><input id="loginEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="loginPass" type="password" class="ctrl"></div><button class="btn primary" style="width:100%;margin-top:18px" id="loginBtn" onclick="login()">Masuk</button></div>
-        <div class="form" id="fOwner"><div class="fg"><label>Kode Aktivasi / License Code</label><input id="ownLicense" class="ctrl" placeholder="Contoh: KALI-BIZ-8F29K"></div><div class="fg"><label>Nama Perusahaan</label><input id="ownCompany" class="ctrl"></div><div class="fg"><label>Nama Owner/Admin</label><input id="ownName" class="ctrl"></div><div class="fg"><label>Email</label><input id="ownEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="ownPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn green" style="width:100%;margin-top:18px" id="ownerBtn" onclick="registerOwner()">Aktivasi Pembeli</button></div>
+        <div class="form active" id="fLogin"><div class="fg"><label>Email</label><input id="loginEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="loginPass" type="password" class="ctrl"></div><button class="btn primary" style="width:100%;margin-top:18px" id="loginBtn" id="loginBtn" onclick="login()">Masuk</button></div>
+        <div class="form" id="fOwner"><div class="fg"><label>Kode Aktivasi / License Code</label><input id="ownLicense" class="ctrl" placeholder="Contoh: KALI-BIZ-8F29K"></div><div class="fg"><label>Nama Perusahaan</label><input id="ownCompany" class="ctrl"></div><div class="fg"><label>Nama Owner/Admin</label><input id="ownName" class="ctrl"></div><div class="fg"><label>Email</label><input id="ownEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="ownPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn green" style="width:100%;margin-top:18px" id="ownerBtn" id="ownerBtn" onclick="registerOwner()">Aktivasi Pembeli</button></div>
         <div class="form" id="fTrial"><div class="fg"><label>Nama Perusahaan / Nama Trial</label><input id="trialCompany" class="ctrl" placeholder="Contoh: PT Contoh Industri"></div><div class="fg"><label>Nama Anda</label><input id="trialName" class="ctrl"></div><div class="fg"><label>Email</label><input id="trialEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="trialPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" id="trialBtn" onclick="registerTrial()">Mulai Trial Read-Only</button></div>
-        <div class="form" id="fStaff"><div class="fg"><label>Invite Code</label><input id="staffCode" class="ctrl" placeholder="Kode dari Owner/Admin"></div><div class="fg"><label>Nama Staff</label><input id="staffRegName" class="ctrl"></div><div class="fg"><label>Email Staff</label><input id="staffRegEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="staffRegPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" id="staffBtn" onclick="registerStaff()">Daftar Staff</button></div>
+        <div class="form" id="fStaff"><div class="fg"><label>Invite Code</label><input id="staffCode" class="ctrl" placeholder="Kode dari Owner/Admin"></div><div class="fg"><label>Nama Staff</label><input id="staffRegName" class="ctrl"></div><div class="fg"><label>Email Staff</label><input id="staffRegEmail" class="ctrl"></div><div class="fg"><label>Password</label><input id="staffRegPass" type="password" class="ctrl" placeholder="Minimal 6 karakter"></div><button class="btn blue" style="width:100%;margin-top:18px" id="staffBtn" id="staffBtn" onclick="registerStaff()">Daftar Staff</button></div>
         <div class="err" id="authError"></div>
         <div class="note"><b>Catatan:</b> Owner wajib memakai kode aktivasi setelah pembayaran. Staff masuk memakai invite code dari menu Settings &gt; Staff.</div>
       </div>
@@ -1814,6 +1814,33 @@ try{
     }
   }
 }catch(e){console.error(e)}
+
+
+// v42 expose onclick handlers for module script
+try{
+  Object.assign(window,{
+    login,logout,registerOwner,registerStaff,registerTrial,
+    tabAuth,openModal,closeModal,setModule,quickAdd,
+    openJournalModal,openAccountModal,
+    renderTax,setTaxTab,saveTaxSettings,addTaxOut,addTaxIn,addPPh,downloadTaxXML,downloadTaxCSV,
+    renderAccounting,setAccTab,openBankModal,openAssetModal,openBudgetModal,runReconciliation,postRecurringJournal,closeCurrentPeriod,exportAccAdvanced,
+    directBootAfterLogin,retryCurrentUserBoot,repairOwnerMemberAccess,safeHideSplash,showLoginError,showAccessHelp
+  });
+}catch(e){console.error('Expose handlers failed',e)}
+
+
+// v42 direct button binding fallback
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    try{
+      const bind=(id,fn)=>{const el=document.getElementById(id); if(el){el.onclick=function(ev){ev.preventDefault(); return fn();}}};
+      bind('loginBtn',login);
+      bind('ownerBtn',registerOwner);
+      bind('staffBtn',registerStaff);
+      bind('trialBtn',registerTrial);
+    }catch(e){console.error('button binding failed',e);showLoginError&&showLoginError('Binding tombol gagal: '+(e.message||e))}
+  },300);
+});
 
 </script>
 </body>

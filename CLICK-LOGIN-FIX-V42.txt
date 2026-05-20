@@ -1,0 +1,16 @@
+XLifeWorks Click Login Fix v42
+
+Masalah:
+- Tombol Masuk diklik tapi diam.
+- Penyebab umum: app memakai script type=module sehingga fungsi login/register tidak otomatis global untuk inline onclick.
+
+Perbaikan:
+- Fungsi login/register/tab/menu diekspos ke window.
+- Tombol login/owner/staff/trial dipasang direct event listener fallback.
+- JavaScript sudah lolos node --check.
+- No splash tetap aktif.
+- Access repair dari v41 tetap ada.
+- Tax/Coretax dan Accounting Advanced tetap ada.
+
+Upload minimal:
+- app.html
