@@ -305,9 +305,23 @@
 .force-enter-btn{position:fixed;right:18px;bottom:18px;z-index:10001;border:0;border-radius:999px;background:#0f172a;color:white;padding:10px 14px;font-weight:900;box-shadow:0 16px 40px rgba(15,23,42,.25);display:none}
 .force-enter-btn.show{display:block}
 
+
+/* v40 no-splash safe mode */
+.splash-screen{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+.login-error-box{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:10000;background:#fff1f2;color:#be123c;border:1px solid #fecdd3;border-radius:18px;padding:12px 16px;box-shadow:0 18px 45px rgba(15,23,42,.18);font-weight:800;max-width:min(92vw,680px);display:none}
+.login-error-box.show{display:block}
+
+
+/* v41 access/login fix */
+.access-help{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:10002;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:18px;padding:12px 16px;box-shadow:0 18px 45px rgba(15,23,42,.14);font-weight:800;max-width:min(92vw,760px);display:none}
+.access-help.show{display:block}
+.access-help button{margin-left:10px;border:0;border-radius:12px;padding:7px 10px;background:#1d4ed8;color:white;font-weight:900;cursor:pointer}
+.splash-screen{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+
 </style>
 </head>
 <body>
+  <div id="accessHelpBox" class="access-help"></div>
   <div id="loginErrorBox" class="login-error-box"></div>
   <button id="forceEnterBtn" class="force-enter-btn" onclick="safeHideSplash()">Lewati Loading</button>
   <div class="splash-screen" id="splashScreen">
@@ -424,14 +438,7 @@ window.addEventListener('unhandledrejection',function(e){
 });
 window.addEventListener('load',function(){scheduleSplashSafety(2800)});
 
-function showFast(title,text){
-  const el=document.getElementById('splashScreen');
-  if(el){el.classList.remove('hidden');el.style.display='flex'}
-  if(document.getElementById('splashTitle')) splashTitle.textContent=title||'Memproses...';
-  if(document.getElementById('splashText')) splashText.textContent=text||'Mohon tunggu sebentar';
-  if(document.getElementById('splashStatus')) splashStatus.textContent='Sedang memproses';
-  scheduleSplashSafety(5500);
-}
+function showFast(title,text){safeHideSplash();console.log(title||'Memproses',text||'')}
 function safeHideSplash(){safeHideSplash()}
 function btnBusy(id,label){const b=document.getElementById(id);if(b){b.dataset.old=b.innerHTML;b.innerHTML=label||'Memproses...';b.disabled=true}}
 function btnDone(id){const b=document.getElementById(id);if(b){b.innerHTML=b.dataset.old||b.innerHTML;b.disabled=false}}
@@ -542,8 +549,79 @@ await fb.setDoc(fb.doc(fb.db,'tenants',invite.tenantId),{
 
 await boot(c.user);
 }catch(e){fastErr?fastErr(e):authMsg(readErr(e))}}
-async function login(){try{showFast&&showFast('Masuk ke XLifeWorks','Memverifikasi akun dan menyiapkan workspace...');btnBusy&&btnBusy('loginBtn','Memproses...');await fb.signInWithEmailAndPassword(fb.auth,loginEmail.value.trim(),loginPass.value.trim())}catch(e){safeHideSplash();fastErr?fastErr(e):authMsg(readErr(e));showLoginError(readErr(e))}}async function logout(){await fb.signOut(fb.auth);location.reload()}function readErr(e){if(e.code==='auth/email-already-in-use')return'Email sudah terdaftar.';if(e.code==='auth/weak-password')return'Password minimal 6 karakter.';if(e.code==='auth/invalid-credential')return'Email atau password salah.';return e.message||'Terjadi error.'}
-async function boot(u){showFast&&showFast('Memuat workspace','Menyiapkan dashboard dan data perusahaan...');user=u;let ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));if(!ms.exists()){await new Promise(r=>setTimeout(r,700));ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));}if(!ms.exists()){safeHideSplash();safeHideSplash();authMsg('Akun belum punya akses perusahaan. Coba klik Login lagi atau cek dokumen members di Firestore.');return}member=ms.data();tenantId=member.tenantId;const ts=await fb.getDoc(fb.doc(fb.db,'tenants',tenantId));db=clone(defaultDB);if(ts.exists()){const raw=ts.data();if(raw.erpDataJson){try{db=JSON.parse(raw.erpDataJson)}catch(e){db=raw.erpData||clone(defaultDB)}}else if(raw.erpData){db=raw.erpData}}normalize();if(!subscriptionOK()){safeHideSplash();safeHideSplash();showSubscriptionLock();return}await save();authScreen.classList.add('hidden');app.classList.remove('hidden');applyShell();setModule('dashboard');setTimeout(()=>safeHideSplash(),500);btnDone&&btnDone('loginBtn');btnDone&&btnDone('ownerBtn');btnDone&&btnDone('staffBtn');btnDone&&btnDone('trialBtn')}
+
+function showAccessHelp(msg,actionHTML=''){
+  try{
+    const box=document.getElementById('accessHelpBox');
+    if(box){box.innerHTML=(msg||'Akses belum siap.')+actionHTML;box.classList.add('show');setTimeout(()=>box.classList.remove('show'),20000)}
+  }catch(e){}
+}
+async function directBootAfterLogin(user){
+  try{
+    safeHideSplash&&safeHideSplash();
+    if(!user) user=fb.auth.currentUser;
+    if(!user){showAccessHelp('Belum login. Silakan login ulang.');return}
+    await boot(user);
+  }catch(e){
+    safeHideSplash&&safeHideSplash();
+    console.error(e);
+    const m='Login berhasil, tetapi workspace belum bisa dibuka: '+((e&&e.message)||e);
+    showLoginError&&showLoginError(m);
+    showAccessHelp(m,' <button onclick="retryCurrentUserBoot()">Coba Lagi</button>');
+  }
+}
+async function retryCurrentUserBoot(){
+  try{
+    showAccessHelp('Mencoba buka ulang workspace...');
+    await directBootAfterLogin(fb.auth.currentUser);
+  }catch(e){
+    showLoginError&&showLoginError((e&&e.message)||e);
+  }
+}
+async function repairOwnerMemberAccess(){
+  try{
+    const u=fb.auth.currentUser;
+    if(!u){showAccessHelp('Belum login. Silakan login ulang.');return}
+    showAccessHelp('Mencoba membuat akses owner untuk akun ini...');
+    await fb.setDoc(fb.doc(fb.db,'members',u.uid),{
+      tenantId:u.uid,
+      role:'Owner',
+      name:u.displayName||u.email||'Owner',
+      email:u.email||'',
+      status:'Aktif',
+      repairedAt:fb.serverTimestamp()
+    },{merge:true});
+    await fb.setDoc(fb.doc(fb.db,'tenants',u.uid),{
+      ownerUid:u.uid,
+      companyName:'XLifeWorks Workspace',
+      subscription:{plan:'Business',status:'Active',userLimit:1,activeUsers:1,pricePerUser:75000,billingCycle:'monthly',monthlyAmount:75000,validUntil:''},
+      updatedAt:fb.serverTimestamp()
+    },{merge:true});
+    showAccessHelp('Akses owner dibuat. Membuka workspace...');
+    await directBootAfterLogin(u);
+  }catch(e){
+    console.error(e);
+    showLoginError&&showLoginError('Gagal repair akses: '+((e&&e.message)||e));
+    showAccessHelp('Gagal repair akses. Cek Firestore rules untuk members dan tenants.');
+  }
+}
+
+async function login(){
+  try{
+    safeHideSplash&&safeHideSplash();
+    btnBusy&&btnBusy('loginBtn','Memproses...');
+    const cred=await fb.signInWithEmailAndPassword(fb.auth,loginEmail.value.trim(),loginPass.value.trim());
+    btnDone&&btnDone('loginBtn');
+    await directBootAfterLogin(cred.user);
+  }catch(e){
+    safeHideSplash&&safeHideSplash();
+    btnDone&&btnDone('loginBtn');
+    const m=readErr?readErr(e):((e&&e.message)||'Login gagal');
+    authMsg&&authMsg(m);
+    showLoginError&&showLoginError(m);
+  }
+}async function logout(){await fb.signOut(fb.auth);location.reload()}function readErr(e){if(e.code==='auth/email-already-in-use')return'Email sudah terdaftar.';if(e.code==='auth/weak-password')return'Password minimal 6 karakter.';if(e.code==='auth/invalid-credential')return'Email atau password salah.';return e.message||'Terjadi error.'}
+async function boot(u){safeHideSplash&&safeHideSplash();user=u;let ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));if(!ms.exists()){await new Promise(r=>setTimeout(r,700));ms=await fb.getDoc(fb.doc(fb.db,'members',u.uid));}if(!ms.exists()){safeHideSplash();safeHideSplash();safeHideSplash();authMsg('Akun belum punya akses perusahaan. Klik Perbaiki Akses Owner bila ini akun owner.');showAccessHelp('Akun login berhasil, tapi dokumen members belum ada / belum terbaca.',' <button onclick="repairOwnerMemberAccess()">Perbaiki Akses Owner</button><button onclick="retryCurrentUserBoot()">Coba Lagi</button>');return}member=ms.data();tenantId=member.tenantId;const ts=await fb.getDoc(fb.doc(fb.db,'tenants',tenantId));db=clone(defaultDB);if(ts.exists()){const raw=ts.data();if(raw.erpDataJson){try{db=JSON.parse(raw.erpDataJson)}catch(e){db=raw.erpData||clone(defaultDB)}}else if(raw.erpData){db=raw.erpData}}normalize();if(!subscriptionOK()){safeHideSplash();safeHideSplash();safeHideSplash();showSubscriptionLock();return}await save();authScreen.classList.add('hidden');app.classList.remove('hidden');applyShell();setModule('dashboard');setTimeout(()=>safeHideSplash(),500);btnDone&&btnDone('loginBtn');btnDone&&btnDone('ownerBtn');btnDone&&btnDone('staffBtn');btnDone&&btnDone('trialBtn')}
 
 function subscriptionOK(){
   if(member&&member.role==='Owner'){
@@ -1705,6 +1783,38 @@ function offerPackage(i){const p=db.pricing[i],w=String(db.company.wa||'').repla
 function exportCSV(mod){if(blockTrial('Export Data'))return;if(mod==='journal'){ensureAccountingPro();const lines=['Tanggal,Ref,Debit,Kredit,Keterangan,Nominal,Catatan'].concat(db.journal.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download('journal.csv',lines.join('\n'),'text/csv');return}const cols=schemas[mod];if(!cols)return toast('Tidak ada export');const lines=[cols.join(',')].concat((db[mod]||[]).map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')));download(mod+'.csv',lines.join('\n'),'text/csv')}function backupData(){if(blockTrial('Backup'))return;download('backup-xlifeworks-real-'+tenantId+'.json',JSON.stringify(db,null,2),'application/json')}async function restoreBackup(e){if(blockTrial('Restore'))return;const f=e.target.files[0];if(!f)return;try{const d=JSON.parse(await f.text());if(!d.company||!d.crm)throw Error();if(confirm('Restore data ke perusahaan ini?')){db=d;normalize();await save();applyShell();setModule('dashboard');toast('Restore berhasil')}}catch{alert('File backup tidak valid')}e.target.value=''}function download(n,c,t){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click();URL.revokeObjectURL(a.href)}async function resetCompanyData(){if(blockTrial('Reset Data'))return;if(!isPureOwner())return toast('Hanya Owner');if(confirm('Reset semua data perusahaan?')){const c=db.company,s=db.staff;db=clone(defaultDB);db.company=c;db.staff=s;await save();setModule('dashboard');toast('Data reset')}}function copyRules(){navigator.clipboard.writeText(rulesBox.innerText).then(()=>toast('Rules dicopy'))}
 function searchTable(q){const table=document.getElementById('dataTable');if(!table)return;table.querySelectorAll('tbody tr').forEach(r=>r.style.display=r.innerText.toLowerCase().includes(q.toLowerCase())?'':'none')}
 window.addEventListener('load',()=>{if(new URLSearchParams(location.search).get('trial')==='1'){setTimeout(()=>tabAuth('trial'),250)}setTimeout(()=>safeHideSplash(),1200)});window.addEventListener('load',()=>setTimeout(()=>fb.onAuthStateChanged(fb.auth,u=>{if(u)boot(u)}),300));
+
+try{
+  const __originalBoot_v40=boot;
+  boot=async function(u){
+    try{
+      safeHideSplash();
+      await __originalBoot_v40(u);
+      safeHideSplash();
+    }catch(e){
+      safeHideSplash();
+      console.error(e);
+      const m='Gagal membuka workspace: '+((e&&e.message)||e);
+      showLoginError(m);
+      try{authMsg&&authMsg(m)}catch(_){}
+    }
+  }
+}catch(e){console.error(e)}
+
+
+try{
+  const __originalSetModule_v40=setModule;
+  setModule=function(id){
+    try{return __originalSetModule_v40(id)}
+    catch(e){
+      safeHideSplash();
+      console.error(e);
+      showLoginError('Menu gagal dibuka: '+((e&&e.message)||e));
+      try{if(moduleContent)moduleContent.innerHTML='<div class="card"><h3>Menu gagal dibuka</h3><p>'+((e&&e.message)||e)+'</p><button class="btn primary" onclick="setModule(\'dashboard\')">Dashboard</button></div>'}catch(_){}
+    }
+  }
+}catch(e){console.error(e)}
+
 </script>
 </body>
 </html>

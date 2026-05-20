@@ -1,0 +1,17 @@
+XLifeWorks Access Login Fix v41
+
+Perbaikan:
+- Setelah sign-in berhasil, login langsung memanggil boot(user).
+- Jika members/{uid} belum ada, tampil tombol Perbaiki Akses Owner.
+- Tombol Perbaiki Akses Owner membuat members/{uid} dan tenants/{uid} dasar.
+- Jika tenant belum ada, workspace dasar dibuat otomatis.
+- Splash tetap nonaktif.
+- JavaScript lolos node --check.
+- Tax/Coretax tetap ada.
+- Accounting Advanced tetap ada.
+
+Upload minimal:
+- app.html
+
+Kalau login berhasil tapi workspace tidak terbuka:
+- Klik tombol Perbaiki Akses Owner yang muncul.

@@ -1,0 +1,14 @@
+XLifeWorks No Splash Safe v40
+
+Perbaikan:
+- Splash/loading dimatikan total agar tidak bisa macet di "Harap tunggu sebentar".
+- showFast dibuat no-op.
+- Login tetap memproses tanpa overlay.
+- Error runtime/login/boot ditampilkan di layar.
+- boot dan setModule dibungkus try/catch.
+- JavaScript sudah lolos node --check.
+- Tax/Coretax tetap ada.
+- Accounting Advanced tetap ada.
+
+Upload minimal:
+- app.html
