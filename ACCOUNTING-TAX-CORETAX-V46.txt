@@ -1,0 +1,21 @@
+XLifeWorks v46
+
+Perubahan:
+- Logo kiri atas dalam aplikasi memakai emblem X saja transparan tanpa frame.
+- Mesin login tetap dari v45/v44, tidak disentuh.
+- Accounting dilengkapi:
+  1. Accounting + Tax Control Center
+  2. AR / Piutang
+  3. AP / Hutang
+  4. Bank & Kas
+  5. Fixed Asset
+  6. Budgeting
+  7. Closing Period
+  8. Tax / PPN-PPh
+  9. Coretax Prep
+  10. Export XML Draft Coretax
+  11. Export CSV Review Pajak
+
+Catatan:
+- XML/CSV Coretax masih draft internal dan wajib dicocokkan dengan template resmi DJP terbaru sebelum upload final.
+- JavaScript lolos node --check.
