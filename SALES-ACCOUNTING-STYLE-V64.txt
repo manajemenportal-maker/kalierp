@@ -1,0 +1,26 @@
+XLifeWorks v64 - Sales mengikuti Accounting/CRM Page Mode
+
+Sales disusun ulang:
+- Halaman utama Sales = KPI + card modul.
+- Klik card = masuk halaman kerja sendiri.
+- Fungsi aktif:
+  1. Quotation / Penawaran
+  2. Sales Order
+  3. Invoice
+  4. Payment / Pelunasan
+  5. Delivery Order
+  6. Retur / Credit Note
+  7. Aging Piutang
+  8. Sales Report
+
+Proses aktif:
+- Simpan Quotation ke db.sales64.quotes
+- Simpan Sales Order ke db.sales64.orders
+- Simpan Invoice ke db.sales
+- Simpan Payment ke db.sales64.payments
+- Mark invoice lunas
+- Hapus invoice
+- Export CSV invoice
+- Aksi ke Accounting/AR
+
+JavaScript lolos node --check.

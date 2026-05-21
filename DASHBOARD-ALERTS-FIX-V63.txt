@@ -1,0 +1,9 @@
+XLifeWorks v63 - Dashboard Alerts & Warning layout fix
+
+Perubahan:
+- Di Dashboard > Alerts & Warning, Invoice Belum Lunas dipindah ke bawah Stok Rendah.
+- Layout tidak lagi 2 kolom kiri-kanan.
+- Kedua tabel dibuat stack vertikal dan rata tengah.
+- Judul dan tombol aksi dibuat center.
+- Lebar tabel dibatasi lebih rapi agar tidak melebar ke kanan.
+- JavaScript lolos node --check.
