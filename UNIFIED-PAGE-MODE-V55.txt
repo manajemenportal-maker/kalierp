@@ -1,0 +1,21 @@
+XLifeWorks v55 - Unified Page Mode
+
+Perubahan:
+- Konsep page-mode Accounting v54 diterapkan ke modul utama lain.
+- Modul yang diseragamkan:
+  1. Dashboard
+  2. CRM
+  3. Sales
+  4. Inventory
+  5. POS
+  6. Pricing/License
+  7. Settings
+- Halaman modul utama berisi KPI + card submodul.
+- Klik card membuka halaman detail/form sendiri.
+- Fungsi lama tetap disimpan sebagai Legacy.
+- Accounting Center v54 tetap dipertahankan.
+- JavaScript lolos node --check.
+
+Upload minimal:
+- app.html
+- xlifeworks-x-emblem-transparent.png
