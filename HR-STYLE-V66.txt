@@ -1,0 +1,27 @@
+XLifeWorks v66 - HR mengikuti Page Mode
+
+HR Center:
+1. Data Karyawan
+2. Tambah Karyawan
+3. Absensi
+4. Cuti & Izin
+5. Payroll
+6. Kontrak Kerja
+7. KPI & Performance
+8. Role & Akses
+9. Recruitment
+10. Training
+11. Asset Karyawan
+12. HR Report
+
+Fungsi aktif:
+- Simpan/edit/hapus karyawan
+- Simpan absensi
+- Simpan cuti/izin
+- Simpan payroll
+- Simpan kontrak/KPI/role/recruitment/training/asset
+- Export CSV karyawan
+- Link ke Accounting untuk payroll
+- Data karyawan juga masuk db.staff sederhana
+
+JavaScript lolos node --check.
