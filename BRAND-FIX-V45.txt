@@ -1,0 +1,12 @@
+XLifeWorks v45 - Brand Fix
+
+Perbaikan:
+- Logo kiri atas aplikasi dipaksa memakai asset XLifeWorks cache-buster v45.
+- Nama aplikasi kiri atas dipaksa selalu tampil "XLifeWorks".
+- Jika data tenant lama masih menyimpan brand "KaliERP", applyShell akan override ke "XLifeWorks".
+- Field Brand pada Settings juga dinormalisasi ke XLifeWorks.
+- JavaScript lolos syntax check.
+
+Upload minimal:
+- app.html
+- xlifeworks-logo-3d-transparent.png
