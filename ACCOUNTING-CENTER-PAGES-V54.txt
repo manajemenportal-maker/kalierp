@@ -1,0 +1,17 @@
+XLifeWorks v54 - Accounting Center Page Mode
+
+Perubahan:
+- Menu bar/tabs di tengah Accounting Center dihapus.
+- Halaman utama hanya menampilkan KPI + card modul.
+- Klik card modul membuka halaman modul tersendiri di posisi atas.
+- Ada tombol Kembali ke Accounting Center.
+- Uraian dan form modul tidak lagi jauh di bawah.
+- Tidak perlu scroll panjang setelah klik modul.
+- Pajak/Coretax tetap menjadi bagian Accounting Center.
+- Report lama tetap tersambung via renderAccountingTab.
+- Tax lama tetap tersambung via renderTaxTab.
+- JavaScript lolos node --check.
+
+Upload minimal:
+- app.html
+- xlifeworks-x-emblem-transparent.png
