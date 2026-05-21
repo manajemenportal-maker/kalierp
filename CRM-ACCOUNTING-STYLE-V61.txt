@@ -1,0 +1,19 @@
+XLifeWorks v61 - CRM mengikuti Accounting Center
+
+Perubahan:
+- CRM tidak lagi tampil form besar langsung di depan.
+- CRM mengikuti konsep Accounting Center Page Mode:
+  Halaman utama = KPI + card modul.
+  Klik card = masuk halaman kerja sendiri.
+- Modul CRM:
+  1. Database Customer
+  2. Tambah Customer
+  3. Pipeline & Follow Up
+  4. WhatsApp Center
+  5. Segmentasi Customer
+  6. Riwayat Customer
+  7. Import / Export
+  8. Laporan CRM
+- Fungsi aktif:
+  Tambah, simpan, tabel, edit, hapus, search/filter, WhatsApp, export CSV.
+- JavaScript lolos node --check.
