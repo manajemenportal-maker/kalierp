@@ -1,0 +1,24 @@
+XLifeWorks v58 - Process Action Engine
+
+Perubahan:
+- Setelah klik card/detail modul, user tidak berhenti di tampilan.
+- Setiap halaman detail modul mendapat panel Proses Lanjut.
+- Tombol Simpan & Proses Draft membaca form dropdown v56.
+- Data draft masuk ke db.proc58 dan tampil di tabel proses.
+- Untuk beberapa modul, data juga langsung masuk ke master:
+  CRM -> customers
+  Sales -> sales
+  Inventory -> inventory
+  POS -> pos
+  Pricing -> subscription
+  Accounting COA -> accounts
+  Accounting Kas/Bank -> accounting
+  Accounting AR -> sales
+  Accounting AP -> expenses
+  Accounting Inventory -> inventory
+- Dashboard diberi aksi lanjutan ke modul terkait.
+- JavaScript lolos node --check.
+
+Catatan:
+- Ini membuat flow klik -> form -> simpan draft -> tampil list sudah berjalan.
+- Tahap berikutnya bisa dibuat approval/status workflow penuh per modul.

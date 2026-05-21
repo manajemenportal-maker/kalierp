@@ -462,6 +462,22 @@
 @media(max-width:1000px){.dash57-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.dash57-grid,.dash57-row{grid-template-columns:1fr}}
 
+
+/* v58 Process Action Engine */
+.proc58-panel{background:#fff;border:1px solid #d4dde9;border-radius:24px;padding:18px;margin-top:14px}
+.proc58-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.proc58-head h3{margin:0;color:#14213d;font-size:20px}
+.proc58-head p{margin:6px 0 0;color:#64748b;line-height:1.55}
+.proc58-actions{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.proc58-badge{display:inline-flex;border-radius:999px;padding:6px 10px;background:#eef2ff;color:#3730a3;border:1px solid #c7d2fe;font-weight:900;font-size:12px}
+.proc58-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0}
+.proc58-step{border:1px solid #e2e8f0;background:#f8fafc;border-radius:16px;padding:12px}
+.proc58-step b{display:block;color:#0f172a;font-size:13px}.proc58-step small{display:block;color:#64748b;margin-top:4px;line-height:1.45}
+.proc58-result{background:#ecfdf5;border:1px solid #a7f3d0;color:#047857;border-radius:16px;padding:12px;margin:12px 0;font-weight:800;display:none}
+.proc58-result.show{display:block}
+@media(max-width:900px){.proc58-flow{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.proc58-flow{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -2277,6 +2293,152 @@ try{
   };
 }catch(e){console.warn('v57 setModulePage wrapper skipped',e)}
 try{Object.assign(window,{renderDashboard,setDashboardPage,dash57Page,dash57Home});}catch(e){}
+
+
+// =======================
+// v58 Process Action Engine
+// Klik modul -> proses lanjut -> simpan draft -> tampil di list
+// =======================
+function proc58Id(prefix='DOC'){
+  return prefix+'-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.floor(Math.random()*9000+1000);
+}
+function proc58ReadForm(scope){
+  const root=scope||document;
+  const data={};
+  root.querySelectorAll('.xp56-form input,.xp56-form select,.xp56-form textarea').forEach(el=>{
+    data[el.name||el.getAttribute('name')||el.type]=el.value;
+  });
+  return data;
+}
+function proc58Toast(msg){
+  try{toast&&toast(msg)}catch(e){}
+  const box=document.querySelector('.proc58-result');
+  if(box){box.innerHTML=msg;box.classList.add('show');setTimeout(()=>box.classList.remove('show'),4500)}
+}
+function proc58Ensure(){
+  db.proc58=db.proc58||{crm:[],sales:[],inventory:[],pos:[],pricing:[],settings:[],accounting:[],dashboard:[]};
+  db.customers=db.customers||[];
+  db.sales=db.sales||[];
+  db.inventory=db.inventory||[];
+  db.pos=db.pos||[];
+  db.expenses=db.expenses||[];
+  db.accounts=db.accounts||[];
+  db.accounting=db.accounting||[];
+}
+async function proc58Save(moduleId,page){
+  proc58Ensure();
+  const root=document.getElementById('xp55PageBody')||document.getElementById('acct54PageBody')||moduleContent||document;
+  const f=proc58ReadForm(root);
+  const todayStr=(typeof today==='function'?today():new Date().toISOString().slice(0,10));
+  const id=proc58Id((moduleId||'MOD').toUpperCase().slice(0,4));
+  let savedLabel='Draft';
+  try{
+    if(moduleId==='crm'){
+      db.customers.unshift([f.name||f.pic||'Customer Baru',f.wa||'',f.email||'',f.segment||f.type||'',f.status||'Aktif']);
+      db.proc58.crm.unshift([id,todayStr,page||'-',f.name||f.pic||'Customer Baru',f.status||'Draft']);
+      savedLabel='Customer/prospek tersimpan';
+    }else if(moduleId==='sales'){
+      db.sales.unshift([id,f.customer||'Customer',todayStr,f.due||todayStr,rp(Number(f.amount||0)),f.status||'Draft']);
+      db.proc58.sales.unshift([id,todayStr,page||'-',f.customer||'Customer',rp(Number(f.amount||0)),f.status||'Draft']);
+      savedLabel='Sales/invoice draft tersimpan';
+    }else if(moduleId==='inventory'){
+      db.inventory.unshift([f.sku||id,f.item||'Item Baru',f.qty||0,f.warehouse||f.location||'Gudang Utama',rp(Number(f.price||0))]);
+      db.proc58.inventory.unshift([id,todayStr,page||'-',f.item||f.sku||'Item Baru',f.qty||0,f.status||'Draft']);
+      savedLabel='Inventory draft tersimpan';
+    }else if(moduleId==='pos'){
+      db.pos.unshift([id,f.cashier||'Kasir',f.customer||'Walk-in',todayStr,rp(Number(f.total||0)),f.payment||'Cash',f.status||'Paid']);
+      db.proc58.pos.unshift([id,todayStr,page||'-',f.cashier||'Kasir',rp(Number(f.total||0)),f.status||'Paid']);
+      savedLabel='POS draft tersimpan';
+    }else if(moduleId==='pricing'){
+      db.company=db.company||{};
+      db.company.subscription=db.company.subscription||{};
+      db.company.subscription.plan=f.plan||db.company.subscription.plan||'Business';
+      db.company.subscription.status=f.status||db.company.subscription.status||'Active';
+      db.company.subscription.userLimit=Number(f.quota||db.company.subscription.userLimit||1);
+      db.company.subscription.pricePerUser=Number(f.price||db.company.subscription.pricePerUser||75000);
+      db.proc58.pricing.unshift([id,todayStr,f.plan||'Business',f.quota||1,f.status||'Draft']);
+      savedLabel='License/upgrade draft tersimpan';
+    }else if(moduleId==='settings'){
+      db.proc58.settings.unshift([id,todayStr,page||'-',f.name||f.email||'Setting',f.status||'Draft']);
+      savedLabel='Settings draft tersimpan';
+    }else if(moduleId==='dashboard'){
+      db.proc58.dashboard.unshift([id,todayStr,page||'-',f.period||f.module||'Dashboard Filter',f.status||'Draft']);
+      savedLabel='Dashboard filter draft tersimpan';
+    }else{
+      // accounting center pages
+      if(moduleId==='accounting' || document.getElementById('acct54PageBody')){
+        if(page==='coa'){
+          db.accounts.unshift([f.code||id,f.name||'Akun Baru',f.type||'Aset',f.normal||'Debit']);
+        }else if(page==='cashbank'){
+          db.accounting.unshift([f.ref||id,f.note||f.type||'Transaksi Bank',f.date||todayStr,rp(Number(f.amount||0)),f.status||'Draft']);
+        }else if(page==='ar'){
+          db.sales.unshift([id,f.party||'Customer',todayStr,f.due||todayStr,rp(Number(f.amount||0)),f.status||'Belum Lunas']);
+        }else if(page==='ap'){
+          db.expenses.unshift([id,f.party||'Vendor',f.note||'Tagihan Vendor',f.due||todayStr,rp(Number(f.amount||0)),f.status||'Open']);
+        }else if(page==='inventory'){
+          db.inventory.unshift([f.sku||id,f.item||'Item Baru',f.qty||0,f.warehouse||'Gudang Utama',rp(Number(f.price||0))]);
+        }else if(page==='tax'){
+          db.proc58.accounting.unshift([id,todayStr,'Tax/Coretax',f.taxType||'PPN 11%',rp(Number(f.taxAmount||0)),f.status||'Draft']);
+        }else{
+          db.proc58.accounting.unshift([id,todayStr,page||'Accounting',f.name||f.note||'Draft Accounting',f.status||'Draft']);
+        }
+        savedLabel='Accounting draft tersimpan';
+      }
+    }
+    if(typeof save==='function') await save();
+    proc58Toast('✅ '+savedLabel+' — '+id);
+    proc58RenderList(moduleId,page);
+  }catch(e){
+    console.error(e);
+    proc58Toast('❌ Gagal simpan: '+(e.message||e));
+  }
+}
+function proc58ListRows(moduleId,page){
+  proc58Ensure();
+  const src = (moduleId==='accounting'||document.getElementById('acct54PageBody')) ? db.proc58.accounting : (db.proc58[moduleId]||[]);
+  return src.slice(0,8).map(r=>`<tr>${r.map(c=>`<td>${safe(c)}</td>`).join('')}<td>${proc58Status(r[r.length-1]||'Draft')}</td></tr>`).join('');
+}
+function proc58Status(s){
+  const x=String(s||'').toLowerCase();
+  const cls=x.includes('aktif')||x.includes('paid')||x.includes('lunas')||x.includes('approved')?'green':(x.includes('draft')||x.includes('open')||x.includes('pending')?'amber':'red');
+  return `<span class="status ${cls}">${safe(s||'Draft')}</span>`;
+}
+function proc58Panel(moduleId,page){
+  return `<div class="proc58-panel"><div class="proc58-head"><div><span class="proc58-badge">Proses Lanjut Aktif</span><h3>Workflow ${safe(page||moduleId||'Modul')}</h3><p>Form di atas bisa diproses sebagai draft. Setelah klik simpan, data masuk ke daftar proses dan sebagian langsung masuk ke master data modul terkait.</p></div></div><div class="proc58-flow"><div class="proc58-step"><b>Input</b><small>Isi form/dropdown</small></div><div class="proc58-step"><b>Simpan Draft</b><small>Masuk daftar proses</small></div><div class="proc58-step"><b>Validasi</b><small>Review user/admin</small></div><div class="proc58-step"><b>Lanjut Modul</b><small>Data tampil di list</small></div></div><div class="proc58-actions"><button class="btn green" onclick="proc58Save('${moduleId||''}','${page||''}')">Simpan & Proses Draft</button><button class="btn soft" onclick="proc58RenderList('${moduleId||''}','${page||''}')">Refresh List</button></div><div class="proc58-result"></div><div id="proc58List"></div></div>`;
+}
+function proc58RenderList(moduleId,page){
+  const box=document.getElementById('proc58List');
+  if(!box)return;
+  const rows=proc58ListRows(moduleId,page);
+  box.innerHTML=`<div class="wrap"><table><thead><tr><th>ID</th><th>Tanggal</th><th>Proses</th><th>Nama/Ket.</th><th>Nilai/Status</th><th>Status</th></tr></thead><tbody>${rows||'<tr><td colspan="6" class="empty">Belum ada proses draft.</td></tr>'}</tbody></table></div>`;
+}
+function proc58Attach(moduleId,page){
+  const box=document.getElementById('xp55PageBody')||document.getElementById('acct54PageBody');
+  if(!box || box.querySelector('.proc58-panel')) return;
+  box.insertAdjacentHTML('afterbegin',proc58Panel(moduleId,page));
+  proc58RenderList(moduleId,page);
+}
+try{
+  const __renderModulePageBody_v58 = renderModulePageBody;
+  renderModulePageBody = function(moduleId,page){
+    __renderModulePageBody_v58(moduleId,page);
+    setTimeout(()=>proc58Attach(moduleId,page),20);
+  };
+}catch(e){console.warn('v58 module process wrapper skipped',e)}
+try{
+  const __renderAccountingPageBody_v58 = renderAccountingPageBody;
+  renderAccountingPageBody = function(id){
+    __renderAccountingPageBody_v58(id);
+    setTimeout(()=>proc58Attach('accounting',id),20);
+  };
+}catch(e){console.warn('v58 accounting process wrapper skipped',e)}
+try{
+  const __dash57Page_v58 = dash57Page;
+  dash57Page = function(page){
+    return __dash57Page_v58(page)+`<div class="proc58-panel"><div class="proc58-head"><div><span class="proc58-badge">Dashboard Action</span><h3>Aksi Lanjutan Dashboard</h3><p>Hasil klik dashboard sekarang dapat dilanjutkan ke modul terkait.</p></div></div><div class="proc58-actions"><button class="btn blue" onclick="setModule('accounting')">Accounting Center</button><button class="btn soft" onclick="setModule('sales')">Sales</button><button class="btn soft" onclick="setModule('inventory')">Inventory</button><button class="btn soft" onclick="setModule('crm')">CRM</button></div></div>`;
+  };
+}catch(e){console.warn('v58 dashboard action wrapper skipped',e)}
+try{Object.assign(window,{proc58Save,proc58RenderList,proc58Attach,proc58Panel});}catch(e){}
 
 </script>
 </body>
