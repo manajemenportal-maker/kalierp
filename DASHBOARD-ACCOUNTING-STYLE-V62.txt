@@ -1,0 +1,26 @@
+XLifeWorks v62 - Dashboard mengikuti Accounting/CRM Page Mode
+
+Dashboard sudah disusun ulang:
+- Halaman utama Dashboard = KPI + card modul.
+- Klik card = masuk halaman analisa/aksi sendiri.
+- Tidak sekadar tampilan; tiap halaman punya data/table/action.
+
+Card Dashboard:
+1. Business Overview
+2. Sales Monitor
+3. CRM Monitor
+4. Inventory Monitor
+5. Finance Snapshot
+6. Operation Center
+7. Alerts & Warning
+8. Executive Report
+
+Aksi lanjut:
+- Buka CRM
+- Buka Sales
+- Buka Inventory
+- Buka Accounting Center
+- Buka Pajak/Coretax
+- Buka Settings
+
+JavaScript lolos node --check.
