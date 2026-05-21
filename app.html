@@ -489,6 +489,45 @@
 .proc59-result.show{display:block}
 .proc59-warn{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:16px;padding:12px;margin:12px 0;line-height:1.55}
 
+
+/* v60 CRM Active Module */
+.crm60-shell{background:#eef2f7;border:1px solid #dbe3ee;border-radius:30px;padding:18px}
+.crm60-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.crm60-head h2{font-size:30px;line-height:1.08;color:#14213d;margin:0 0 6px;font-weight:900}
+.crm60-head p{margin:0;color:#60708a;line-height:1.6;max-width:920px}
+.crm60-tag{display:inline-flex;align-items:center;gap:8px;border-radius:999px;background:#e0e7ff;color:#3730a3;border:1px solid #c7d2fe;padding:8px 12px;font-weight:900;font-size:12px;margin-bottom:8px}
+.crm60-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0 16px}
+.crm60-kpi{background:#fff;border:1px solid #d4dde9;border-radius:18px;padding:14px}
+.crm60-kpi small{display:block;color:#64748b;font-weight:800;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+.crm60-kpi b{display:block;color:#0f172a;font-size:22px;margin-top:8px}
+.crm60-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:14px;align-items:start}
+.crm60-card{background:#fff;border:1px solid #d4dde9;border-radius:24px;padding:18px}
+.crm60-card h3{margin:0 0 6px;color:#14213d;font-size:20px}
+.crm60-card p{margin:0 0 14px;color:#64748b;line-height:1.55}
+.crm60-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.crm60-field{display:grid;gap:6px}
+.crm60-field.full{grid-column:1/-1}
+.crm60-field label{font-size:12px;font-weight:900;color:#475569;text-transform:uppercase;letter-spacing:.04em}
+.crm60-field input,.crm60-field select,.crm60-field textarea{width:100%;border:1px solid #cbd5e1;border-radius:14px;padding:11px 12px;background:#fff;color:#0f172a;font-weight:700;outline:none}
+.crm60-field textarea{min-height:74px;resize:vertical}
+.crm60-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.crm60-filter{display:grid;grid-template-columns:1.2fr .8fr .8fr auto;gap:8px;margin-bottom:12px}
+.crm60-filter input,.crm60-filter select{border:1px solid #cbd5e1;border-radius:14px;padding:11px 12px;background:#fff;color:#0f172a;font-weight:700;outline:none}
+.crm60-table-wrap{overflow:auto;border:1px solid #e2e8f0;border-radius:18px}
+.crm60-table{width:100%;border-collapse:collapse;min-width:860px;background:#fff}
+.crm60-table th{background:#f8fafc;color:#475569;font-size:12px;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:12px;border-bottom:1px solid #e2e8f0}
+.crm60-table td{padding:12px;border-bottom:1px solid #f1f5f9;color:#334155;font-size:13px;vertical-align:top}
+.crm60-table tr:hover{background:#fbfdff}
+.crm60-btn{border:0;border-radius:12px;padding:8px 10px;font-weight:900;cursor:pointer;background:#f1f5f9;color:#334155;margin:2px}
+.crm60-btn.green{background:#dcfce7;color:#166534}
+.crm60-btn.blue{background:#dbeafe;color:#1d4ed8}
+.crm60-btn.red{background:#ffe4e6;color:#be123c}
+.crm60-pill{display:inline-flex;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900;background:#f1f5f9;color:#475569}
+.crm60-pill.ok{background:#ecfdf5;color:#047857}.crm60-pill.warn{background:#fffbeb;color:#92400e}.crm60-pill.bad{background:#fff1f2;color:#be123c}
+.crm60-note{margin-top:12px;background:#eff6ff;border:1px solid #bfdbfe;color:#1d4ed8;border-radius:16px;padding:12px;line-height:1.55}
+@media(max-width:1100px){.crm60-layout{grid-template-columns:1fr}.crm60-kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.crm60-kpis,.crm60-form,.crm60-filter{grid-template-columns:1fr}.crm60-shell{padding:14px}.crm60-head h2{font-size:24px}}
+
 </style>
 </head>
 <body>
@@ -2605,6 +2644,155 @@ try{
   };
 }catch(e){console.warn('v59 accounting wrapper skipped',e)}
 try{Object.assign(window,{proc59Save,proc59RenderList,proc59AttachAfterForm,proc59Panel});}catch(e){}
+
+
+// =======================
+// v60 CRM Active Module
+// =======================
+function crm60Id(){
+  return 'CUS-'+new Date().toISOString().slice(0,10).replaceAll('-','')+'-'+Math.floor(Math.random()*9000+1000);
+}
+function crm60Ensure(){
+  db.customers=db.customers||[];
+  db.crm60=db.crm60||{selectedIndex:null,logs:[]};
+  db.customers=db.customers.map(c=>{
+    const x=Array.isArray(c)?c:[String(c||''),'','','','Aktif'];
+    return [x[0]||'Customer',x[1]||'',x[2]||'',x[3]||'',x[4]||'Aktif',x[5]||x[3]||'Retail',x[6]||'Manual',x[7]||''];
+  });
+}
+function crm60Val(id){const el=document.getElementById(id);return el?String(el.value||'').trim():''}
+function crm60Set(id,val){const el=document.getElementById(id);if(el)el.value=val||''}
+function crm60StatusPill(s){
+  const x=String(s||'').toLowerCase();
+  const cls=x.includes('aktif')||x.includes('deal')?'ok':(x.includes('follow')||x.includes('prospek')||x.includes('negosiasi')?'warn':'bad');
+  return `<span class="crm60-pill ${cls}">${safe(s||'-')}</span>`;
+}
+function crm60Options(arr,selected=''){return arr.map(x=>`<option value="${safe(x)}" ${x===selected?'selected':''}>${safe(x)}</option>`).join('')}
+function crm60SegmentOptions(selected=''){return crm60Options(['Retail','Jasa','Trading','Industri/Pabrik','Distributor','Pemerintahan','Service','Kontraktor','Lainnya'],selected)}
+function crm60StatusOptions(selected=''){return crm60Options(['Aktif','Prospek Baru','Follow Up','Negosiasi','Deal','Tidak Aktif','Blacklist'],selected)}
+function crm60SourceOptions(selected=''){return crm60Options(['Manual','WhatsApp','Website','Referral','Sales Visit','Marketplace','Event','Telepon','Email'],selected)}
+function crm60Summary(){
+  crm60Ensure();
+  const total=db.customers.length;
+  const aktif=db.customers.filter(c=>String(c[4]).toLowerCase().includes('aktif')).length;
+  const prospek=db.customers.filter(c=>/prospek|follow|negosiasi/i.test(String(c[4]))).length;
+  const deal=db.customers.filter(c=>/deal/i.test(String(c[4]))).length;
+  return {total,aktif,prospek,deal};
+}
+function renderCRM(){
+  crm60Ensure();
+  const s=crm60Summary();
+  headActions.innerHTML=`<button class="btn green" onclick="crm60New()">＋ Customer</button><button class="btn soft" onclick="crm60ExportCSV()">Export CSV</button>`;
+  moduleContent.innerHTML=`<div class="crm60-shell">
+    <div class="crm60-head"><div><span class="crm60-tag">CRM Active • Customer Database</span><h2>CRM / Customer Center</h2><p>Modul CRM ini aktif: tambah customer, simpan, tampil tabel, edit, hapus, search, filter, export CSV, dan tombol WhatsApp.</p></div></div>
+    <div class="crm60-kpis"><div class="crm60-kpi"><small>Total Customer</small><b>${s.total}</b></div><div class="crm60-kpi"><small>Customer Aktif</small><b>${s.aktif}</b></div><div class="crm60-kpi"><small>Prospek/Follow Up</small><b>${s.prospek}</b></div><div class="crm60-kpi"><small>Deal</small><b>${s.deal}</b></div></div>
+    <div class="crm60-layout">
+      <div class="crm60-card">
+        <h3 id="crm60FormTitle">Tambah Customer</h3><p>Gunakan dropdown untuk pilihan standar. Data bebas tetap manual.</p>
+        <div class="crm60-form">
+          <div class="crm60-field"><label>Nama / Perusahaan</label><input id="crm60Name" placeholder="PT Contoh Sejahtera"></div>
+          <div class="crm60-field"><label>WhatsApp</label><input id="crm60Wa" placeholder="08xxxxxxxxxx"></div>
+          <div class="crm60-field"><label>Email</label><input id="crm60Email" placeholder="email@domain.com"></div>
+          <div class="crm60-field"><label>Segment</label><select id="crm60Segment">${crm60SegmentOptions()}</select></div>
+          <div class="crm60-field"><label>Sumber Lead</label><select id="crm60Source">${crm60SourceOptions()}</select></div>
+          <div class="crm60-field"><label>Status</label><select id="crm60Status">${crm60StatusOptions()}</select></div>
+          <div class="crm60-field full"><label>Alamat</label><input id="crm60Address" placeholder="Alamat customer"></div>
+          <div class="crm60-field full"><label>Catatan / Follow Up</label><textarea id="crm60Note" placeholder="Kebutuhan, histori, PIC, jadwal follow up, dll."></textarea></div>
+        </div>
+        <div class="crm60-actions"><button class="btn green" onclick="crm60Save()">Simpan Customer</button><button class="btn soft" onclick="crm60New()">Reset Form</button></div>
+        <div class="crm60-note" id="crm60Msg">Form CRM siap dipakai. Data akan tersimpan dan tampil di tabel.</div>
+      </div>
+      <div class="crm60-card">
+        <h3>Database Customer</h3><p>Search dan filter langsung aktif.</p>
+        <div class="crm60-filter">
+          <input id="crm60Search" placeholder="Cari nama, WA, email, segment..." oninput="crm60RenderTable()">
+          <select id="crm60FilterSegment" onchange="crm60RenderTable()"><option value="">Semua Segment</option>${crm60SegmentOptions()}</select>
+          <select id="crm60FilterStatus" onchange="crm60RenderTable()"><option value="">Semua Status</option>${crm60StatusOptions()}</select>
+          <button class="btn soft" onclick="crm60ClearFilter()">Clear</button>
+        </div>
+        <div id="crm60TableBox"></div>
+      </div>
+    </div>
+  </div>`;
+  crm60RenderTable();
+}
+function crm60ReadForm(){
+  return [crm60Val('crm60Name')||'Customer Tanpa Nama',crm60Val('crm60Wa'),crm60Val('crm60Email'),crm60Val('crm60Address'),crm60Val('crm60Status')||'Aktif',crm60Val('crm60Segment')||'Retail',crm60Val('crm60Source')||'Manual',crm60Val('crm60Note')];
+}
+async function crm60Save(){
+  crm60Ensure();
+  const data=crm60ReadForm();
+  if(!data[0]||data[0]==='Customer Tanpa Nama'){crm60Message('Nama customer wajib diisi.',true);return}
+  const idx=db.crm60.selectedIndex;
+  if(idx!==null&&idx!==undefined&&db.customers[idx]){
+    db.customers[idx]=data;
+    db.crm60.logs.unshift([crm60Id(),typeof today==='function'?today():new Date().toISOString().slice(0,10),'Update',data[0],data[4]]);
+    crm60Message('✅ Customer berhasil diupdate: '+data[0]);
+  }else{
+    db.customers.unshift(data);
+    db.crm60.logs.unshift([crm60Id(),typeof today==='function'?today():new Date().toISOString().slice(0,10),'Create',data[0],data[4]]);
+    crm60Message('✅ Customer berhasil ditambahkan: '+data[0]);
+  }
+  if(typeof save==='function')await save();
+  crm60New(false);
+  crm60RenderTable();
+}
+function crm60Edit(i){
+  crm60Ensure();const c=db.customers[i];if(!c)return;
+  db.crm60.selectedIndex=i;
+  crm60Set('crm60Name',c[0]);crm60Set('crm60Wa',c[1]);crm60Set('crm60Email',c[2]);crm60Set('crm60Address',c[3]);
+  crm60Set('crm60Status',c[4]);crm60Set('crm60Segment',c[5]);crm60Set('crm60Source',c[6]);crm60Set('crm60Note',c[7]);
+  const t=document.getElementById('crm60FormTitle');if(t)t.textContent='Edit Customer';
+  crm60Message('Mode edit: '+c[0]);
+  try{document.getElementById('crm60FormTitle').scrollIntoView({behavior:'smooth',block:'center'})}catch(e){}
+}
+async function crm60Delete(i){
+  crm60Ensure();const c=db.customers[i];if(!c)return;
+  if(!confirm('Hapus customer: '+c[0]+' ?'))return;
+  db.customers.splice(i,1);
+  db.crm60.logs.unshift([crm60Id(),typeof today==='function'?today():new Date().toISOString().slice(0,10),'Delete',c[0],c[4]]);
+  if(typeof save==='function')await save();
+  crm60Message('🗑️ Customer dihapus: '+c[0]);
+  crm60New(false);crm60RenderTable();
+}
+function crm60New(showMsg=true){
+  crm60Ensure();db.crm60.selectedIndex=null;
+  ['crm60Name','crm60Wa','crm60Email','crm60Address','crm60Note'].forEach(id=>crm60Set(id,''));
+  crm60Set('crm60Segment','Retail');crm60Set('crm60Source','Manual');crm60Set('crm60Status','Aktif');
+  const t=document.getElementById('crm60FormTitle');if(t)t.textContent='Tambah Customer';
+  if(showMsg)crm60Message('Form reset. Siap input customer baru.');
+}
+function crm60Message(msg,err=false){
+  const el=document.getElementById('crm60Msg');
+  if(el){el.textContent=msg;el.style.background=err?'#fff1f2':'#eff6ff';el.style.borderColor=err?'#fecdd3':'#bfdbfe';el.style.color=err?'#be123c':'#1d4ed8'}
+  try{toast&&toast(msg)}catch(e){}
+}
+function crm60ClearFilter(){crm60Set('crm60Search','');crm60Set('crm60FilterSegment','');crm60Set('crm60FilterStatus','');crm60RenderTable()}
+function crm60Filtered(){
+  crm60Ensure();const q=crm60Val('crm60Search').toLowerCase();const seg=crm60Val('crm60FilterSegment');const stat=crm60Val('crm60FilterStatus');
+  return db.customers.map((c,i)=>({c,i})).filter(({c})=>{const hay=c.join(' ').toLowerCase();return(!q||hay.includes(q))&&(!seg||c[5]===seg)&&(!stat||c[4]===stat)});
+}
+function crm60RenderTable(){
+  const box=document.getElementById('crm60TableBox');if(!box)return;
+  const rows=crm60Filtered().map(({c,i})=>`<tr><td><b>${safe(c[0])}</b><br><small>${safe(c[7]||'')}</small></td><td>${safe(c[1])}</td><td>${safe(c[2])}</td><td>${safe(c[5])}</td><td>${crm60StatusPill(c[4])}</td><td>${safe(c[6])}</td><td><button class="crm60-btn blue" onclick="crm60Edit(${i})">Edit</button><button class="crm60-btn red" onclick="crm60Delete(${i})">Hapus</button><button class="crm60-btn green" onclick="crm60WA(${i})">WA</button></td></tr>`).join('');
+  box.innerHTML=`<div class="crm60-table-wrap"><table class="crm60-table"><thead><tr><th>Customer</th><th>WhatsApp</th><th>Email</th><th>Segment</th><th>Status</th><th>Sumber</th><th>Aksi</th></tr></thead><tbody>${rows||'<tr><td colspan="7" style="text-align:center;color:#64748b;padding:22px">Belum ada customer / filter tidak menemukan data.</td></tr>'}</tbody></table></div>`;
+}
+function crm60WA(i){
+  crm60Ensure();const c=db.customers[i];if(!c)return;
+  let phone=String(c[1]||'').replace(/[^0-9]/g,'');
+  if(phone.startsWith('0'))phone='62'+phone.slice(1);
+  if(!phone){crm60Message('Nomor WhatsApp belum diisi.',true);return}
+  const text=encodeURIComponent('Halo '+c[0]+', kami dari XLifeWorks ingin follow up kebutuhan Anda.');
+  window.open('https://wa.me/'+phone+'?text='+text,'_blank');
+}
+function crm60ExportCSV(){
+  crm60Ensure();
+  const rows=[['Nama','WhatsApp','Email','Alamat','Status','Segment','Sumber','Catatan'],...db.customers];
+  const csv=rows.map(r=>r.map(c=>`"${String(c??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  if(typeof download==='function')download('crm-customers-'+(typeof today==='function'?today():new Date().toISOString().slice(0,10))+'.csv',csv,'text/csv');
+  else{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='crm-customers.csv';a.click()}
+}
+try{Object.assign(window,{renderCRM,crm60Save,crm60Edit,crm60Delete,crm60New,crm60RenderTable,crm60ClearFilter,crm60WA,crm60ExportCSV});}catch(e){}
 
 </script>
 </body>

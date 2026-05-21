@@ -1,0 +1,27 @@
+XLifeWorks v60 - CRM Active Module
+
+Fokus:
+- Urus per modul, mulai dari CRM/Customer.
+
+CRM sudah aktif:
+- Tambah customer
+- Simpan customer
+- Tampil di tabel
+- Edit customer
+- Hapus customer
+- Search customer
+- Filter status
+- Filter segment
+- Tombol WhatsApp
+- Export CSV
+- Data disimpan ke db.customers dan save() app
+
+Upload minimal:
+- app.html
+- xlifeworks-x-emblem-transparent.png
+
+Setelah upload:
+- Ctrl + F5
+- Masuk aplikasi
+- Buka CRM
+- Coba tambah customer
