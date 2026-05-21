@@ -1,0 +1,23 @@
+XLifeWorks v49 - Finance/Accounting dari file upload user
+
+Basis:
+- File upload: Pasted text(3).txt
+- File tersebut adalah app utama lengkap dengan modul Accounting dan Tax/Coretax.
+
+Perubahan:
+- Memakai app utama dari file upload.
+- Mempertahankan modul Accounting asli dari file:
+  COA, Jurnal, Buku Besar, Neraca Saldo, Laba/Rugi, Neraca, Arus Kas, Aging, export report.
+- Mempertahankan modul Tax/Coretax asli dari file:
+  PPN keluaran, PPN masukan, rekap masa pajak, export XML draft, CSV review.
+- Logo dalam aplikasi kiri atas diganti X saja transparan.
+- Nama aplikasi dipaksa XLifeWorks agar data lama tidak balik ke brand lain.
+- JavaScript lolos node --check.
+
+Upload minimal:
+- app.html
+- xlifeworks-x-emblem-transparent.png
+- xlifeworks-logo-3d-transparent.png
+
+Catatan:
+- Export Coretax masih draft internal; final upload tetap harus disesuaikan dengan template resmi DJP terbaru.
