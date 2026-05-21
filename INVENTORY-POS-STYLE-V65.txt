@@ -1,0 +1,44 @@
+XLifeWorks v65 - Inventory + POS mengikuti Accounting/CRM/Sales Page Mode
+
+Inventory:
+1. Stock Master
+2. Tambah Produk
+3. Mutasi Stok
+4. Stock Opname
+5. Low Stock Alert
+6. Inventory Value
+7. Gudang & Lokasi
+8. Inventory Report
+
+Fungsi Inventory aktif:
+- Simpan produk
+- Edit produk
+- Hapus produk
+- Mutasi stok masuk/keluar/transfer/adjustment/opname
+- Low stock
+- Inventory value
+- Export CSV
+
+POS:
+1. Kasir
+2. Keranjang
+3. Pembayaran
+4. Struk
+5. Shift Kasir
+6. Rekap Harian
+7. Refund / Void
+8. POS Report
+
+Fungsi POS aktif:
+- Tambah item ke keranjang
+- Clear cart
+- Checkout / pembayaran
+- Simpan transaksi POS
+- Stok inventory berkurang saat checkout
+- Struk / receipt list
+- Void transaksi
+- Shift kasir
+- Rekap harian
+- Export CSV POS
+
+JavaScript lolos node --check.
