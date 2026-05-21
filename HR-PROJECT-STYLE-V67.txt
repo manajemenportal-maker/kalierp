@@ -1,0 +1,37 @@
+XLifeWorks v67 - HR ulang + Project Center
+
+Perbaikan utama:
+- HR dipaksa tampil di menu utama.
+- Project Center ditambahkan ke menu utama.
+- setModule dipatch langsung:
+  setModule('hr') -> renderHR()
+  setModule('project') -> renderProject()
+- HR dan Project mengikuti Page Mode seperti Accounting/CRM/Sales.
+
+HR Center:
+1. Data Karyawan
+2. Tambah Karyawan
+3. Absensi
+4. Cuti & Izin
+5. Payroll
+6. Kontrak Kerja
+7. KPI & Performance
+8. Role & Akses
+9. Recruitment
+10. Training
+11. Asset Karyawan
+12. HR Report
+
+Project Center:
+1. Project Overview
+2. Tambah Project
+3. Task Board
+4. Milestone
+5. Budget Project
+6. Timesheet
+7. Dokumen Project
+8. Issue & Risk
+9. Approval
+10. Project Report
+
+JavaScript lolos node --check.
